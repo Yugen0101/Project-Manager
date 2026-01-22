@@ -13,7 +13,7 @@ export async function updateTaskStatus(
     isForce: boolean = false
 ) {
     const user = await getCurrentUser();
-    if (!user) return { error: 'Unauthorized' };
+    if (!user) return handleActionError({ message: 'Unauthorized', status: 401 });
 
     const supabase = await createClient();
 
@@ -25,7 +25,7 @@ export async function updateTaskStatus(
 
     if (blockerError) return handleActionError(blockerError);
     if (blockers && blockers.length > 0) {
-        return { error: 'Task is blocked by another task and cannot be moved.' };
+        return handleActionError({ message: 'Task is blocked by another task and cannot be moved.', code: 'BLOCKED' });
     }
 
     // 2. WIP Limit Check (unless isForce is true for Admins)
@@ -46,7 +46,7 @@ export async function updateTaskStatus(
 
             if (countError) return handleActionError(countError);
             if (count && count >= column.wip_limit) {
-                return { error: `WIP Limit exceeded for column "${column.name}".` };
+                return handleActionError({ message: `WIP Limit exceeded for column "${column.name}".`, code: 'WIP_LIMIT_EXCEEDED' });
             }
         }
     }
@@ -56,7 +56,6 @@ export async function updateTaskStatus(
         .from('tasks')
         .update({
             kanban_column_id: newColumnId,
-            // Keep old column string for backward compatibility trigger/logic if any
             updated_at: new Date().toISOString()
         })
         .eq('id', taskId);
@@ -72,7 +71,7 @@ export async function updateTaskStatus(
 
 export async function addTaskDependency(taskId: string, blockedById: string, projectId: string) {
     const user = await getCurrentUser();
-    if (!user) return { error: 'Unauthorized' };
+    if (!user) return handleActionError({ message: 'Unauthorized', status: 401 });
 
     const supabase = await createClient();
     const { error } = await supabase
@@ -87,7 +86,7 @@ export async function addTaskDependency(taskId: string, blockedById: string, pro
 
 export async function removeTaskDependency(taskId: string, blockedById: string, projectId: string) {
     const user = await getCurrentUser();
-    if (!user) return { error: 'Unauthorized' };
+    if (!user) return handleActionError({ message: 'Unauthorized', status: 401 });
 
     const supabase = await createClient();
     const { error } = await supabase
@@ -103,11 +102,10 @@ export async function removeTaskDependency(taskId: string, blockedById: string, 
 
 export async function createTask(data: any) {
     const user = await getCurrentUser();
-    if (!user) return { error: 'Unauthorized' };
+    if (!user) return handleActionError({ message: 'Unauthorized', status: 401 });
 
     const supabase = await createClient();
 
-    // If no column ID provided, use common 'Backlog' or 'To Do'
     let columnId = data.kanban_column_id;
     if (!columnId) {
         const { data: columns } = await supabase
@@ -139,7 +137,7 @@ export async function createTask(data: any) {
 
 export async function deleteTaskSoft(taskId: string, projectId: string) {
     const user = await getCurrentUser();
-    if (!user) return { error: 'Unauthorized' };
+    if (!user) return handleActionError({ message: 'Unauthorized', status: 401 });
 
     const supabase = await createClient();
 
@@ -165,7 +163,7 @@ export async function deleteTaskSoft(taskId: string, projectId: string) {
 
 export async function restoreTask(taskId: string, projectId: string) {
     const user = await getCurrentUser();
-    if (!user) return { error: 'Unauthorized' };
+    if (!user) return handleActionError({ message: 'Unauthorized', status: 401 });
 
     const supabase = await createClient();
 

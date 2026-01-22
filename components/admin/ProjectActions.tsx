@@ -46,16 +46,17 @@ export default function ProjectActions({
 
     async function handleExport() {
         const result = await exportProjectData(projectId);
-        if (result.success && result.csv) {
-            const blob = new Blob([result.csv], { type: 'text/csv' });
+        if (result.success && result.data) {
+            const { csv, fileName } = result.data;
+            const blob = new Blob([csv], { type: 'text/csv' });
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = result.fileName || 'export.csv';
+            a.download = fileName || 'export.csv';
             a.click();
             window.URL.revokeObjectURL(url);
             toast.success('Project data exported');
-        } else {
+        } else if (!result.success) {
             toast.error(result.error || 'Failed to export data');
         }
     }

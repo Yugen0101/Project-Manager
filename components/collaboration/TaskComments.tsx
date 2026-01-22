@@ -6,7 +6,8 @@ import { getCurrentUser } from '@/lib/auth/session';
 import {
     ChatBubbleLeftRightIcon,
     AtSymbolIcon,
-    PaperAirplaneIcon
+    PaperAirplaneIcon,
+    ArrowPathIcon
 } from '@heroicons/react/24/outline';
 import { formatDistanceToNow } from 'date-fns';
 
@@ -23,7 +24,7 @@ export default function TaskComments({ taskId, projectPath }: { taskId: string, 
                 getComments(taskId),
                 getCurrentUser()
             ]);
-            if (cRes.success) setComments(cRes.data);
+            if (cRes.success) setComments(cRes.data ?? []);
             setCurrentUser(uRes);
             setLoading(false);
         }
@@ -40,7 +41,7 @@ export default function TaskComments({ taskId, projectPath }: { taskId: string, 
             setNewComment('');
             // Reload comments
             const cRes = await getComments(taskId);
-            if (cRes.success) setComments(cRes.data);
+            if (cRes.success) setComments(cRes.data ?? []);
         }
         setSubmitting(false);
     };

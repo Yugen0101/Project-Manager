@@ -10,13 +10,13 @@ export async function createProject(projectData: { name: string; description?: s
     const currentUser = await getCurrentUser();
 
     if (!currentUser || currentUser.role !== 'admin') {
-        return { error: 'Unauthorized' };
+        return handleActionError({ message: 'Unauthorized', status: 401 });
     }
 
     const { name, description, end_date, priority = 'medium' } = projectData;
 
     if (!name || !end_date) {
-        return { error: 'Required fields missing' };
+        return handleActionError({ message: 'Required fields missing', status: 400 });
     }
 
     const supabase = await createClient();
@@ -52,7 +52,7 @@ export async function updateProject(projectId: string, data: any) {
     const currentUser = await getCurrentUser();
 
     if (!currentUser || currentUser.role !== 'admin') {
-        return { error: 'Unauthorized' };
+        return handleActionError({ message: 'Unauthorized', status: 401 });
     }
 
     const supabase = await createClient();
@@ -72,7 +72,7 @@ export async function assignUserToProject(projectId: string, userId: string, rol
     const currentUser = await getCurrentUser();
 
     if (!currentUser || currentUser.role !== 'admin') {
-        return { error: 'Unauthorized' };
+        return handleActionError({ message: 'Unauthorized', status: 401 });
     }
 
     const supabase = await createClient();
@@ -85,19 +85,17 @@ export async function assignUserToProject(projectId: string, userId: string, rol
             role,
         });
 
-    if (error) {
-        return { error: error.message };
-    }
+    if (error) return handleActionError(error);
 
     revalidatePath('/admin/projects');
-    return { success: true };
+    return successResponse();
 }
 
 export async function removeUserFromProject(projectId: string, userId: string) {
     const currentUser = await getCurrentUser();
 
     if (!currentUser || currentUser.role !== 'admin') {
-        return { error: 'Unauthorized' };
+        return handleActionError({ message: 'Unauthorized', status: 401 });
     }
 
     const supabase = await createClient();
@@ -108,19 +106,17 @@ export async function removeUserFromProject(projectId: string, userId: string) {
         .eq('project_id', projectId)
         .eq('user_id', userId);
 
-    if (error) {
-        return { error: error.message };
-    }
+    if (error) return handleActionError(error);
 
     revalidatePath('/admin/projects');
-    return { success: true };
+    return successResponse();
 }
 
 export async function archiveProject(projectId: string) {
     const currentUser = await getCurrentUser();
 
     if (!currentUser || currentUser.role !== 'admin') {
-        return { error: 'Unauthorized' };
+        return handleActionError({ message: 'Unauthorized', status: 401 });
     }
 
     const supabase = await createClient();
@@ -147,7 +143,7 @@ export async function restoreProject(projectId: string) {
     const currentUser = await getCurrentUser();
 
     if (!currentUser || currentUser.role !== 'admin') {
-        return { error: 'Unauthorized' };
+        return handleActionError({ message: 'Unauthorized', status: 401 });
     }
 
     const supabase = await createClient();
@@ -160,9 +156,7 @@ export async function restoreProject(projectId: string) {
         })
         .eq('id', projectId);
 
-    if (error) {
-        return { error: error.message };
-    }
+    if (error) return handleActionError(error);
 
     await logAudit({
         action_type: 'PROJECT_RESTORED',
@@ -172,14 +166,14 @@ export async function restoreProject(projectId: string) {
 
     revalidatePath('/admin/projects');
     revalidatePath(`/admin/projects/${projectId}`);
-    return { success: true };
+    return successResponse();
 }
 
 export async function deleteProjectSoft(projectId: string) {
     const currentUser = await getCurrentUser();
 
     if (!currentUser || currentUser.role !== 'admin') {
-        return { error: 'Unauthorized' };
+        return handleActionError({ message: 'Unauthorized', status: 401 });
     }
 
     const supabase = await createClient();
@@ -191,9 +185,7 @@ export async function deleteProjectSoft(projectId: string) {
         })
         .eq('id', projectId);
 
-    if (error) {
-        return { error: error.message };
-    }
+    if (error) return handleActionError(error);
 
     await logAudit({
         action_type: 'PROJECT_DELETED_SOFT',
@@ -202,12 +194,14 @@ export async function deleteProjectSoft(projectId: string) {
     });
 
     revalidatePath('/admin/projects');
-    return { success: true };
+    return successResponse();
 }
 
 export async function exportProjectData(projectId: string) {
     const currentUser = await getCurrentUser();
-    if (!currentUser || currentUser.role !== 'admin') return { error: 'Unauthorized' };
+    if (!currentUser || currentUser.role !== 'admin') {
+        return handleActionError({ message: 'Unauthorized', status: 401 });
+    }
 
     const supabase = await createClient();
     const { data: project } = await supabase
@@ -216,7 +210,7 @@ export async function exportProjectData(projectId: string) {
         .eq('id', projectId)
         .single();
 
-    if (!project) return { error: 'Project not found' };
+    if (!project) return handleActionError({ message: 'Project not found', status: 404 });
 
     await logAudit({
         action_type: 'PROJECT_DATA_EXPORTED',
@@ -240,6 +234,8 @@ export async function exportProjectData(projectId: string) {
 
     const csvContent = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
 
-    return { success: true, csv: csvContent, fileName: `${project.name.replace(/\s+/g, '_')}_export.csv` };
+    return successResponse({
+        csv: csvContent,
+        fileName: `${project.name.replace(/\s+/g, '_')}_export.csv`
+    });
 }
-

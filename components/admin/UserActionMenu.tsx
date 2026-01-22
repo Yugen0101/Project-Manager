@@ -31,20 +31,20 @@ export default function UserActionMenu({ user }: { user: User }) {
 
     const handleToggle = async () => {
         const result = await toggleUserStatus(user.id, !user.is_active);
-        if (result.error) alert(result.error);
+        if (!result.success) alert(result.error);
         else window.location.reload();
     };
 
     const handleReset = async () => {
         const result = await resetUserPassword(user.id);
-        if (result.error) alert(result.error);
-        else alert(`Temporary password: ${result.tempPassword}`);
+        if (!result.success) alert(result.error);
+        else alert(`Temporary password: ${result.data?.tempPassword}`);
     };
 
     const handleDelete = async () => {
         if (confirm('Permanently delete this user?')) {
             const result = await deleteUser(user.id);
-            if (result.error) alert(result.error);
+            if (!result.success) alert(result.error);
             else window.location.reload();
         }
     };

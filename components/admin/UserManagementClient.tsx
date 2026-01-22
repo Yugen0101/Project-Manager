@@ -40,7 +40,7 @@ export default function UserManagementClient({ initialUsers }: { initialUsers: U
 
         const result = await createUser(formData);
 
-        if (result.error) {
+        if (!result.success) {
             setError(result.error);
         } else {
             setSuccess('User created successfully');
@@ -56,21 +56,21 @@ export default function UserManagementClient({ initialUsers }: { initialUsers: U
         if (!confirm(`Are you sure you want to ${currentStatus ? 'deactivate' : 'activate'} this user?`)) return;
 
         const result = await toggleUserStatus(userId, !currentStatus);
-        if (result.error) alert(result.error);
+        if (!result.success) alert(result.error);
         else window.location.reload();
     };
 
     const handleResetPassword = async (userId: string) => {
         const result = await resetUserPassword(userId);
-        if (result.error) alert(result.error);
-        else alert(`Password reset! Temporary password: ${result.tempPassword}`);
+        if (!result.success) alert(result.error);
+        else alert(`Password reset! Temporary password: ${result.data?.tempPassword}`);
     };
 
     const handleDeleteUser = async (userId: string) => {
         if (!confirm('PERMANENTLY delete this user? This cannot be undone.')) return;
 
         const result = await deleteUser(userId);
-        if (result.error) alert(result.error);
+        if (!result.success) alert(result.error);
         else window.location.reload();
     };
 

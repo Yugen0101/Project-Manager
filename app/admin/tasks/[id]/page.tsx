@@ -80,14 +80,14 @@ export default async function AdminTaskDetailPage({ params }: { params: Promise<
                         <div className="space-y-4">
                             <div className="flex items-center gap-3">
                                 <span className={`px-2.5 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest ${task.priority === 'high' ? 'bg-red-100 text-red-700' :
-                                        task.priority === 'medium' ? 'bg-orange-100 text-orange-700' :
-                                            'bg-blue-100 text-blue-700'
+                                    task.priority === 'medium' ? 'bg-orange-100 text-orange-700' :
+                                        'bg-blue-100 text-blue-700'
                                     }`}>
                                     {task.priority || 'medium'} Priority
                                 </span>
                                 <span className={`px-2.5 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest ${task.status === 'completed' ? 'bg-emerald-100 text-emerald-700' :
-                                        task.status === 'in_progress' ? 'bg-amber-100 text-amber-700' :
-                                            'bg-slate-100 text-slate-700'
+                                    task.status === 'in_progress' ? 'bg-amber-100 text-amber-700' :
+                                        'bg-slate-100 text-slate-700'
                                     }`}>
                                     {task.status?.replace('_', ' ') || 'todo'}
                                 </span>
@@ -129,7 +129,7 @@ export default async function AdminTaskDetailPage({ params }: { params: Promise<
                     {/* Collaboration Section */}
                     <div className="space-y-6">
                         <h3 className="text-2xl font-black text-slate-900">Team Discussion</h3>
-                        <TaskComments taskId={id} />
+                        <TaskComments taskId={id} projectPath={`/admin/projects/${task.project.id}`} />
                     </div>
                 </div>
 

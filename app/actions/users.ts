@@ -11,13 +11,13 @@ export async function createUser(userData: any) {
     const currentUser = await getCurrentUser();
 
     if (!currentUser || currentUser.role !== 'admin') {
-        return { error: 'Unauthorized' };
+        return handleActionError({ message: 'Unauthorized', status: 401 });
     }
 
     const { email, full_name, role, password } = userData;
 
     if (!email || !full_name || !role || !password) {
-        return { error: 'All fields are required' };
+        return handleActionError({ message: 'All fields are required', status: 400 });
     }
 
     // Use Admin Client for auth management
@@ -31,9 +31,7 @@ export async function createUser(userData: any) {
         user_metadata: { full_name }
     });
 
-    if (authError) {
-        return { error: authError.message };
-    }
+    if (authError) return handleActionError(authError);
 
     // Create user profile
     const { error: profileError } = await supabaseAdmin
@@ -60,7 +58,7 @@ export async function toggleUserStatus(userId: string, isActive: boolean) {
     const currentUser = await getCurrentUser();
 
     if (!currentUser || currentUser.role !== 'admin') {
-        return { error: 'Unauthorized' };
+        return handleActionError({ message: 'Unauthorized', status: 401 });
     }
 
     const supabaseAdmin = await createAdminClient();
@@ -86,31 +84,28 @@ export async function resetUserPassword(userId: string) {
     const currentUser = await getCurrentUser();
 
     if (!currentUser || currentUser.role !== 'admin') {
-        return { error: 'Unauthorized' };
+        return handleActionError({ message: 'Unauthorized', status: 401 });
     }
 
     const supabaseAdmin = await createAdminClient();
 
     // Generate a reset password link (or set a temp password)
-    // For now, we'll just demonstrate the capability by setting a random password
     const tempPassword = Math.random().toString(36).slice(-10);
 
     const { error } = await supabaseAdmin.auth.admin.updateUserById(userId, {
         password: tempPassword
     });
 
-    if (error) {
-        return { error: error.message };
-    }
+    if (error) return handleActionError(error);
 
-    return { success: true, tempPassword };
+    return successResponse({ tempPassword });
 }
 
 export async function deleteUser(userId: string) {
     const currentUser = await getCurrentUser();
 
     if (!currentUser || currentUser.role !== 'admin') {
-        return { error: 'Unauthorized' };
+        return handleActionError({ message: 'Unauthorized', status: 401 });
     }
 
     const supabaseAdmin = await createAdminClient();
@@ -124,9 +119,7 @@ export async function deleteUser(userId: string) {
         })
         .eq('id', userId);
 
-    if (error) {
-        return { error: error.message };
-    }
+    if (error) return handleActionError(error);
 
     await logAudit({
         action_type: 'USER_DELETED_SOFT',
@@ -135,14 +128,14 @@ export async function deleteUser(userId: string) {
     });
 
     revalidatePath('/admin/users');
-    return { success: true };
+    return successResponse();
 }
 
 export async function restoreUser(userId: string) {
     const currentUser = await getCurrentUser();
 
     if (!currentUser || currentUser.role !== 'admin') {
-        return { error: 'Unauthorized' };
+        return handleActionError({ message: 'Unauthorized', status: 401 });
     }
 
     const supabaseAdmin = await createAdminClient();
@@ -155,9 +148,7 @@ export async function restoreUser(userId: string) {
         })
         .eq('id', userId);
 
-    if (error) {
-        return { error: error.message };
-    }
+    if (error) return handleActionError(error);
 
     await logAudit({
         action_type: 'USER_RESTORED',
@@ -166,5 +157,5 @@ export async function restoreUser(userId: string) {
     });
 
     revalidatePath('/admin/users');
-    return { success: true };
+    return successResponse();
 }

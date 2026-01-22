@@ -34,11 +34,11 @@ export default function ShareModal({
             }
         } else {
             const result = await generateShareLink(projectId);
-            if (result.success) {
+            if (result.success && result.data) {
                 setIsPublic(true);
-                setToken(result.token);
+                setToken(result.data.token);
                 toast.success('Sharing enabled');
-            } else {
+            } else if (!result.success) {
                 toast.error(result.error || 'Failed to generate link');
             }
         }

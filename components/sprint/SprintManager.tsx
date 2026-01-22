@@ -197,16 +197,16 @@ function TaskRow({ task }: { task: any }) {
         <div className="flex items-center justify-between p-3 hover:bg-slate-50 rounded-lg group transition-colors">
             <div className="flex items-center gap-4">
                 <div className={`w-1 h-8 rounded-full ${task.priority === 'critical' ? 'bg-red-500' :
-                        task.priority === 'high' ? 'bg-red-400' :
-                            task.priority === 'medium' ? 'bg-orange-400' :
-                                'bg-blue-400'
+                    task.priority === 'high' ? 'bg-red-400' :
+                        task.priority === 'medium' ? 'bg-orange-400' :
+                            'bg-blue-400'
                     }`} />
                 <div>
                     <p className="text-sm font-bold text-slate-900">{task.title}</p>
                     <div className="flex items-center gap-3 mt-1 text-[10px] font-bold text-slate-400 uppercase letter-tracking-tighter">
                         <span>{task.id.slice(0, 8)}</span>
                         <span className={`px-1.5 py-0.5 rounded border ${task.status === 'completed' ? 'bg-emerald-50 border-emerald-200 text-emerald-600' :
-                                'bg-slate-50 border-slate-200 text-slate-400'
+                            'bg-slate-50 border-slate-200 text-slate-400'
                             }`}>{task.status.replace('_', ' ')}</span>
                     </div>
                 </div>

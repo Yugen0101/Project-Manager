@@ -4,10 +4,11 @@ import { createClient } from '@/lib/supabase/server';
 import { getCurrentUser } from '@/lib/auth/session';
 import { revalidatePath } from 'next/cache';
 import { processMentions } from './notifications';
+import { handleActionError, successResponse } from '@/lib/errors';
 
 export async function addComment(taskId: string, content: string, projectPath: string) {
     const user = await getCurrentUser();
-    if (!user) return { error: 'Unauthorized' };
+    if (!user) return handleActionError({ message: 'Unauthorized', status: 401 });
 
     const supabase = await createClient();
 
@@ -29,7 +30,7 @@ export async function addComment(taskId: string, content: string, projectPath: s
         .select()
         .single();
 
-    if (error) return { error: error.message };
+    if (error) return handleActionError(error);
 
     // 3. Process @mentions
     if (task) {
@@ -37,7 +38,7 @@ export async function addComment(taskId: string, content: string, projectPath: s
     }
 
     revalidatePath(projectPath);
-    return { success: true, data: comment };
+    return successResponse(comment);
 }
 
 export async function getComments(taskId: string) {
@@ -51,6 +52,6 @@ export async function getComments(taskId: string) {
         .eq('task_id', taskId)
         .order('created_at', { ascending: true });
 
-    if (error) return { error: error.message };
-    return { success: true, data };
+    if (error) return handleActionError(error);
+    return successResponse(data);
 }

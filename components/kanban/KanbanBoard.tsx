@@ -93,7 +93,7 @@ export default function KanbanBoard({
             // Server update
             const result = await updateTaskStatus(activeId as string, newColumnId, projectId);
 
-            if (result?.error) {
+            if (!result.success) {
                 // Rollback on error
                 setTasks(oldTasks);
                 setError(result.error);

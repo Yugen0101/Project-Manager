@@ -116,7 +116,7 @@ export default async function TaskDetailPage({ params }: { params: Promise<{ id:
                                 Mentions enabled
                             </span>
                         </h3>
-                        <TaskComments taskId={id} />
+                        <TaskComments taskId={id} projectPath={`/member/tasks/${id}`} />
                     </div>
                 </div>
 

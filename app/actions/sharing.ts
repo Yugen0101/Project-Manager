@@ -4,26 +4,21 @@ import { createClient } from '@/lib/supabase/server';
 import { revalidatePath } from 'next/cache';
 import crypto from 'crypto';
 import { logAudit } from '@/lib/audit';
+import { handleActionError, successResponse } from '@/lib/errors';
+import { getCurrentUser } from '@/lib/auth/session';
 
 export async function generateShareLink(projectId: string) {
+    const user = await getCurrentUser();
+    if (!user || user.role !== 'admin') {
+        return handleActionError({ message: 'Only admins can share projects', status: 401 });
+    }
+
     const supabase = await createClient();
 
-    // 1. Check if user is admin
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return { error: 'Unauthorized' };
-
-    const { data: profile } = await supabase
-        .from('users')
-        .select('role')
-        .eq('id', user.id)
-        .single();
-
-    if (profile?.role !== 'admin') return { error: 'Only admins can share projects' };
-
-    // 2. Generate a secure token
+    // 1. Generate a secure token
     const token = crypto.randomUUID();
 
-    // 3. Update project
+    // 2. Update project
     const { error } = await supabase
         .from('projects')
         .update({
@@ -32,7 +27,7 @@ export async function generateShareLink(projectId: string) {
         })
         .eq('id', projectId);
 
-    if (error) return { error: error.message };
+    if (error) return handleActionError(error);
 
     await logAudit({
         action_type: 'PROJECT_SHARE_ENABLED',
@@ -42,25 +37,18 @@ export async function generateShareLink(projectId: string) {
     });
 
     revalidatePath(`/admin/projects/${projectId}`);
-    return { success: true, token };
+    return successResponse({ token });
 }
 
 export async function revokeShareLink(projectId: string) {
+    const user = await getCurrentUser();
+    if (!user || user.role !== 'admin') {
+        return handleActionError({ message: 'Only admins can revoke share links', status: 401 });
+    }
+
     const supabase = await createClient();
 
-    // 1. Check if user is admin
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return { error: 'Unauthorized' };
-
-    const { data: profile } = await supabase
-        .from('users')
-        .select('role')
-        .eq('id', user.id)
-        .single();
-
-    if (profile?.role !== 'admin') return { error: 'Only admins can revoke share links' };
-
-    // 2. Update project
+    // 1. Update project
     const { error } = await supabase
         .from('projects')
         .update({
@@ -69,7 +57,7 @@ export async function revokeShareLink(projectId: string) {
         })
         .eq('id', projectId);
 
-    if (error) return { error: error.message };
+    if (error) return handleActionError(error);
 
     await logAudit({
         action_type: 'PROJECT_SHARE_DISABLED',
@@ -78,5 +66,5 @@ export async function revokeShareLink(projectId: string) {
     });
 
     revalidatePath(`/admin/projects/${projectId}`);
-    return { success: true };
+    return successResponse();
 }
