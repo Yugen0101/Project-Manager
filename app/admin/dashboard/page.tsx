@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { getCurrentUser } from '@/lib/auth/session';
 import { redirect } from 'next/navigation';
+import Link from 'next/link';
 
 export default async function AdminDashboard() {
     const user = await getCurrentUser();
@@ -170,7 +171,11 @@ export default async function AdminDashboard() {
                     <div className="space-y-4">
                         {recentProjects && recentProjects.length > 0 ? (
                             recentProjects.map((project: any) => (
-                                <div key={project.id} className="card bg-white border-[#e5dec9] p-6 flex items-center justify-between hover:border-[#d97757]/40 transition-all group">
+                                <Link
+                                    key={project.id}
+                                    href={`/admin/projects/${project.id}`}
+                                    className="card bg-white border-[#e5dec9] p-6 flex items-center justify-between hover:border-[#d97757]/40 transition-all group cursor-pointer"
+                                >
                                     <div className="flex items-center gap-5">
                                         <div className="w-12 h-12 bg-[#f7f3ed] rounded-xl flex items-center justify-center text-[#d97757] group-hover:bg-[#d97757] group-hover:text-white transition-all">
                                             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -190,7 +195,7 @@ export default async function AdminDashboard() {
                                         }`}>
                                         {project.status}
                                     </span>
-                                </div>
+                                </Link>
                             ))
                         ) : (
                             <div className="py-12 border-2 border-dashed border-[#e5dec9] rounded-[2rem] text-center text-[#1c1917]/30 font-black uppercase text-[10px] tracking-[0.3em]">
