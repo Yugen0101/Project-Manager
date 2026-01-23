@@ -48,84 +48,83 @@ export default async function MemberTasksPage({
         .order('due_date', { ascending: true, nullsFirst: false });
 
     return (
-        <div className="space-y-10">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div className="space-y-12 animate-in fade-in duration-700">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
                 <div>
-                    <h1 className="text-3xl font-black text-slate-900 tracking-tight flex items-center gap-3">
-                        <div className="p-2 bg-purple-100 rounded-xl">
-                            <ClipboardDocumentListIcon className="w-8 h-8 text-purple-600" />
+                    <h1 className="text-4xl font-black text-[#1c1917] tracking-tighter uppercase flex items-center gap-4">
+                        <div className="w-12 h-12 bg-[#f7f3ed] rounded-2xl flex items-center justify-center text-[#d97757] border border-[#e5dec9]">
+                            <ClipboardDocumentListIcon className="w-7 h-7" />
                         </div>
-                        My Workspace
+                        WORKSPACE
                     </h1>
-                    <p className="text-slate-500 mt-2 font-medium">
-                        You have {tasks?.filter(t => t.status !== 'completed').length || 0} active tasks to focus on today.
+                    <p className="text-[#1c1917]/40 mt-3 font-black uppercase tracking-[0.2em] text-[11px]">
+                        Active Resonance: {tasks?.filter(t => t.status !== 'completed').length || 0} Critical Vectors
                     </p>
                 </div>
             </div>
 
             {/* Filters */}
-            <div className="flex border-b border-slate-100 gap-8">
+            <div className="flex border-b border-[#e5dec9] gap-10">
                 <Link
                     href="/member/tasks?status=all"
-                    className={`pb-4 text-sm font-bold transition-all relative ${filterStatus === 'all' ? 'text-purple-600' : 'text-slate-400 hover:text-slate-600'}`}
+                    className={`pb-5 text-[11px] font-black uppercase tracking-[0.2em] transition-all relative ${filterStatus === 'all' ? 'text-[#d97757]' : 'text-[#1c1917]/30 hover:text-[#d97757]/60'}`}
                 >
-                    All Tasks
-                    {filterStatus === 'all' && <div className="absolute bottom-0 left-0 w-full h-1 bg-purple-600 rounded-full"></div>}
+                    Registry
+                    {filterStatus === 'all' && <div className="absolute bottom-[-1px] left-0 w-full h-[2px] bg-[#d97757] rounded-full"></div>}
                 </Link>
                 <Link
                     href="/member/tasks?status=in_progress"
-                    className={`pb-4 text-sm font-bold transition-all relative ${filterStatus === 'in_progress' ? 'text-purple-600' : 'text-slate-400 hover:text-slate-600'}`}
+                    className={`pb-5 text-[11px] font-black uppercase tracking-[0.2em] transition-all relative ${filterStatus === 'in_progress' ? 'text-[#d97757]' : 'text-[#1c1917]/30 hover:text-[#d97757]/60'}`}
                 >
                     In Progress
-                    {filterStatus === 'in_progress' && <div className="absolute bottom-0 left-0 w-full h-1 bg-purple-600 rounded-full"></div>}
+                    {filterStatus === 'in_progress' && <div className="absolute bottom-[-1px] left-0 w-full h-[2px] bg-[#d97757] rounded-full"></div>}
                 </Link>
                 <Link
                     href="/member/tasks?status=completed"
-                    className={`pb-4 text-sm font-bold transition-all relative ${filterStatus === 'completed' ? 'text-purple-600' : 'text-slate-400 hover:text-slate-600'}`}
+                    className={`pb-5 text-[11px] font-black uppercase tracking-[0.2em] transition-all relative ${filterStatus === 'completed' ? 'text-[#d97757]' : 'text-[#1c1917]/30 hover:text-[#d97757]/60'}`}
                 >
-                    Completed
-                    {filterStatus === 'completed' && <div className="absolute bottom-0 left-0 w-full h-1 bg-purple-600 rounded-full"></div>}
+                    Resolved
+                    {filterStatus === 'completed' && <div className="absolute bottom-[-1px] left-0 w-full h-[2px] bg-[#d97757] rounded-full"></div>}
                 </Link>
             </div>
 
             {/* Task Cards/List */}
-            <div className="grid grid-cols-1 gap-4">
+            <div className="grid grid-cols-1 gap-6">
                 {tasks?.map((task) => (
-                    <div key={task.id} className="group bg-white border border-slate-100 rounded-2xl p-6 hover:shadow-xl hover:shadow-purple-500/5 hover:border-purple-100 transition-all">
-                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div key={task.id} className="group bg-white border border-[#e5dec9] rounded-3xl p-8 hover:shadow-2xl hover:shadow-[#d9cfb0]/20 hover:border-[#d97757]/30 transition-all duration-500">
+                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                             <div className="flex-1 min-w-0">
-                                <div className="flex items-center gap-3 mb-2">
-                                    <span className="px-2 py-0.5 bg-slate-100 text-[10px] font-black uppercase text-slate-500 rounded tracking-widest">
+                                <div className="flex items-center gap-4 mb-3">
+                                    <span className="px-3 py-1 bg-[#f7f3ed] text-[9px] font-black uppercase text-[#1c1917]/40 rounded-full border border-[#e5dec9] tracking-widest italic font-serif">
                                         {task.project?.name}
                                     </span>
-                                    <span className={`px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-widest ${task.status === 'completed' ? 'bg-green-100 text-green-700' :
-                                            task.status === 'in_progress' ? 'bg-blue-100 text-blue-700' :
-                                                'bg-slate-100 text-slate-600'
+                                    <span className={`badge ${task.status === 'completed' ? 'badge-success' :
+                                        task.status === 'in_progress' ? 'badge-info' :
+                                            'badge-warning'
                                         }`}>
-                                        {task.status.replace(/_/g, ' ')}
+                                        {task.status}
                                     </span>
                                 </div>
-                                <h3 className="text-lg font-bold text-slate-900 mb-1 group-hover:text-purple-600 transition-colors">
+                                <h3 className="text-xl font-black text-[#1c1917] mb-2 tracking-tight group-hover:text-[#d97757] transition-colors uppercase">
                                     {task.title}
                                 </h3>
-                                <p className="text-slate-500 text-sm line-clamp-1">
-                                    {task.description || 'No description provided.'}
+                                <p className="text-[#1c1917]/40 text-xs font-semibold line-clamp-1 italic">
+                                    {task.description || 'Global operational parameters pending.'}
                                 </p>
                             </div>
 
-                            <div className="flex items-center gap-8 shrink-0">
+                            <div className="flex items-center gap-10 shrink-0">
                                 <div className="text-right hidden sm:block">
-                                    <p className="text-[10px] font-black uppercase text-slate-400 tracking-widest mb-1">Due Date</p>
-                                    <div className="flex items-center gap-2 text-sm font-bold text-slate-700">
-                                        <ClockIcon className="w-4 h-4 text-slate-400" />
-                                        {task.due_date ? format(new Date(task.due_date), 'MMM d, yyyy') : 'No deadline'}
+                                    <p className="text-[9px] font-black uppercase text-[#1c1917]/30 tracking-widest mb-2">TARGET DATE</p>
+                                    <div className="flex items-center gap-2 text-sm font-black text-[#1c1917]">
+                                        {task.due_date ? format(new Date(task.due_date), 'MMM dd, yyyy') : 'Indeterminate'}
                                     </div>
                                 </div>
                                 <Link
                                     href={`/member/tasks/${task.id}`}
-                                    className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-slate-400 hover:bg-purple-600 hover:text-white transition-all shadow-sm"
+                                    className="w-12 h-12 bg-[#f7f3ed] rounded-2xl flex items-center justify-center text-[#1c1917]/20 group-hover:bg-[#d97757] group-hover:text-white transition-all duration-500 border border-[#e5dec9]"
                                 >
-                                    <ChevronRightIcon className="w-5 h-5" />
+                                    <ChevronRightIcon className="w-6 h-6" />
                                 </Link>
                             </div>
                         </div>
@@ -133,12 +132,12 @@ export default async function MemberTasksPage({
                 ))}
 
                 {(!tasks || tasks.length === 0) && (
-                    <div className="py-32 flex flex-col items-center justify-center text-slate-400 bg-slate-50/50 rounded-3xl border-2 border-dashed border-slate-100">
-                        <div className="p-4 bg-white rounded-2xl shadow-sm mb-6">
-                            <ClipboardDocumentListIcon className="w-12 h-12 text-slate-200" />
+                    <div className="py-32 flex flex-col items-center justify-center bg-white rounded-3xl border-2 border-dashed border-[#e5dec9]">
+                        <div className="w-20 h-20 bg-[#f7f3ed] rounded-full flex items-center justify-center text-[#1c1917]/20 mb-6">
+                            <ClipboardDocumentListIcon className="w-10 h-10" />
                         </div>
-                        <h3 className="text-lg font-bold text-slate-900 tracking-tight">No tasks assigned yet</h3>
-                        <p className="text-slate-500 text-sm mt-1">You're all caught up! Take a break.</p>
+                        <h3 className="text-xl font-black text-[#1c1917] tracking-tight uppercase">Registry Idle</h3>
+                        <p className="text-[11px] font-black text-[#1c1917]/40 uppercase tracking-[0.2em] mt-2 italic text-center">Zero critical vectors detected. Operations nominal.</p>
                     </div>
                 )}
             </div>

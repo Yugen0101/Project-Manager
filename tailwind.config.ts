@@ -9,41 +9,39 @@ const config: Config = {
     theme: {
         extend: {
             colors: {
-                // TaskForge Futuristic Palette
+                // TaskForge Beige Premium Palette
                 primary: {
-                    50: '#eef2ff',
-                    100: '#e0e7ff',
-                    200: '#c7d2fe',
-                    300: '#a5b4fc',
-                    400: '#818cf8',
-                    500: '#6366f1', // Electric Indigo
-                    600: '#4f46e5',
-                    700: '#4338ca',
-                    800: '#3730a3',
-                    900: '#312e81',
-                    950: '#1e1b4b',
+                    50: '#fdfcf9',
+                    100: '#f7f3ed',
+                    200: '#f1ede4',
+                    300: '#e5dec9',
+                    400: '#d9cfb0',
+                    500: '#d97757', // Terracotta Accent
+                    600: '#c26242',
+                    700: '#8e4832',
+                    800: '#5c2d20',
+                    900: '#2e160e',
+                    950: '#1c1917', // Stone Dark
                 },
                 accent: {
-                    green: '#10b981',
-                    purple: '#a855f7',
-                    blue: '#3b82f6',
+                    beige: '#fdfcf9',
+                    stone: '#1c1917',
+                    terracotta: '#d97757',
+                    navy: '#0f172a',
                 },
-                slate: {
-                    950: '#020617', // Deep dark background
-                },
-                // Status colors
+                // Status colors (Refined for beige)
                 status: {
-                    overdue: '#ef4444',
-                    warning: '#f59e0b',
-                    success: '#10b981',
-                    info: '#3b82f6',
+                    overdue: '#991b1b',
+                    warning: '#92400e',
+                    success: '#065f46',
+                    info: '#1e40af',
                 },
-                // Priority colors
+                // Priority colors (Refined for beige)
                 priority: {
-                    low: '#64748b',
-                    medium: '#f59e0b',
-                    high: '#f97316',
-                    critical: '#ef4444',
+                    low: '#78716c',
+                    medium: '#d97757',
+                    high: '#9a3412',
+                    critical: '#7f1d1d',
                 },
             },
             fontFamily: {

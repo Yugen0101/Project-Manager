@@ -47,123 +47,119 @@ export default async function AdminProjectsPage({
     const totalPages = Math.ceil((count || 0) / pageSize);
 
     return (
-        <div className="space-y-8">
+        <div className="space-y-10 animate-in fade-in duration-700">
             {/* Header section */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
-                    <h1 className="text-3xl font-black text-white tracking-tight">Project Projections</h1>
-                    <p className="text-slate-500 font-bold uppercase tracking-widest text-[10px] mt-1">Strategic Operations Control</p>
+                    <h1 className="text-4xl font-black text-[#1c1917] tracking-tight uppercase">PROJECT <span className="text-[#d97757]">REPOSITORY</span></h1>
+                    <p className="text-[#1c1917]/40 font-black uppercase tracking-[0.3em] text-[10px] mt-2">Global Operations Control Layer</p>
                 </div>
-                <Link href="/admin/projects/new" className="btn-primary flex items-center gap-2 self-start md:self-auto">
+                <Link href="/admin/projects/new" className="btn-primary flex items-center gap-2 self-start md:self-auto py-3 px-8">
                     <PlusIcon className="w-5 h-5" />
-                    New Project
+                    <span className="text-[11px] font-black uppercase tracking-widest">Initial Project</span>
                 </Link>
             </div>
 
             {/* Stats and filters bar */}
-            <div className="flex flex-col lg:flex-row gap-4">
-                <div className="relative flex-1">
-                    <MagnifyingGlassIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+            <div className="flex flex-col lg:flex-row gap-6">
+                <div className="relative flex-1 group">
+                    <MagnifyingGlassIcon className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-[#1c1917]/30 transition-colors group-focus-within:text-[#d97757]" />
                     <input
                         type="text"
-                        placeholder="Search project database..."
-                        className="w-full bg-slate-900/50 border border-slate-800 rounded-xl py-3 pl-12 text-sm focus:ring-2 ring-primary-500/20 text-slate-100 placeholder-slate-500 transition-all focus:border-primary-500/50"
+                        placeholder="Scan project headers..."
+                        className="input pl-14 py-4 bg-white"
                     />
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-3">
                     <Link
                         href="/admin/projects?status=active"
-                        className={`px-6 py-2 rounded-xl text-xs font-black uppercase tracking-widest border transition-all ${filterStatus === 'active' ? 'bg-primary-600 border-primary-600 text-white shadow-lg shadow-primary-500/20' : 'bg-slate-900/50 border-slate-800 text-slate-500 hover:bg-slate-800 hover:text-slate-300'}`}
+                        className={`px-8 py-3 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] transition-all border ${filterStatus === 'active' ? 'bg-[#d97757] border-[#d97757] text-white shadow-xl shadow-[#d97757]/20' : 'bg-white border-[#e5dec9] text-[#1c1917]/40 hover:text-[#d97757] hover:border-[#d97757]/30'}`}
                     >
                         Active
                     </Link>
                     <Link
                         href="/admin/projects?status=completed"
-                        className={`px-6 py-2 rounded-xl text-xs font-black uppercase tracking-widest border transition-all ${filterStatus === 'completed' ? 'bg-primary-600 border-primary-600 text-white shadow-lg shadow-primary-500/20' : 'bg-slate-900/50 border-slate-800 text-slate-500 hover:bg-slate-800 hover:text-slate-300'}`}
+                        className={`px-8 py-3 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] transition-all border ${filterStatus === 'completed' ? 'bg-[#d97757] border-[#d97757] text-white shadow-xl shadow-[#d97757]/20' : 'bg-white border-[#e5dec9] text-[#1c1917]/40 hover:text-[#d97757] hover:border-[#d97757]/30'}`}
                     >
                         Finished
-                    </Link>
-                    <Link
-                        href="/admin/projects?status=archived"
-                        className={`px-6 py-2 rounded-xl text-xs font-black uppercase tracking-widest border transition-all ${filterStatus === 'archived' ? 'bg-primary-600 border-primary-600 text-white shadow-lg shadow-primary-500/20' : 'bg-slate-900/50 border-slate-800 text-slate-500 hover:bg-slate-800 hover:text-slate-300'}`}
-                    >
-                        Archived
                     </Link>
                 </div>
             </div>
 
             {/* Projects Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {projects?.map((project) => (
-                    <div key={project.id} className="card group hover:border-primary-200 transition-all duration-300">
-                        <div className="flex justify-between items-start mb-4">
-                            <div className="p-2 bg-primary-50 rounded-lg group-hover:bg-primary-100 transition-colors">
-                                <FolderIcon className="w-6 h-6 text-primary-600" />
+                    <div key={project.id} className="card bg-white border-[#e5dec9] group hover:border-[#d97757]/50 transition-all duration-500 hover:-translate-y-1">
+                        <div className="flex justify-between items-start mb-6">
+                            <div className="w-12 h-12 bg-[#f7f3ed] rounded-xl flex items-center justify-center text-[#d97757] border border-[#e5dec9] group-hover:bg-[#d97757] group-hover:text-white transition-all duration-500">
+                                <FolderIcon className="w-6 h-6" />
                             </div>
                             <span className={`badge ${project.status === 'active' ? 'badge-success' :
-                                project.status === 'completed' ? 'badge-info' : 'badge-slate'
+                                project.status === 'completed' ? 'badge-info' : 'badge-warning'
                                 }`}>
-                                {project.status.charAt(0).toUpperCase() + project.status.slice(1)}
+                                {project.status}
                             </span>
                         </div>
 
-                        <h3 className="text-lg font-black text-white mb-2 truncate group-hover:text-primary-400 transition-colors">
+                        <h3 className="text-xl font-black text-[#1c1917] mb-3 tracking-tight group-hover:text-[#d97757] transition-colors uppercase">
                             {project.name}
                         </h3>
-                        <p className="text-slate-500 text-xs font-medium line-clamp-2 mb-6 h-10">
-                            {project.description || 'No project briefing provided.'}
+                        <p className="text-[#1c1917]/50 text-xs font-semibold leading-relaxed mb-8 h-10 line-clamp-2 italic">
+                            {project.description || 'Global operational parameters pending.'}
                         </p>
 
-                        <div className="space-y-3 mb-6">
-                            <div className="flex items-center text-sm text-slate-500 gap-2">
-                                <UserGroupIcon className="w-4 h-4" />
-                                <span>{project.user_projects?.length || 0} Members assigned</span>
+                        <div className="space-y-4 mb-8">
+                            <div className="flex items-center text-[10px] font-black uppercase tracking-widest text-[#1c1917]/40 gap-3">
+                                <UserGroupIcon className="w-4 h-4 text-[#d97757]" />
+                                <span>{project.user_projects?.length || 0} Assets Deployed</span>
                             </div>
-                            <div className="flex items-center text-sm text-slate-500 gap-2">
-                                <PlusIcon className="w-4 h-4" />
-                                <span>{project.tasks?.[0]?.count || 0} Total tasks</span>
+                            <div className="flex items-center text-[10px] font-black uppercase tracking-widest text-[#1c1917]/40 gap-3">
+                                <PlusIcon className="w-4 h-4 text-[#d97757]" />
+                                <span>{project.tasks?.[0]?.count || 0} Total Vectors</span>
                             </div>
-                            <div className="flex items-center text-sm text-slate-500 gap-2">
-                                <CalendarIcon className="w-4 h-4" />
-                                <span>Due {format(new Date(project.end_date), 'MMM d, yyyy')}</span>
+                            <div className="flex items-center text-[10px] font-black uppercase tracking-widest text-[#1c1917]/40 gap-3">
+                                <CalendarIcon className="w-4 h-4 text-[#d97757]" />
+                                <span>Target: {format(new Date(project.end_date), 'MMM dd, yyyy')}</span>
                             </div>
                         </div>
 
                         {/* Progress bar */}
-                        <div className="space-y-3 mb-6">
-                            <div className="flex justify-between text-[10px] font-black uppercase tracking-widest text-slate-500">
-                                <span>Optimization</span>
-                                <span className="text-primary-400">65%</span>
+                        <div className="space-y-3 mb-8">
+                            <div className="flex justify-between text-[9px] font-black uppercase tracking-[0.2em] text-[#1c1917]/30">
+                                <span>EFFICIENCY</span>
+                                <span className="text-[#d97757]">65%</span>
                             </div>
-                            <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
-                                <div className="h-full bg-gradient-to-r from-primary-600 to-primary-400 rounded-full" style={{ width: '65%' }}></div>
+                            <div className="w-full h-1.5 bg-[#f7f3ed] rounded-full overflow-hidden border border-[#e5dec9]">
+                                <div className="h-full bg-[#d97757] rounded-full" style={{ width: '65%' }}></div>
                             </div>
                         </div>
 
                         <Link
                             href={`/admin/projects/${project.id}`}
-                            className="flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest text-primary-500 hover:text-primary-400 w-full pt-4 border-t border-slate-800/50 transition-colors"
+                            className="flex items-center justify-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-[#d97757] hover:text-[#c26242] w-full pt-6 border-t border-[#e5dec9] transition-all group-hover:gap-4"
                         >
-                            Analyze Details
+                            Sync Parameters
                             <ChevronRightIcon className="w-4 h-4" />
                         </Link>
                     </div>
                 ))}
 
                 {(!projects || projects.length === 0) && (
-                    <div className="col-span-full py-12 flex flex-col items-center justify-center bg-white rounded-xl border-2 border-dashed border-slate-200">
-                        <FolderIcon className="w-12 h-12 text-slate-300 mb-4" />
-                        <h3 className="text-lg font-bold text-slate-900">No projects found</h3>
-                        <p className="text-slate-500 mb-6">Start by creating your first organizational project.</p>
-                        <Link href="/admin/projects/new" className="btn-primary flex items-center gap-2">
+                    <div className="col-span-full py-24 flex flex-col items-center justify-center bg-white rounded-3xl border-2 border-dashed border-[#e5dec9]">
+                        <div className="w-20 h-20 bg-[#f7f3ed] rounded-full flex items-center justify-center text-[#1c1917]/20 mb-6">
+                            <FolderIcon className="w-10 h-10" />
+                        </div>
+                        <h3 className="text-xl font-black text-[#1c1917] tracking-tight uppercase">Repository Empty</h3>
+                        <p className="text-[11px] font-black text-[#1c1917]/40 uppercase tracking-[0.2em] mt-2 mb-8">Initialize first project node</p>
+                        <Link href="/admin/projects/new" className="btn-primary flex items-center gap-2 px-10 py-4">
                             <PlusIcon className="w-5 h-5" />
-                            Create Project
+                            <span className="text-[11px]">New Project</span>
                         </Link>
                     </div>
                 )}
             </div>
 
-            <div className="mt-8">
+            <div className="mt-12 flex justify-center">
                 <Pagination currentPage={currentPage} totalPages={totalPages} />
             </div>
         </div>

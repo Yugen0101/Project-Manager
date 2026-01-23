@@ -1,61 +1,109 @@
+import Image from 'next/image';
+
 export default function HomePage() {
     return (
-        <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-6 relative overflow-hidden">
-            {/* Background Glows */}
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary-500/10 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2"></div>
-            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent-purple/10 blur-[120px] rounded-full translate-y-1/2 -translate-x-1/2"></div>
+        <div className="min-h-screen bg-[#fdfcf9] flex flex-col relative overflow-hidden font-sans selection:bg-primary-500 selection:text-white">
+            {/* Geometric Decorative Elements */}
+            <div className="absolute top-[-10%] right-[-5%] w-[40%] h-[60%] bg-[#f7f3ed] -rotate-12 rounded-3xl -z-10"></div>
+            <div className="absolute bottom-[20%] left-[-10%] w-[30%] h-[40%] bg-[#f1ede4] rotate-6 rounded-3xl -z-10 opacity-60"></div>
+            <div className="absolute top-[40%] left-[10%] w-12 h-12 bg-[#d97757]/10 rounded-lg -z-10"></div>
+            <div className="absolute bottom-[10%] right-[15%] w-24 h-24 bg-[#0f172a]/5 rounded-full -z-10"></div>
 
-            <div className="relative z-10 text-center space-y-8 max-w-4xl">
-                {/* Logo / Name */}
-                <div className="flex flex-col items-center gap-4">
-                    <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-accent-purple rounded-2xl flex items-center justify-center text-white font-black italic text-3xl shadow-2xl shadow-primary-500/20">
-                        T
+            {/* Navigation / Header */}
+            <header className="relative z-50 px-8 py-6 flex items-center justify-between max-w-7xl mx-auto w-full">
+                <div className="flex items-center gap-3">
+                    <div className="relative w-10 h-10">
+                        <Image src="/logo.png" alt="TaskForge Logo" fill className="object-contain" />
                     </div>
-                    <h1 className="text-6xl md:text-8xl font-black text-white tracking-tighter">
-                        Task<span className="text-primary-500">Forge</span>
-                    </h1>
+                    <span className="text-2xl font-black tracking-tighter text-[#1c1917]">Task<span className="text-[#d97757]">Forge</span></span>
+                </div>
+                <nav className="hidden md:flex items-center gap-8 text-[11px] font-black uppercase tracking-[0.2em] text-[#1c1917]/60">
+                    <a href="#" className="hover:text-[#d97757] transition-colors">Platform</a>
+                    <a href="#" className="hover:text-[#d97757] transition-colors">Team</a>
+                    <a href="#" className="hover:text-[#d97757] transition-colors">Roadmap</a>
+                    <a href="#" className="hover:text-[#d97757] transition-colors">Pricing</a>
+                </nav>
+                <div className="flex items-center gap-4">
+                    <a href="/login" className="text-[11px] font-black uppercase tracking-[0.2em] text-[#1c1917] hover:text-[#d97757] transition-colors">Sign In</a>
+                    <a href="/login" className="btn-primary py-2.5 px-6 text-[10px]">Get Started</a>
+                </div>
+            </header>
+
+            <main className="relative z-10 flex-1 flex flex-col md:flex-row items-center justify-center px-8 py-12 max-w-7xl mx-auto w-full gap-16">
+                {/* Left: Content */}
+                <div className="flex-1 space-y-8 text-center md:text-left">
+                    <div className="space-y-4">
+                        <h2 className="text-[12px] font-black uppercase tracking-[0.3em] text-[#d97757]">Enterprise Orchestration</h2>
+                        <h1 className="text-6xl md:text-8xl font-black text-[#1c1917] tracking-tight leading-[0.9]">
+                            PROJECT<br />
+                            <span className="text-[#d97757]/90">MANAGEMENT.</span>
+                        </h1>
+                    </div>
+
+                    <p className="text-lg md:text-xl text-[#1c1917]/60 font-medium leading-relaxed max-w-lg italic font-serif">
+                        Align your team’s frequency. Streamline critical operations with an organic, high-performance workspace designed for elite coordination.
+                    </p>
+
+                    <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                        <a href="/login" className="btn-primary px-10 py-5 text-sm">
+                            Initialize Node
+                        </a>
+                        <a href="/login" className="btn-secondary px-10 py-5 text-sm">
+                            Read More...
+                        </a>
+                    </div>
                 </div>
 
-                <p className="text-xl md:text-2xl text-slate-400 font-medium leading-relaxed max-w-2xl mx-auto">
-                    Supercharge your teamwork. <span className="text-slate-100">Streamline your workflow.</span> Simplify tasks, boost collaboration, and achieve more.
-                </p>
-
-                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-                    <a href="/login" className="btn-primary px-8 py-4 text-lg">
-                        Start for Free
-                    </a>
-                    <a href="/login" className="btn-secondary px-8 py-4 text-lg border-slate-700">
-                        See it in Action
-                    </a>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-20">
-                    <div className="card bg-slate-900/40 border-slate-800/50 p-6 text-left hover:border-primary-500/50 transition-all group">
-                        <div className="w-10 h-10 bg-primary-500/20 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                            <svg className="w-6 h-6 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                        </div>
-                        <h3 className="text-lg font-bold text-white mb-2">High Velocity</h3>
-                        <p className="text-sm text-slate-500">Agile methodology refined for speed and precision.</p>
-                    </div>
-                    <div className="card bg-slate-900/40 border-slate-800/50 p-6 text-left hover:border-accent-purple/50 transition-all group">
-                        <div className="w-10 h-10 bg-accent-purple/20 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                            <svg className="w-6 h-6 text-accent-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
-                        </div>
-                        <h3 className="text-lg font-bold text-white mb-2">Deep Insights</h3>
-                        <p className="text-sm text-slate-500">Real-time analytics for your team's performance.</p>
-                    </div>
-                    <div className="card bg-slate-900/40 border-slate-800/50 p-6 text-left hover:border-accent-green/50 transition-all group">
-                        <div className="w-10 h-10 bg-accent-green/20 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                            <svg className="w-6 h-6 text-accent-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 21a11.955 11.955 0 01-9.618-7.016m18.236 0a11.958 11.958 0 00-18.236 0m18.236 0a11.956 11.956 0 01-18.236 0" /></svg>
-                        </div>
-                        <h3 className="text-lg font-bold text-white mb-2">Secure Governance</h3>
-                        <p className="text-sm text-slate-500">Enterprise-grade security and role-based access.</p>
+                {/* Right: Illustration */}
+                <div className="flex-1 w-full max-w-xl animate-in fade-in slide-in-from-right-10 duration-1000">
+                    <div className="relative aspect-square w-full">
+                        <Image
+                            src="/hero_illustration.png"
+                            alt="Project Management Illustration"
+                            fill
+                            className="object-contain"
+                            priority
+                        />
                     </div>
                 </div>
-            </div>
+            </main>
 
-            {/* Subtle Grid Overlay */}
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none"></div>
+            {/* Bottom Section (Featured Areas) */}
+            <section className="relative z-10 px-8 py-24 bg-[#f7f3ed]/50 w-full border-t border-[#e5dec9]">
+                <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <div className="space-y-6 group">
+                        <div className="relative w-full aspect-video rounded-3xl overflow-hidden bg-white border border-[#e5dec9] shadow-inner mb-6 transition-transform duration-500 group-hover:-translate-y-2">
+                            <Image src="/gears.png" alt="Efficiency" fill className="object-cover opacity-90 scale-110" />
+                        </div>
+                        <h3 className="text-xl font-black text-[#1c1917] tracking-tight">OPERATIONAL SPEED</h3>
+                        <p className="text-sm text-[#1c1917]/50 leading-relaxed font-semibold">Deploy strategies with high-velocity precision. Our agile engine is refined for synchronous execution.</p>
+                        <button className="text-[10px] font-black uppercase tracking-widest text-[#d97757] hover:gap-3 flex items-center gap-2 transition-all">Details <span className="text-lg">→</span></button>
+                    </div>
+
+                    <div className="space-y-6 group">
+                        <div className="relative w-full aspect-video rounded-3xl overflow-hidden bg-white border border-[#e5dec9] shadow-inner mb-6 transition-transform duration-500 group-hover:-translate-y-2">
+                            <Image src="/collaboration.png" alt="Collaborate" fill className="object-cover opacity-90 scale-110" />
+                        </div>
+                        <h3 className="text-xl font-black text-[#1c1917] tracking-tight">STRATEGIC SYNERGY</h3>
+                        <p className="text-sm text-[#1c1917]/50 leading-relaxed font-semibold">Unified command centers for elite teams. achieve resonance through seamless data transparency.</p>
+                        <button className="text-[10px] font-black uppercase tracking-widest text-[#d97757] hover:gap-3 flex items-center gap-2 transition-all">Details <span className="text-lg">→</span></button>
+                    </div>
+
+                    <div className="space-y-6 group">
+                        <div className="relative w-full aspect-video rounded-3xl overflow-hidden bg-white border border-[#e5dec9] shadow-inner mb-6 transition-transform duration-500 group-hover:-translate-y-2">
+                            <div className="absolute inset-0 flex items-center justify-center bg-white">
+                                <span className="text-6xl grayscale opacity-20">📊</span>
+                            </div>
+                        </div>
+                        <h3 className="text-xl font-black text-[#1c1917] tracking-tight">DEEP ANALYTICS</h3>
+                        <p className="text-sm text-[#1c1917]/50 leading-relaxed font-semibold">Real-time performance harmonics. monitor every operational layer with precision telemetry.</p>
+                        <button className="text-[10px] font-black uppercase tracking-widest text-[#d97757] hover:gap-3 flex items-center gap-2 transition-all">Details <span className="text-lg">→</span></button>
+                    </div>
+                </div>
+            </section>
+
+            {/* Subtle Texture Overlay */}
+            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 pointer-events-none"></div>
         </div>
     );
 }

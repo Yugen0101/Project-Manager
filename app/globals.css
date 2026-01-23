@@ -4,15 +4,13 @@
 
 @layer base {
   :root {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 40 50% 98%;
+    --foreground: 30 10% 10%;
   }
 
   body {
-    @apply bg-slate-950 text-slate-50 font-sans antialiased;
-    background-image: radial-gradient(circle at top right, rgba(99, 102, 241, 0.05), transparent 40%),
-      radial-gradient(circle at bottom left, rgba(168, 85, 247, 0.05), transparent 40%);
-    background-attachment: fixed;
+    @apply bg-[#fdfcf9] text-[#1c1917] font-sans antialiased;
+    background-image: none;
   }
 
   html {
@@ -22,48 +20,48 @@
 
 @layer components {
 
-  /* Glassmorphism Button Styles */
+  /* Soft Premium Button Styles */
   .btn-primary {
-    @apply bg-primary-600 hover:bg-primary-500 text-white px-4 py-2 rounded-xl font-bold transition-all duration-300 shadow-lg shadow-primary-500/20 hover:shadow-primary-500/40 hover:-translate-y-0.5 active:translate-y-0;
+    @apply bg-[#d97757] hover:bg-[#c26242] text-white px-6 py-3 rounded-lg font-black uppercase tracking-widest transition-all duration-300 shadow-xl shadow-[#d97757]/10 hover:shadow-[#d97757]/20 hover:-translate-y-0.5 active:translate-y-0;
   }
 
   .btn-secondary {
-    @apply bg-slate-900/50 hover:bg-slate-800/80 text-slate-100 px-4 py-2 rounded-xl font-bold transition-all duration-300 border border-slate-800 backdrop-blur-sm;
+    @apply bg-[#f7f3ed] hover:bg-[#f1ede4] text-[#1c1917] px-6 py-3 rounded-lg font-black uppercase tracking-widest transition-all duration-300 border border-[#e5dec9];
   }
 
   .btn-danger {
-    @apply bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-xl font-bold transition-all duration-300 shadow-lg shadow-red-500/20;
+    @apply bg-red-800 hover:bg-red-900 text-white px-6 py-3 rounded-lg font-black uppercase tracking-widest transition-all duration-300;
   }
 
-  /* Glassmorphism Card Styles */
+  /* Soft Organic Card Styles */
   .card {
-    @apply bg-slate-900/40 border border-slate-800/50 rounded-2xl p-6 backdrop-blur-md transition-all duration-300 hover:border-slate-700/80 hover:bg-slate-900/60 shadow-xl;
+    @apply bg-white border border-[#e5dec9] rounded-2xl p-8 transition-all duration-500 hover:shadow-2xl hover:shadow-[#d9cfb0]/20;
   }
 
-  /* Input Styles */
+  /* Input Styles (Soft) */
   .input {
-    @apply w-full px-4 py-2 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500/50 transition-all text-slate-100 placeholder-slate-500;
+    @apply w-full px-4 py-3 bg-[#fdfcf9] border border-[#e5dec9] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#d97757]/20 focus:border-[#d97757]/40 transition-all text-[#1c1917] placeholder-[#a8a29e];
   }
 
-  /* Badge Styles */
+  /* Badge Styles (Refined) */
   .badge {
-    @apply inline-flex items-center px-2.5 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest;
+    @apply inline-flex items-center px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.1em];
   }
 
   .badge-success {
-    @apply bg-green-500/10 text-green-400 border border-green-500/20;
+    @apply bg-emerald-100 text-emerald-900 border border-emerald-200;
   }
 
   .badge-warning {
-    @apply bg-yellow-500/10 text-yellow-400 border border-yellow-500/20;
+    @apply bg-orange-100 text-orange-900 border border-orange-200;
   }
 
   .badge-danger {
-    @apply bg-red-500/10 text-red-400 border border-red-500/20;
+    @apply bg-red-100 text-red-900 border border-red-200;
   }
 
   .badge-info {
-    @apply bg-blue-500/10 text-blue-400 border border-blue-500/20;
+    @apply bg-blue-100 text-blue-900 border border-blue-200;
   }
 }
 

@@ -76,104 +76,107 @@ export default function UserManagementClient({ initialUsers }: { initialUsers: U
 
     return (
         <>
-            <div className="flex justify-end mb-6">
+            <div className="flex justify-end">
                 <button
                     onClick={() => setIsModalOpen(true)}
-                    className="btn-primary flex items-center gap-2"
+                    className="btn-primary flex items-center gap-2 py-3 px-8"
                 >
                     <PlusIcon className="w-5 h-5" />
-                    Add New User
+                    <span className="text-[11px] font-black uppercase tracking-widest">Deploy Personnel</span>
                 </button>
             </div>
 
             {/* Modal */}
             {isModalOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm">
-                    <div className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
-                        <div className="p-6 border-b border-slate-100 flex items-center justify-between">
-                            <h2 className="text-xl font-bold text-slate-900">Add New System User</h2>
-                            <button onClick={() => setIsModalOpen(false)} className="text-slate-400 hover:text-slate-600">
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-[#1c1917]/40 backdrop-blur-xl animate-in fade-in duration-300">
+                    <div className="bg-white rounded-[2.5rem] shadow-2xl w-full max-w-lg overflow-hidden border border-[#e5dec9] animate-in zoom-in-95 duration-500">
+                        <div className="px-10 py-8 border-b border-[#f7f3ed] flex items-center justify-between bg-[#f7f3ed]/30">
+                            <div>
+                                <h2 className="text-2xl font-black text-[#1c1917] tracking-tight uppercase">PERSONNEL ENROLLMENT</h2>
+                                <p className="text-[10px] font-black text-[#1c1917]/30 uppercase tracking-[0.2em] mt-1">Initialize system access node</p>
+                            </div>
+                            <button onClick={() => setIsModalOpen(false)} className="w-10 h-10 rounded-full bg-white border border-[#e5dec9] flex items-center justify-center text-[#1c1917]/40 hover:text-[#d97757] transition-all">
                                 <XMarkIcon className="w-6 h-6" />
                             </button>
                         </div>
 
-                        <form onSubmit={handleCreateUser} className="p-6 space-y-4">
+                        <form onSubmit={handleCreateUser} className="p-10 space-y-6">
                             {error && (
-                                <div className="p-3 bg-red-50 border border-red-100 text-red-600 rounded-lg text-sm flex items-center gap-2">
+                                <div className="p-4 bg-red-50 border border-red-100 text-red-800 rounded-2xl text-[10px] font-black uppercase tracking-widest flex items-center gap-3 animate-pulse">
                                     <ExclamationTriangleIcon className="w-5 h-5" />
                                     {error}
                                 </div>
                             )}
 
-                            <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-1">Full Name</label>
+                            <div className="space-y-2">
+                                <label className="block text-[10px] font-black text-[#1c1917]/40 uppercase tracking-[0.2em] ml-1">Entity Name</label>
                                 <input
                                     type="text"
                                     required
-                                    className="input w-full"
+                                    className="input py-4 bg-[#fdfcf9]"
+                                    placeholder="Enter full name"
                                     value={formData.full_name}
                                     onChange={e => setFormData({ ...formData, full_name: e.target.value })}
                                 />
                             </div>
 
-                            <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-1">Email Address</label>
+                            <div className="space-y-2">
+                                <label className="block text-[10px] font-black text-[#1c1917]/40 uppercase tracking-[0.2em] ml-1">Email Allocation</label>
                                 <input
                                     type="email"
                                     required
-                                    className="input w-full"
+                                    className="input py-4 bg-[#fdfcf9]"
+                                    placeholder="example@taskforge.com"
                                     value={formData.email}
                                     onChange={e => setFormData({ ...formData, email: e.target.value })}
                                 />
                             </div>
 
-                            <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-1">Role</label>
+                            <div className="space-y-2">
+                                <label className="block text-[10px] font-black text-[#1c1917]/40 uppercase tracking-[0.2em] ml-1">Clearance Tier</label>
                                 <select
-                                    className="input w-full"
+                                    className="input py-4 bg-[#fdfcf9] appearance-none"
                                     value={formData.role}
                                     onChange={e => setFormData({ ...formData, role: e.target.value })}
                                 >
-                                    <option value="member">Member</option>
-                                    <option value="associate">Associate</option>
-                                    <option value="admin">Admin</option>
+                                    <option value="member">TACTICAL MEMBER</option>
+                                    <option value="associate">OPERATIONS LEAD</option>
+                                    <option value="admin">EXECUTIVE ADMIN</option>
                                 </select>
                             </div>
 
-                            <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-1">Initial Password</label>
+                            <div className="space-y-2">
+                                <label className="block text-[10px] font-black text-[#1c1917]/40 uppercase tracking-[0.2em] ml-1">Initial Sequence</label>
                                 <input
                                     type="password"
                                     required
-                                    className="input w-full"
+                                    className="input py-4 bg-[#fdfcf9]"
+                                    placeholder="Set temporary password"
                                     value={formData.password}
                                     onChange={e => setFormData({ ...formData, password: e.target.value })}
                                 />
                             </div>
 
-                            <div className="pt-4 flex gap-3">
+                            <div className="pt-8 flex gap-4">
                                 <button
                                     type="button"
                                     onClick={() => setIsModalOpen(false)}
-                                    className="btn-secondary flex-1"
+                                    className="btn-secondary flex-1 py-4 border-[#e5dec9]"
                                 >
-                                    Cancel
+                                    ABORT
                                 </button>
                                 <button
                                     type="submit"
                                     disabled={loading}
-                                    className="btn-primary flex-1 disabled:opacity-50"
+                                    className="btn-primary flex-1 py-4 disabled:opacity-50"
                                 >
-                                    {loading ? 'Creating...' : 'Create User'}
+                                    {loading ? 'SYNCING...' : 'ENROLL ASSET'}
                                 </button>
                             </div>
                         </form>
                     </div>
                 </div>
             )}
-
-            {/* Custom Action Cell rendering logic would go here if we were completely refactoring the table, 
-                but for now we'll hook into the parent table via shared state or simplified reload */}
         </>
     );
 }

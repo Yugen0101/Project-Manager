@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { createClient } from '@/lib/supabase/server';
 import { getCurrentUser } from '@/lib/auth/session';
 import {
@@ -21,74 +22,79 @@ export default async function AssociateLayout({
     const user = await getCurrentUser();
 
     return (
-        <div className="min-h-screen bg-slate-950 text-slate-100 flex">
+        <div className="min-h-screen bg-[#fdfcf9] text-[#1c1917] flex">
             {/* Sidebar */}
-            <aside className="w-64 bg-slate-900 text-white hidden lg:flex flex-col fixed inset-y-0 shadow-2xl z-20">
-                <div className="p-6">
-                    <h1 className="text-xl font-black tracking-tight text-white flex items-center gap-2">
-                        <div className="w-8 h-8 bg-gradient-to-br from-primary-500 to-accent-purple rounded-lg flex items-center justify-center text-white font-black italic shadow-lg shadow-primary-500/20">T</div>
-                        TaskForge
-                        <span className="text-[10px] bg-primary-500/20 text-primary-400 px-1.5 py-0.5 rounded font-black uppercase tracking-wider">Lead</span>
-                    </h1>
+            <aside className="w-72 bg-white border-r border-[#e5dec9] hidden lg:flex flex-col fixed inset-y-0 z-50">
+                <div className="p-8">
+                    <div className="flex items-center gap-3">
+                        <div className="relative w-8 h-8">
+                            <Image src="/logo.png" alt="Logo" fill className="object-contain" />
+                        </div>
+                        <h1 className="text-xl font-black tracking-tighter text-[#1c1917]">
+                            TaskForge
+                            <span className="block text-[9px] text-[#d97757] uppercase tracking-[0.2em]">Project Lead</span>
+                        </h1>
+                    </div>
                 </div>
 
-                <nav className="flex-1 px-4 py-4 space-y-1 overflow-y-auto">
-                    <Link href="/associate/dashboard" className="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-all font-medium">
-                        <HomeIcon className="w-5 h-5 text-blue-400" />
-                        Dashboard
+                <nav className="flex-1 px-6 py-4 space-y-2 overflow-y-auto">
+                    <Link href="/associate/dashboard" className="flex items-center gap-3 px-4 py-3 text-[#1c1917]/60 hover:text-[#d97757] hover:bg-[#f7f3ed] rounded-xl transition-all">
+                        <HomeIcon className="w-5 h-5" />
+                        <span className="text-[11px] font-black uppercase tracking-widest">Dashboard</span>
                     </Link>
-                    <Link href="/associate/projects" className="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-all font-medium">
+                    <Link href="/associate/projects" className="flex items-center gap-3 px-4 py-3 text-[#1c1917]/60 hover:text-[#d97757] hover:bg-[#f7f3ed] rounded-xl transition-all">
                         <FolderIcon className="w-5 h-5" />
-                        My Projects
+                        <span className="text-[11px] font-black uppercase tracking-widest">My Projects</span>
                     </Link>
-                    <Link href="/associate/tasks" className="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-all font-medium">
-                        <ListBulletIcon className="w-5 h-5 text-emerald-400" />
-                        Managed Tasks
+                    <Link href="/associate/tasks" className="flex items-center gap-3 px-4 py-3 text-[#1c1917]/60 hover:text-[#d97757] hover:bg-[#f7f3ed] rounded-xl transition-all">
+                        <ListBulletIcon className="w-5 h-5" />
+                        <span className="text-[11px] font-black uppercase tracking-widest">Managed Tasks</span>
                     </Link>
-                    <Link href="/associate/sprints" className="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-all font-medium">
+                    <Link href="/associate/sprints" className="flex items-center gap-3 px-4 py-3 text-[#1c1917]/60 hover:text-[#d97757] hover:bg-[#f7f3ed] rounded-xl transition-all">
                         <CalendarIcon className="w-5 h-5" />
-                        Sprints
+                        <span className="text-[11px] font-black uppercase tracking-widest">Sprints</span>
                     </Link>
-                    <Link href="/associate/reports" className="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-all font-medium">
-                        <ChartBarIcon className="w-5 h-5 text-purple-400" />
-                        Analytics
+                    <Link href="/associate/reports" className="flex items-center gap-3 px-4 py-3 text-[#1c1917]/60 hover:text-[#d97757] hover:bg-[#f7f3ed] rounded-xl transition-all">
+                        <ChartBarIcon className="w-5 h-5" />
+                        <span className="text-[11px] font-black uppercase tracking-widest">Analytics</span>
                     </Link>
                 </nav>
 
-                <div className="p-4 mt-auto border-t border-slate-800/50">
-                    <div className="flex items-center gap-3 px-4 py-3 mb-2 bg-slate-900/50 rounded-xl border border-slate-800/50">
-                        <div className="w-8 h-8 rounded-lg bg-primary-500/10 flex items-center justify-center text-xs font-bold text-primary-400 border border-primary-500/20 shadow-inner">
+                <div className="p-6 mt-auto border-t border-[#e5dec9]">
+                    <div className="flex items-center gap-3 px-4 py-3 bg-[#fdfcf9] rounded-xl border border-[#e5dec9]">
+                        <div className="w-9 h-9 rounded-lg bg-[#f7f3ed] flex items-center justify-center text-xs font-black text-[#d97757] border border-[#e5dec9]">
                             {user?.full_name?.charAt(0) || 'A'}
                         </div>
                         <div className="flex-1 min-w-0">
-                            <p className="text-sm font-bold text-white truncate">{user?.full_name}</p>
-                            <p className="text-[10px] text-primary-500 uppercase font-black truncate">Associate Lead</p>
+                            <p className="text-xs font-black text-[#1c1917] truncate">{user?.full_name}</p>
+                            <p className="text-[9px] text-[#d97757] uppercase font-black tracking-widest truncate">Project Lead</p>
                         </div>
                     </div>
                 </div>
             </aside>
 
             {/* Main Content */}
-            <main className="flex-1 lg:ml-64 min-h-screen">
+            <main className="flex-1 lg:ml-72 min-h-screen">
                 {/* Header */}
-                <header className="h-16 bg-slate-900/50 backdrop-blur-xl border-b border-slate-800/50 sticky top-0 z-10 px-8 flex items-center justify-between shadow-lg shadow-primary-500/5">
-                    <div className="lg:hidden flex items-center gap-2">
-                        <div className="w-8 h-8 bg-gradient-to-br from-primary-500 to-accent-purple rounded-lg flex items-center justify-center text-white font-black italic">T</div>
-                        <h1 className="text-sm font-black text-white">TaskForge</h1>
+                <header className="h-20 bg-white/80 backdrop-blur-xl border-b border-[#e5dec9] sticky top-0 z-40 px-10 flex items-center justify-between">
+                    <div className="lg:hidden flex items-center gap-3">
+                        <div className="relative w-8 h-8">
+                            <Image src="/logo.png" alt="Logo" fill className="object-contain" />
+                        </div>
+                        <h1 className="text-sm font-black text-[#1c1917]">TaskForge</h1>
                     </div>
                     <div className="hidden lg:block relative w-96">
-                        <input type="text" placeholder="Global search tasks or projects..." className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2 pl-4 text-sm focus:ring-2 ring-primary-500/20 text-slate-100 placeholder-slate-500" />
+                        <input type="text" placeholder="Global search..." className="input bg-white/50" />
                     </div>
                     <div className="flex items-center gap-4">
-                        <button className="p-2 text-slate-400 hover:bg-slate-50 rounded-lg transition-colors relative">
+                        <button className="p-2 text-[#1c1917]/40 hover:text-[#d97757] transition-all">
                             <BellIcon className="w-6 h-6" />
-                            <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
                         </button>
                         <SignOutButton />
                     </div>
                 </header>
 
-                <div className="p-8 max-w-7xl mx-auto">
+                <div className="p-10 max-w-7xl mx-auto">
                     {children}
                 </div>
             </main>

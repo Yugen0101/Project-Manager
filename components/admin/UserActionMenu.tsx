@@ -53,34 +53,34 @@ export default function UserActionMenu({ user }: { user: User }) {
         <div className="relative" ref={menuRef}>
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="p-2 hover:bg-slate-100 rounded-lg text-slate-400 transition-colors"
+                className="w-9 h-9 flex items-center justify-center bg-[#f7f3ed] hover:bg-[#d97757] hover:text-white rounded-xl text-[#1c1917]/20 border border-[#e5dec9] transition-all duration-300"
             >
-                <EllipsisHorizontalIcon className="w-6 h-6" />
+                <EllipsisHorizontalIcon className="w-5 h-5" />
             </button>
 
             {isOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-slate-100 py-1 z-10">
+                <div className="absolute right-0 mt-3 w-56 bg-white rounded-[1.5rem] shadow-2xl shadow-[#d9cfb0]/40 border border-[#e5dec9] py-2 z-50 animate-in fade-in zoom-in-95 duration-300">
                     <button
                         onClick={handleToggle}
-                        className="w-full text-left px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 flex items-center gap-2"
+                        className="w-full text-left px-5 py-3 text-[10px] font-black uppercase tracking-[0.15em] text-[#1c1917]/60 hover:bg-[#f7f3ed] hover:text-[#d97757] flex items-center gap-3 transition-colors"
                     >
                         {user.is_active ? <NoSymbolIcon className="w-4 h-4" /> : <CheckIcon className="w-4 h-4" />}
-                        {user.is_active ? 'Deactivate' : 'Activate'}
+                        {user.is_active ? 'Deactivate Node' : 'Initialize Node'}
                     </button>
                     <button
                         onClick={handleReset}
-                        className="w-full text-left px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 flex items-center gap-2"
+                        className="w-full text-left px-5 py-3 text-[10px] font-black uppercase tracking-[0.15em] text-[#1c1917]/60 hover:bg-[#f7f3ed] hover:text-[#d97757] flex items-center gap-3 transition-colors"
                     >
                         <KeyIcon className="w-4 h-4" />
-                        Reset Password
+                        Reset Sequence
                     </button>
-                    <div className="border-t border-slate-50 my-1" />
+                    <div className="border-t border-[#f7f3ed] my-2 mx-5" />
                     <button
                         onClick={handleDelete}
-                        className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 flex items-center gap-2"
+                        className="w-full text-left px-5 py-3 text-[10px] font-black uppercase tracking-[0.15em] text-red-700 hover:bg-red-50 flex items-center gap-3 transition-colors italic"
                     >
                         <TrashIcon className="w-4 h-4" />
-                        Delete User
+                        Purge Entity
                     </button>
                 </div>
             )}

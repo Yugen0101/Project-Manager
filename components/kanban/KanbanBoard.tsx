@@ -105,18 +105,18 @@ export default function KanbanBoard({
     }
 
     return (
-        <div className="flex flex-col h-full gap-4 relative">
-            {/* Agile Error Alert */}
+        <div className="flex flex-col h-full gap-6 relative">
+            {/* Organic Alert */}
             {error && (
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 z-50 bg-red-600 text-white px-6 py-3 rounded-full shadow-2xl font-bold flex items-center gap-3 animate-bounce">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5">
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 z-[100] bg-red-800 text-white px-8 py-4 rounded-full shadow-2xl font-black uppercase tracking-[0.2em] text-[10px] flex items-center gap-4 animate-in slide-in-from-top-4 duration-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-5 h-5">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
                     </svg>
                     {error}
                 </div>
             )}
 
-            <div className="flex-1 flex gap-6 overflow-x-auto pb-4 custom-scrollbar">
+            <div className="flex-1 flex gap-8 overflow-x-auto pb-6 scrollbar-thin scrollbar-thumb-[#e5dec9] scrollbar-track-transparent">
                 <DndContext
                     sensors={sensors}
                     collisionDetection={closestCorners}
@@ -135,7 +135,7 @@ export default function KanbanBoard({
                         />
                     ))}
 
-                    <DragOverlay>
+                    <DragOverlay zIndex={100}>
                         {activeTask ? (
                             <KanbanTask task={activeTask} isOverlay role={role} />
                         ) : null}
