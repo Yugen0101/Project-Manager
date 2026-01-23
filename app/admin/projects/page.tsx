@@ -1,6 +1,5 @@
 import Link from 'next/link';
-import { createServerClient } from '@supabase/ssr';
-import { cookies } from 'next/headers';
+import { createClient } from '@/lib/supabase/server';
 import {
     PlusIcon,
     FolderIcon,
@@ -12,7 +11,6 @@ import {
 } from '@heroicons/react/24/outline';
 import { format } from 'date-fns';
 import Pagination from '@/components/ui/Pagination';
-import { createAdminClient } from '@/lib/supabase/admin';
 
 export default async function AdminProjectsPage({
     searchParams,
@@ -24,7 +22,7 @@ export default async function AdminProjectsPage({
     const pageSize = 9; // Grid 3x3
     const from = (currentPage - 1) * pageSize;
     const to = from + pageSize - 1;
-    const supabase = await createAdminClient();
+    const supabase = await createClient();
 
     // Fetch projects with counts
     let query = supabase
