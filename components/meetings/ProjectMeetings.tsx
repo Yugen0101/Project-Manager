@@ -22,13 +22,16 @@ export default function ProjectMeetings({
     const [meetings, setMeetings] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const canSchedule = currentUser.role === 'admin' || currentUser.role === 'associate';
+    
+    // Permission check for scheduling
+    const canSchedule = currentUser.role === 'admin' || 
+                        (currentUser.role === 'associate' && currentUser.can_schedule_meetings);
 
     const loadMeetings = useCallback(async () => {
         setLoading(true);
         const result = await getProjectMeetings(projectId);
         if (result.success) {
-            setMeetings(result.data);
+            setMeetings((result as any).data || []);
         }
         setLoading(false);
     }, [projectId]);

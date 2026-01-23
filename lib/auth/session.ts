@@ -9,6 +9,7 @@ export interface User {
     full_name: string;
     role: 'admin' | 'associate' | 'member' | 'guest';
     is_active: boolean;
+    can_schedule_meetings: boolean;
 }
 
 // Get current authenticated user with role
@@ -40,6 +41,7 @@ export async function getCurrentUser(): Promise<User | null> {
         full_name: userData.full_name,
         role: userData.role,
         is_active: userData.is_active,
+        can_schedule_meetings: userData.can_schedule_meetings || false,
     };
 }
 

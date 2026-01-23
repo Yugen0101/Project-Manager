@@ -16,11 +16,23 @@ export async function scheduleMeeting(data: {
   participantIds: string[];
 }) {
   const user = await getCurrentUser();
-  if (!user || (user.role !== 'admin' && user.role !== 'associate')) {
+  const supabase = await createClient();
+
+  if (!user) return handleActionError({ message: 'Unauthorized', status: 401 });
+
+  if (user.role === 'associate') {
+    const { data: dbUser } = await supabase
+      .from('users')
+      .select('can_schedule_meetings')
+      .eq('id', user.id)
+      .single();
+
+    if (!dbUser?.can_schedule_meetings) {
+      return handleActionError({ message: 'Meeting scheduling is not enabled for your account. Please contact an Admin.', status: 403 });
+    }
+  } else if (user.role !== 'admin') {
     return handleActionError({ message: 'Unauthorized', status: 401 });
   }
-
-  const supabase = await createClient();
 
   try {
     // 1. Create meeting in Zoom
@@ -170,7 +182,7 @@ export async function getProjectMeetings(projectId: string) {
             created_by,
             project_id,
             created_at,
-            creator:users!meetings_created_by_fkey(full_name)
+            creator:users(full_name)
         `)
     .eq('project_id', projectId)
     .order('scheduled_at', { ascending: true });
@@ -205,4 +217,44 @@ export async function getMeetingStartUrl(meetingId: string) {
   }
 
   return successResponse(data.start_url);
+}
+
+export async function getAllUserMeetings() {
+  const user = await getCurrentUser();
+  if (!user) return handleActionError({ message: 'Unauthorized', status: 401 });
+
+  const supabase = await createClient();
+
+  let query = supabase
+    .from('meetings')
+    .select(`
+            id,
+            title,
+            description,
+            scheduled_at,
+            duration,
+            status,
+            join_url,
+            created_by,
+            project_id,
+            created_at,
+            project:projects(name),
+            creator:users(full_name)
+        `);
+
+  if (user.role !== 'admin') {
+    // For non-admins, get project IDs they belong to
+    const { data: userProjects } = await supabase
+      .from('user_projects')
+      .select('project_id')
+      .eq('user_id', user.id);
+
+    const projectIds = userProjects?.map(up => up.project_id) || [];
+    query = query.in('project_id', projectIds);
+  }
+
+  const { data, error } = await query.order('scheduled_at', { ascending: true });
+
+  if (error) return handleActionError(error);
+  return successResponse(data);
 }

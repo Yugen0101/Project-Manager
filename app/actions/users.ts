@@ -159,3 +159,30 @@ export async function restoreUser(userId: string) {
     revalidatePath('/admin/users');
     return successResponse();
 }
+
+export async function toggleMeetingPermission(userId: string, canSchedule: boolean) {
+    const currentUser = await getCurrentUser();
+
+    if (!currentUser || currentUser.role !== 'admin') {
+        return handleActionError({ message: 'Unauthorized', status: 401 });
+    }
+
+    const supabaseAdmin = await createAdminClient();
+
+    const { error } = await supabaseAdmin
+        .from('users')
+        .update({ can_schedule_meetings: canSchedule })
+        .eq('id', userId);
+
+    if (error) return handleActionError(error);
+
+    await logAudit({
+        action_type: canSchedule ? 'PERMISSION_GRANTED' : 'PERMISSION_REVOKED',
+        resource_type: 'user',
+        resource_id: userId,
+        details: { permission: 'can_schedule_meetings' }
+    });
+
+    revalidatePath('/admin/users');
+    return successResponse();
+}

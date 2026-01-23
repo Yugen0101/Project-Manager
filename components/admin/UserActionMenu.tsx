@@ -8,11 +8,14 @@ import {
     CheckIcon,
     TrashIcon
 } from '@heroicons/react/24/outline';
-import { toggleUserStatus, resetUserPassword, deleteUser } from '@/app/actions/users';
+import { toggleUserStatus, resetUserPassword, deleteUser, toggleMeetingPermission } from '@/app/actions/users';
+import { VideoCameraIcon } from '@heroicons/react/24/outline';
 
 interface User {
     id: string;
     is_active: boolean;
+    role: string;
+    can_schedule_meetings: boolean;
 }
 
 export default function UserActionMenu({ user }: { user: User }) {
@@ -41,6 +44,12 @@ export default function UserActionMenu({ user }: { user: User }) {
         else alert(`Temporary password: ${result.data?.tempPassword}`);
     };
 
+    const handleTogglePermission = async () => {
+        const result = await toggleMeetingPermission(user.id, !user.can_schedule_meetings);
+        if (!result.success) alert(result.error);
+        else window.location.reload();
+    };
+
     const handleDelete = async () => {
         if (confirm('Permanently delete this user?')) {
             const result = await deleteUser(user.id);
@@ -67,6 +76,15 @@ export default function UserActionMenu({ user }: { user: User }) {
                         {user.is_active ? <NoSymbolIcon className="w-4 h-4" /> : <CheckIcon className="w-4 h-4" />}
                         {user.is_active ? 'Deactivate' : 'Activate'}
                     </button>
+                    {user.role === 'associate' && (
+                        <button
+                            onClick={handleTogglePermission}
+                            className="w-full text-left px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 flex items-center gap-2"
+                        >
+                            <VideoCameraIcon className={`w-4 h-4 ${user.can_schedule_meetings ? 'text-indigo-500' : 'text-slate-400'}`} />
+                            {user.can_schedule_meetings ? 'Disable Zoom' : 'Allow Zoom'}
+                        </button>
+                    )}
                     <button
                         onClick={handleReset}
                         className="w-full text-left px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 flex items-center gap-2"
