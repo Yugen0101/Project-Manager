@@ -45,40 +45,45 @@ export default function NewProjectForm() {
     }
 
     return (
-        <div className="max-w-2xl mx-auto py-8">
+        <div className="max-w-2xl mx-auto py-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
             <Link
                 href="/admin/projects"
-                className="flex items-center gap-2 text-slate-500 hover:text-primary-600 transition-colors mb-6 group"
+                className="flex items-center gap-3 text-[#1c1917]/40 hover:text-[#d97757] transition-all mb-10 group no-underline"
             >
-                <ArrowLeftIcon className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                Back to Projects
+                <div className="w-8 h-8 rounded-full border border-[#e5dec9] flex items-center justify-center group-hover:border-[#d97757] transition-colors">
+                    <ArrowLeftIcon className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+                </div>
+                <span className="text-[11px] font-black uppercase tracking-[0.2em]">Back to Projects</span>
             </Link>
 
-            <div className="card shadow-2xl shadow-black/20 overflow-hidden border border-slate-800/50 backdrop-blur-md">
-                <div className="bg-gradient-to-br from-primary-600 to-primary-800 p-8 text-white relative">
-                    <div className="relative z-10">
-                        <h1 className="text-2xl font-black flex items-center gap-3 tracking-tight">
-                            <RocketLaunchIcon className="w-8 h-8" />
-                            Initialize Project Node
-                        </h1>
-                        <p className="text-primary-100 text-sm font-medium opacity-80">
-                            Deploy a new operational workspace for strategic coordination.
-                        </p>
+            <div className="bg-white rounded-[3rem] shadow-2xl shadow-[#d9cfb0]/20 overflow-hidden border border-[#e5dec9]">
+                <div className="bg-[#f7f3ed]/50 p-12 border-b border-[#f7f3ed] relative overflow-hidden">
+                    <div className="relative z-10 flex items-center gap-6">
+                        <div className="w-16 h-16 bg-[#d97757] rounded-[1.5rem] flex items-center justify-center text-white shadow-lg shadow-[#d97757]/30">
+                            <RocketLaunchIcon className="w-9 h-9" />
+                        </div>
+                        <div>
+                            <h1 className="text-3xl font-black text-[#1c1917] tracking-tighter uppercase leading-none">
+                                Initialize Project Node
+                            </h1>
+                            <p className="text-[#1c1917]/40 text-[10px] font-black uppercase tracking-[0.3em] mt-2">
+                                New Operational Workspace / Node Deployment
+                            </p>
+                        </div>
                     </div>
-                    {/* Decorative element */}
-                    <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
                 </div>
 
-                <form onSubmit={handleSubmit} className="p-8 space-y-6 bg-slate-900/40">
+                <form onSubmit={handleSubmit} className="p-12 space-y-8 bg-white">
                     {error && (
-                        <div className="bg-red-500/10 border border-red-500/20 text-red-400 px-4 py-3 rounded-xl text-xs font-black uppercase tracking-widest">
+                        <div className="bg-red-50 border border-red-100 text-red-800 p-5 rounded-2xl text-[10px] font-black uppercase tracking-widest flex items-center gap-3">
+                            <span className="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
                             {error}
                         </div>
                     )}
 
-                    <div className="space-y-4">
-                        <div>
-                            <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2 px-1">
+                    <div className="space-y-8">
+                        <div className="space-y-3">
+                            <label className="block text-[10px] font-black text-[#1c1917]/40 uppercase tracking-[0.3em] ml-1">
                                 Project Designation
                             </label>
                             <input
@@ -86,51 +91,51 @@ export default function NewProjectForm() {
                                 type="text"
                                 required
                                 placeholder="e.g. Q1 Marketing Campaign"
-                                className="input focus:ring-4 ring-primary-50"
+                                className="input py-5 bg-[#fdfcf9] border-[#e5dec9] focus:border-[#d97757] focus:ring-4 ring-[#d97757]/5"
                             />
                         </div>
 
-                        <div>
-                            <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2 px-1">
+                        <div className="space-y-3">
+                            <label className="block text-[10px] font-black text-[#1c1917]/40 uppercase tracking-[0.3em] ml-1">
                                 Operational Briefing
                             </label>
                             <textarea
                                 name="description"
-                                rows={4}
-                                placeholder="What is this project about? Goals, objectives..."
-                                className="input py-3 focus:ring-4 ring-primary-50"
+                                rows={5}
+                                placeholder="Describe the mission objectives and strategic goals..."
+                                className="input py-5 bg-[#fdfcf9] border-[#e5dec9] focus:border-[#d97757] focus:ring-4 ring-[#d97757]/5 resize-none italic font-serif"
                             ></textarea>
                         </div>
 
-                        <div>
-                            <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2 px-1">
+                        <div className="space-y-3">
+                            <label className="block text-[10px] font-black text-[#1c1917]/40 uppercase tracking-[0.3em] ml-1">
                                 Deadline Synchronicity
                             </label>
                             <input
                                 name="end_date"
                                 type="date"
                                 required
-                                className="input focus:ring-4 ring-primary-50"
+                                className="input py-5 bg-[#fdfcf9] border-[#e5dec9] focus:border-[#d97757] focus:ring-4 ring-[#d97757]/5"
                             />
                         </div>
                     </div>
 
-                    <div className="pt-6 flex items-center gap-4">
+                    <div className="pt-10 flex items-center gap-6">
                         <button
                             type="submit"
                             disabled={loading}
-                            className={`flex-1 btn-primary py-4 flex items-center justify-center gap-2 text-xs font-black uppercase tracking-widest ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            className={`flex-[2] btn-primary py-5 flex items-center justify-center gap-3 text-[11px] font-black uppercase tracking-[0.2em] shadow-xl shadow-[#d97757]/20 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                         >
                             {loading ? (
                                 <>
                                     <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                                    Initializing...
+                                    Synchronizing...
                                 </>
                             ) : 'Establish Workspace'}
                         </button>
                         <Link
                             href="/admin/projects"
-                            className="px-6 py-4 text-slate-500 font-black uppercase tracking-widest hover:text-white transition-all text-[10px]"
+                            className="flex-1 px-8 py-5 text-center text-[#1c1917]/30 font-black uppercase tracking-[0.2em] hover:text-[#d97757] border border-[#e5dec9] rounded-2xl transition-all text-[10px]"
                         >
                             Abort
                         </Link>
