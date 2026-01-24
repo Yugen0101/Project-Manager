@@ -38,9 +38,9 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
         .from('projects')
         .select(`
             *,
-            tasks:tasks(*, assigned_user:users!assigned_to(*)),
+            tasks:tasks(*, users!assigned_to(*)),
             sprints:sprints(*),
-            user_projects:user_projects(*, user:users(*))
+            user_projects:user_projects(*, users(*))
         `)
         .eq('id', id)
         .single();
@@ -95,6 +95,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
                         projectId={id}
                         sprints={sprints}
                         tasks={tasks}
+                        members={project.user_projects || []}
                     />
 
                     {/* Zoom Meetings Integration */}

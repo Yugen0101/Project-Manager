@@ -14,7 +14,7 @@ import { getUsersForMentions } from '@/app/actions/users';
 import { toast } from 'sonner';
 
 interface Member {
-    user: {
+    users: {
         id: string;
         full_name: string;
         email: string;
@@ -54,7 +54,7 @@ export default function TeamManager({
             const result = await getUsersForMentions();
             if (result.success) {
                 // Filter out users who are already members
-                const currentMemberIds = members.map(m => m.user.id);
+                const currentMemberIds = members.map(m => m.users.id);
                 const filteredUsers = (result.data as User[]).filter(u => !currentMemberIds.includes(u.id));
                 setAllUsers(filteredUsers);
             } else {
@@ -103,15 +103,18 @@ export default function TeamManager({
     return (
         <div className="card bg-white border-[#e5dec9] overflow-hidden rounded-[2.5rem] shadow-xl shadow-[#d9cfb0]/10">
             <div className="p-8 border-b border-[#f7f3ed] bg-[#f7f3ed]/30 flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                    <UserGroupIcon className="w-5 h-5 text-[#d97757]" />
-                    <h3 className="text-[11px] font-black text-[#1c1917] uppercase tracking-[0.3em]">Project Personnel</h3>
+                <div className="space-y-1">
+                    <div className="flex items-center gap-3">
+                        <span className="w-6 h-px bg-[#d97757]"></span>
+                        <h3 className="text-[11px] font-black text-[#1c1917] uppercase tracking-[0.4em]">Project Personnel</h3>
+                    </div>
+                    <p className="text-[8px] font-black text-[#1c1917]/30 uppercase tracking-[0.2em] ml-9 underline decoration-[#d97757]/20 underline-offset-4">Assigned Active Units</p>
                 </div>
                 <button
                     onClick={() => setIsModalOpen(true)}
-                    className="p-2 bg-white border border-[#e5dec9] rounded-xl text-[#d97757] hover:bg-[#d97757] hover:text-white transition-all shadow-sm"
+                    className="w-12 h-12 bg-white border border-[#e5dec9] rounded-2xl flex items-center justify-center text-[#d97757] hover:bg-[#d97757] hover:text-white transition-all shadow-sm group active:scale-95"
                 >
-                    <PlusIcon className="w-4 h-4" />
+                    <PlusIcon className="w-6 h-6 group-hover:rotate-90 transition-transform duration-500" />
                 </button>
             </div>
 
@@ -121,28 +124,28 @@ export default function TeamManager({
                         <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest italic">No personnel assigned</p>
                     </div>
                 ) : (
-                    <div className="grid grid-cols-1 gap-4">
+                    <div className="space-y-4">
                         {members.map((member) => (
-                            <div key={member.user.id} className="flex items-center justify-between p-4 bg-[#fdfcf9] border border-[#e5dec9] rounded-2xl group hover:border-[#d97757] transition-all">
-                                <div className="flex items-center gap-4">
-                                    <div className="w-10 h-10 rounded-xl bg-white border border-[#e5dec9] flex items-center justify-center font-black text-[#d97757] shadow-sm">
-                                        {member.user.full_name?.charAt(0)}
+                            <div key={member.users.id} className="flex items-center justify-between p-5 bg-[#fdfcf9] border border-[#e5dec9] rounded-[2rem] group hover:border-[#d97757] transition-all duration-500">
+                                <div className="flex items-center gap-5">
+                                    <div className="w-12 h-12 rounded-2xl bg-white border border-[#e5dec9] flex items-center justify-center font-black text-[#d97757] shadow-sm group-hover:bg-[#d97757] group-hover:text-white transition-all transform group-hover:-rotate-3">
+                                        {member.users.full_name?.charAt(0)}
                                     </div>
-                                    <div>
-                                        <p className="text-[13px] font-black text-[#1c1917] tracking-tight uppercase">{member.user.full_name}</p>
-                                        <div className="flex items-center gap-2 text-[9px] font-black text-[#1c1917]/30 uppercase tracking-tighter italic">
-                                            <span className={`px-2 py-0.5 rounded border ${member.role === 'associate' ? 'bg-[#f7f3ed] border-[#e5dec9] text-[#d97757]' : 'bg-white border-[#e5dec9] text-slate-400'
+                                    <div className="space-y-1">
+                                        <p className="text-[14px] font-black text-[#1c1917] tracking-tight uppercase group-hover:text-[#d97757] transition-colors">{member.users.full_name}</p>
+                                        <div className="flex items-center gap-2">
+                                            <span className={`px-3 py-0.5 rounded-full border text-[8px] font-black uppercase tracking-widest ${member.role === 'associate' ? 'bg-[#f7f3ed] border-[#e5dec9] text-[#d97757]' : 'bg-white border-[#e5dec9] text-[#1c1917]/30 font-serif italic'
                                                 }`}>
-                                                {member.role}
+                                                {member.role === 'associate' ? 'Operations Lead' : 'Tactical Member'}
                                             </span>
                                         </div>
                                     </div>
                                 </div>
                                 <button
-                                    onClick={() => handleRemoveMember(member.user.id)}
-                                    className="opacity-0 group-hover:opacity-100 p-2 text-red-300 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all"
+                                    onClick={() => handleRemoveMember(member.users.id)}
+                                    className="opacity-0 group-hover:opacity-100 w-10 h-10 flex items-center justify-center text-[#1c1917]/10 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all"
                                 >
-                                    <TrashIcon className="w-4 h-4" />
+                                    <TrashIcon className="w-5 h-5" />
                                 </button>
                             </div>
                         ))}

@@ -19,9 +19,9 @@ export default async function AdminProjectKanbanPage({ params }: { params: Promi
         .from('projects')
         .select(`
             *,
-            tasks:tasks(*, assigned_user:users!assigned_to(*)),
+            tasks:tasks(*, users!assigned_to(*)),
             columns:kanban_columns(*),
-            user_projects:user_projects(*, user:users(*))
+            user_projects:user_projects(*, users(*))
         `)
         .eq('id', id)
         .single();

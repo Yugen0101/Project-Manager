@@ -14,6 +14,7 @@ import {
 } from '@heroicons/react/24/outline';
 import TaskComments from '@/components/collaboration/TaskComments';
 import ActivityFeed from '@/components/activity/ActivityFeed';
+import TaskStatusManager from '@/components/tasks/TaskStatusManager';
 
 export default async function TaskDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
@@ -44,6 +45,13 @@ export default async function TaskDetailPage({ params }: { params: Promise<{ id:
     if (error || !task) {
         return notFound();
     }
+
+    // Fetch project columns for status transitions
+    const { data: columns } = await supabase
+        .from('kanban_columns')
+        .select('*')
+        .eq('project_id', task.project.id)
+        .order('order_index', { ascending: true });
 
     return (
         <div className="max-w-5xl mx-auto space-y-8">
@@ -148,10 +156,11 @@ export default async function TaskDetailPage({ params }: { params: Promise<{ id:
 
                         {task.assignee?.id === user?.id && user?.role !== 'guest' && (
                             <div className="pt-6 border-t border-slate-100">
-                                <button className="w-full btn-primary py-3 flex items-center justify-center gap-2">
-                                    <CheckBadgeIcon className="w-5 h-5" />
-                                    Mark as Complete
-                                </button>
+                                <TaskStatusManager
+                                    task={task}
+                                    columns={columns || []}
+                                    projectId={task.project.id}
+                                />
                             </div>
                         )}
                         {user?.role === 'guest' && (

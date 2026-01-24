@@ -165,15 +165,15 @@ export default function ScheduleMeetingModal({
                         </label>
                         <div className="max-h-40 overflow-y-auto border border-slate-200 rounded-lg p-2 space-y-1 custom-scrollbar bg-slate-50/30">
                             {members.map((member: any) => (
-                                <label key={member.user.id} className="flex items-center gap-3 p-2 hover:bg-white rounded-md cursor-pointer transition-colors border border-transparent hover:border-slate-100">
+                                <label key={member.users.id} className="flex items-center gap-3 p-2 hover:bg-white rounded-md cursor-pointer transition-colors border border-transparent hover:border-slate-100">
                                     <input
                                         type="checkbox"
-                                        checked={selectedParticipants.includes(member.user.id)}
-                                        onChange={() => toggleParticipant(member.user.id)}
+                                        checked={selectedParticipants.includes(member.users.id)}
+                                        onChange={() => toggleParticipant(member.users.id)}
                                         className="w-4 h-4 rounded text-primary-600 border-slate-300 focus:ring-primary-500"
                                     />
                                     <div className="flex flex-col">
-                                        <span className="text-sm font-medium text-slate-700">{member.user.full_name}</span>
+                                        <span className="text-sm font-medium text-slate-700">{member.users.full_name}</span>
                                         <span className="text-[10px] text-slate-400 font-bold uppercase">{member.role}</span>
                                     </div>
                                 </label>

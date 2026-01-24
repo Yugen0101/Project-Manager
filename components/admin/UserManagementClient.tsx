@@ -79,10 +79,13 @@ export default function UserManagementClient({ initialUsers }: { initialUsers: U
             <div className="flex justify-end">
                 <button
                     onClick={() => setIsModalOpen(true)}
-                    className="btn-primary flex items-center gap-2 py-3 px-8"
+                    className="group relative px-10 py-5 bg-[#1c1917] text-[#f7f3ed] rounded-2xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-[#1c1917]/20 active:scale-95"
                 >
-                    <PlusIcon className="w-5 h-5" />
-                    <span className="text-[11px] font-black uppercase tracking-widest">Deploy Personnel</span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#d97757]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div className="flex items-center gap-3 relative z-10">
+                        <PlusIcon className="w-5 h-5 text-[#d97757]" />
+                        <span className="text-[12px] font-black uppercase tracking-[0.3em]">Deploy Personnel</span>
+                    </div>
                 </button>
             </div>
 
@@ -108,41 +111,44 @@ export default function UserManagementClient({ initialUsers }: { initialUsers: U
                                 </div>
                             )}
 
-                            <div className="space-y-2">
-                                <label className="block text-[10px] font-black text-[#1c1917]/40 uppercase tracking-[0.2em] ml-1">Entity Name</label>
+                            <div className="space-y-3">
+                                <label className="block text-[10px] font-black text-[#1c1917]/40 uppercase tracking-[0.3em] font-serif italic ml-1">Entity Name</label>
                                 <input
                                     type="text"
                                     required
-                                    className="input py-4 bg-[#fdfcf9]"
+                                    className="w-full px-5 py-4 bg-[#fdfcf9] border border-[#e5dec9] rounded-2xl text-[13px] font-black text-[#1c1917] focus:ring-1 focus:ring-[#d97757] focus:border-[#d97757] outline-none transition-all placeholder:text-[#1c1917]/10"
                                     placeholder="Enter full name"
                                     value={formData.full_name}
                                     onChange={e => setFormData({ ...formData, full_name: e.target.value })}
                                 />
                             </div>
 
-                            <div className="space-y-2">
-                                <label className="block text-[10px] font-black text-[#1c1917]/40 uppercase tracking-[0.2em] ml-1">Email Allocation</label>
+                            <div className="space-y-3">
+                                <label className="block text-[10px] font-black text-[#1c1917]/40 uppercase tracking-[0.3em] font-serif italic ml-1">Email Allocation</label>
                                 <input
                                     type="email"
                                     required
-                                    className="input py-4 bg-[#fdfcf9]"
+                                    className="w-full px-5 py-4 bg-[#fdfcf9] border border-[#e5dec9] rounded-2xl text-[13px] font-black text-[#1c1917] focus:ring-1 focus:ring-[#d97757] focus:border-[#d97757] outline-none transition-all placeholder:text-[#1c1917]/10"
                                     placeholder="example@taskforge.com"
                                     value={formData.email}
                                     onChange={e => setFormData({ ...formData, email: e.target.value })}
                                 />
                             </div>
 
-                            <div className="space-y-2">
-                                <label className="block text-[10px] font-black text-[#1c1917]/40 uppercase tracking-[0.2em] ml-1">Clearance Tier</label>
-                                <select
-                                    className="input py-4 bg-[#fdfcf9] appearance-none"
-                                    value={formData.role}
-                                    onChange={e => setFormData({ ...formData, role: e.target.value })}
-                                >
-                                    <option value="member">TACTICAL MEMBER</option>
-                                    <option value="associate">OPERATIONS LEAD</option>
-                                    <option value="admin">EXECUTIVE ADMIN</option>
-                                </select>
+                            <div className="space-y-3">
+                                <label className="block text-[10px] font-black text-[#1c1917]/40 uppercase tracking-[0.3em] font-serif italic ml-1">Clearance Tier</label>
+                                <div className="relative">
+                                    <select
+                                        className="w-full px-5 py-4 bg-[#fdfcf9] border border-[#e5dec9] rounded-2xl text-[13px] font-black text-[#1c1917] focus:ring-1 focus:ring-[#d97757] focus:border-[#d97757] outline-none transition-all appearance-none uppercase"
+                                        value={formData.role}
+                                        onChange={e => setFormData({ ...formData, role: e.target.value })}
+                                    >
+                                        <option value="member">TACTICAL MEMBER</option>
+                                        <option value="associate">OPERATIONS LEAD</option>
+                                        <option value="admin">EXECUTIVE ADMIN</option>
+                                    </select>
+                                    <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-[#1c1917]/20 italic text-[11px] font-black">Tier</div>
+                                </div>
                             </div>
 
                             <div className="space-y-2">
