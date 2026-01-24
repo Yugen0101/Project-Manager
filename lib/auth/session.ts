@@ -12,7 +12,7 @@ export interface User {
     can_schedule_meetings: boolean;
 }
 
-// Get current authenticated user with role
+// Get current authenticated user with high-speed metadata resolution
 export async function getCurrentUser(): Promise<User | null> {
     const supabase = await createClient();
 
@@ -22,7 +22,22 @@ export async function getCurrentUser(): Promise<User | null> {
         return null;
     }
 
-    // Use admin client to bypass RLS
+    // 1. Resolve from Metadata (Primary speed path)
+    const metadata = authUser.user_metadata || {};
+
+    // If metadata contains the essential identity fields, return immediately
+    if (metadata.role && metadata.is_active !== undefined) {
+        return {
+            id: authUser.id,
+            email: authUser.email!,
+            full_name: metadata.full_name || 'Anonymous User',
+            role: metadata.role,
+            is_active: metadata.is_active,
+            can_schedule_meetings: metadata.can_schedule_meetings || false,
+        };
+    }
+
+    // 2. Fallback to Database (Registration/Migration path)
     const adminClient = await createAdminClient();
 
     const { data: userData, error: userError } = await adminClient

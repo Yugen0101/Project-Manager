@@ -32,86 +32,51 @@ export async function middleware(request: NextRequest) {
         }
     );
 
-    // Refresh session if expired
+    // 1. Get user and metadata
     const { data: { user }, error } = await supabase.auth.getUser();
-
     const pathname = request.nextUrl.pathname;
 
-    // Public routes
+    // Public routes - Bypass authentication
     if (pathname === '/' || pathname === '/login' || pathname === '/team/login' || pathname === '/auth/callback') {
         return response;
     }
 
     // Redirect to login if not authenticated
     if (error || !user) {
-        // If they were trying to access /team/*, redirect to /team/login
         if (pathname.startsWith('/team')) {
             return NextResponse.redirect(new URL('/team/login', request.url));
         }
         return NextResponse.redirect(new URL('/login', request.url));
     }
 
-    // Use service role client to get user data (bypass RLS)
-    const adminClient = createServerClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.SUPABASE_SERVICE_ROLE_KEY!,
-        {
-            cookies: {
-                getAll() {
-                    return request.cookies.getAll();
-                },
-                setAll(cookiesToSet) {
-                    // No-op for service role
-                },
-            },
-        }
-    );
+    // 2. High-Speed Role Check via Metadata
+    // Leverage natively cached Auth Metadata to avoid per-request DB calls.
+    const metadata = user.user_metadata || {};
+    const userRole = metadata.role || 'member';
+    const isActive = metadata.is_active !== undefined ? metadata.is_active : true;
 
-    const { data: userData, error: userError } = await adminClient
-        .from('users')
-        .select('role, is_active')
-        .eq('id', user.id)
-        .single();
-
-    // Log for debugging
-    console.log('Middleware - User ID:', user.id);
-    console.log('Middleware - User data:', userData);
-    console.log('Middleware - User error:', userError);
-
-    // Check if user profile exists
-    if (userError || !userData) {
-        console.error('Middleware - User profile not found or error:', userError);
-        return NextResponse.redirect(new URL('/login?error=profile_not_found', request.url));
-    }
-
-    // Check if user is active (explicitly check for false, not just falsy)
-    if (userData.is_active === false) {
-        console.log('Middleware - User is inactive');
+    // Reject inactive users immediately (Fast path)
+    if (isActive === false) {
+        console.log('Middleware - Blocking inactive operator:', user.id);
         return NextResponse.redirect(new URL('/login?error=inactive', request.url));
     }
 
-    // Check role-based access
+    // 3. Permission Matrix Validation
     const requiredRole = getRequiredRole(pathname);
-    if (requiredRole && !hasRole(userData.role, requiredRole)) {
-        // Redirect to appropriate dashboard based on role
-        if (userData.role === 'admin') {
-            return NextResponse.redirect(new URL('/admin/dashboard', request.url));
-        } else if (userData.role === 'associate') {
-            return NextResponse.redirect(new URL('/associate/dashboard', request.url));
-        } else if (userData.role === 'team_member' || userData.role === 'member') {
-            return NextResponse.redirect(new URL('/member/dashboard', request.url));
-        } else {
-            return NextResponse.redirect(new URL('/login', request.url));
-        }
+    if (requiredRole && !hasRole(userRole, requiredRole)) {
+        // Redirect to appropriate dashboard based on role to prevent "void" access
+        let redirectUrl = '/login';
+        if (userRole === 'admin') redirectUrl = '/admin/dashboard';
+        else if (userRole === 'associate') redirectUrl = '/associate/dashboard';
+        else if (userRole === 'member' || userRole === 'team_member') redirectUrl = '/member/dashboard';
+
+        return NextResponse.redirect(new URL(redirectUrl, request.url));
     }
 
-    // Special case for unauthorized routes like /analytics or /projects/create for non-admins
-    if ((pathname === '/projects/create' || pathname === '/analytics') && userData.role !== 'admin') {
-        if (userData.role === 'team_member' || userData.role === 'member') {
-            return NextResponse.redirect(new URL('/member/dashboard', request.url));
-        } else if (userData.role === 'associate') {
-            return NextResponse.redirect(new URL('/associate/dashboard', request.url));
-        }
+    // 4. Admin Feature Restrictions
+    if ((pathname === '/projects/create' || pathname === '/analytics') && userRole !== 'admin') {
+        const fallbackUrl = (userRole === 'member' || userRole === 'team_member') ? '/member/dashboard' : '/associate/dashboard';
+        return NextResponse.redirect(new URL(fallbackUrl, request.url));
     }
 
     return response;
