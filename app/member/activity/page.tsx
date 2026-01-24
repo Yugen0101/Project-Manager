@@ -8,10 +8,10 @@ export default async function MemberActivityPage() {
         <div className="max-w-4xl mx-auto space-y-8">
             <div className="flex items-center justify-between">
                 <div>
-                    <h2 className="text-sm font-black text-purple-600 uppercase tracking-widest">Global Updates</h2>
-                    <h1 className="text-4xl font-black text-slate-900">Recent Activity</h1>
+                    <h2 className="text-sm font-bold text-primary-500 uppercase tracking-widest">Global Updates</h2>
+                    <h1 className="text-4xl font-bold text-slate-900 tracking-tight">Recent Activity</h1>
                 </div>
-                <div className="p-3 bg-purple-50 rounded-2xl text-purple-600">
+                <div className="p-3 bg-white rounded-2xl text-primary-500 shadow-lg shadow-primary-500/10 border border-slate-50">
                     <ClockIcon className="w-8 h-8" />
                 </div>
             </div>

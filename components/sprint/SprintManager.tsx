@@ -113,8 +113,8 @@ export default function SprintManager({
     return (
         <div className="space-y-4">
             <div className="flex items-center justify-between mb-6">
-                <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                    <Bars2Icon className="w-5 h-5 text-primary-600" />
+                <h3 className="text-lg font-bold text-[#1c1917] flex items-center gap-2">
+                    <Bars2Icon className="w-5 h-5 text-accent-600" />
                     Sprint Backlog
                 </h3>
                 <button
@@ -128,17 +128,17 @@ export default function SprintManager({
 
             {/* Create Sprint Modal/Form Overlay (Simplified for now) */}
             {isCreating && (
-                <div className="card p-4 border-2 border-primary-100 bg-primary-50/30 mb-6 animate-in slide-in-from-top-4">
+                <div className="card p-4 border-2 border-accent-100 bg-beige-50/50 mb-6 animate-in slide-in-from-top-4">
                     <form onSubmit={handleCreateSprint} className="space-y-4">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <input name="name" placeholder="Sprint Name (e.g. Iteration 1)" required className="input" />
                             <input name="goal" placeholder="Sprint Goal" className="input" />
                             <div className="flex flex-col gap-1">
-                                <label className="text-[10px] font-black text-slate-400 uppercase ml-2">Start Date</label>
+                                <label className="text-[10px] font-black text-[#1c1917]/40 uppercase ml-2">Start Date</label>
                                 <input name="start_date" type="date" required className="input" />
                             </div>
                             <div className="flex flex-col gap-1">
-                                <label className="text-[10px] font-black text-slate-400 uppercase ml-2">End Date</label>
+                                <label className="text-[10px] font-black text-[#1c1917]/40 uppercase ml-2">End Date</label>
                                 <input name="end_date" type="date" required className="input" />
                             </div>
                         </div>
@@ -152,26 +152,26 @@ export default function SprintManager({
 
             {/* Active Sprint Section */}
             {activeSprint && (
-                <div className="card border-primary-200 overflow-hidden mb-6">
-                    <div className="p-4 bg-primary-50 flex items-center justify-between border-b border-primary-100">
+                <div className="card border-accent-200 overflow-hidden mb-6">
+                    <div className="p-4 bg-beige-50 flex items-center justify-between border-b border-beige-200">
                         <div className="flex items-center gap-3">
                             <button onClick={() => toggleExpand(activeSprint.id)}>
                                 {expandedSprints[activeSprint.id] ? <ChevronDownIcon className="w-4 h-4" /> : <ChevronRightIcon className="w-4 h-4" />}
                             </button>
-                            <span className="bg-emerald-500 text-white text-[10px] font-black px-2 py-0.5 rounded animate-pulse uppercase">Active</span>
-                            <h4 className="font-bold text-primary-900">{activeSprint.name}</h4>
-                            <span className="text-xs text-primary-600 font-medium">{format(new Date(activeSprint.start_date), 'MMM d')} - {format(new Date(activeSprint.end_date), 'MMM d')}</span>
+                            <span className="bg-status-success text-white text-[10px] font-black px-2 py-0.5 rounded animate-pulse uppercase">Active</span>
+                            <h4 className="font-bold text-[#1c1917]">{activeSprint.name}</h4>
+                            <span className="text-xs text-accent-600 font-medium">{format(new Date(activeSprint.start_date), 'MMM d')} - {format(new Date(activeSprint.end_date), 'MMM d')}</span>
                         </div>
                         <button
                             onClick={() => handleUpdateStatus(activeSprint.id, 'completed')}
-                            className="btn-primary-sm bg-emerald-600 hover:bg-emerald-700 border-none flex items-center gap-2"
+                            className="btn-primary-sm bg-status-success hover:bg-emerald-600 border-none flex items-center gap-2"
                         >
                             <CheckBadgeIcon className="w-4 h-4" />
                             Complete Sprint
                         </button>
                     </div>
                     {expandedSprints[activeSprint.id] && (
-                        <div className="p-2 divide-y divide-slate-100">
+                        <div className="p-2 divide-y divide-beige-100">
                             {tasks.filter(t => t.sprint_id === activeSprint.id).map(task => (
                                 <TaskRow key={task.id} task={task} />
                             ))}
@@ -183,17 +183,17 @@ export default function SprintManager({
             {/* Planned Sprints */}
             {plannedSprints.map(sprint => (
                 <div key={sprint.id} className="card overflow-hidden">
-                    <div className="p-4 bg-slate-50 flex items-center justify-between border-b border-slate-100">
+                    <div className="p-4 bg-white flex items-center justify-between border-b border-beige-200">
                         <div className="flex items-center gap-3">
                             <button onClick={() => toggleExpand(sprint.id)}>
                                 {expandedSprints[sprint.id] ? <ChevronDownIcon className="w-4 h-4" /> : <ChevronRightIcon className="w-4 h-4" />}
                             </button>
-                            <h4 className="font-bold text-slate-700">{sprint.name}</h4>
-                            <span className="text-xs text-slate-400 font-medium">{format(new Date(sprint.start_date), 'MMM d')} - {format(new Date(sprint.end_date), 'MMM d')}</span>
+                            <h4 className="font-bold text-[#1c1917]">{sprint.name}</h4>
+                            <span className="text-xs text-[#1c1917]/60 font-medium">{format(new Date(sprint.start_date), 'MMM d')} - {format(new Date(sprint.end_date), 'MMM d')}</span>
                         </div>
                         <button
                             onClick={() => handleUpdateStatus(sprint.id, 'active')}
-                            className="btn-secondary-sm flex items-center gap-2 border-primary-200 text-primary-600 hover:bg-primary-50"
+                            className="btn-secondary-sm flex items-center gap-2 border-beige-200 text-accent-600 hover:bg-beige-50"
                         >
                             <PlayIcon className="w-4 h-4" />
                             Start Sprint
@@ -211,19 +211,19 @@ export default function SprintManager({
 
             {/* Backlog Section */}
             <div className="card overflow-hidden">
-                <div className="p-4 bg-slate-100/50 flex items-center justify-between border-b border-slate-200">
+                <div className="p-4 bg-beige-50 flex items-center justify-between border-b border-beige-200">
                     <div className="flex items-center gap-3">
                         <button onClick={() => toggleExpand('backlog')}>
                             {expandedSprints['backlog'] ? <ChevronDownIcon className="w-4 h-4" /> : <ChevronRightIcon className="w-4 h-4" />}
                         </button>
-                        <h4 className="font-bold text-slate-900">Project Backlog</h4>
-                        <span className="text-xs font-black px-2 py-0.5 bg-white border border-slate-200 text-slate-400 rounded-full">
+                        <h4 className="font-bold text-[#1c1917]">Project Backlog</h4>
+                        <span className="text-xs font-black px-2 py-0.5 bg-white border border-beige-200 text-[#1c1917]/50 rounded-full">
                             {backlogTasks.length} tasks
                         </span>
                     </div>
                     <button
                         onClick={() => setIsAddingTask(true)}
-                        className="btn-primary-sm bg-slate-800 border-none text-[10px] flex items-center gap-2"
+                        className="btn-primary-sm bg-accent-500 border-none text-[10px] flex items-center gap-2 hover:bg-accent-600 text-white"
                     >
                         <PlusIcon className="w-3.5 h-3.5" />
                         Quick Add

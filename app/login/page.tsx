@@ -49,34 +49,34 @@ function LoginForm() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-[#fdfcf9] relative overflow-hidden px-6 selection:bg-[#d97757] selection:text-white">
-            {/* Geometric Background Element */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#f7f3ed] rounded-full -z-10 opacity-50"></div>
-            <div className="absolute top-[-5%] right-[-5%] w-64 h-64 bg-[#d97757]/5 rounded-3xl rotate-12 -z-10"></div>
+        <div className="min-h-screen flex items-center justify-center bg-beige-50 relative overflow-hidden px-6 selection:bg-accent-500 selection:text-white">
+            {/* Warm Beige Decorative Background Elements */}
+            <div className="absolute top-[-20%] right-[-10%] w-[60%] h-[80%] bg-beige-100/50 blur-[120px] rounded-full -z-10"></div>
+            <div className="absolute bottom-[-10%] left-[-5%] w-[40%] h-[50%] bg-accent-100/30 blur-[100px] rounded-full -z-10"></div>
 
             <div className="w-full max-w-md relative z-10">
-                <div className="card shadow-2xl shadow-[#d9cfb0]/30 border-[#e5dec9]">
+                <div className="card shadow-2xl shadow-beige-300/20 border-beige-200 !p-10">
                     <div className="text-center mb-10">
-                        <div className="relative w-64 h-64 mx-auto mb-4">
-                            <Image src="/logo.png" alt="Logo" fill className="object-contain" />
+                        <div className="relative w-16 h-16 flex items-center justify-center mx-auto mb-6">
+                            <Image src="/logo.png" alt="Logo" width={40} height={40} className="object-contain" />
                         </div>
-                        <h1 className="text-3xl font-black text-[#1c1917] mb-2 tracking-tighter">
-                            Task<span className="text-[#d97757]">Forge</span>
+                        <h1 className="text-3xl font-bold text-[#1c1917] mb-2 tracking-tight">
+                            Task<span className="text-accent-600">Forge</span>
                         </h1>
-                        <p className="text-[11px] font-black uppercase tracking-[0.2em] text-[#1c1917]/40">
+                        <p className="text-xs font-bold uppercase tracking-wider text-[#1c1917]/40">
                             Secure Workspace Access
                         </p>
                     </div>
 
                     <form onSubmit={handleLogin} className="space-y-6">
                         {error && (
-                            <div className="bg-red-50 border border-red-100 text-red-900 px-4 py-3 rounded-xl text-[11px] font-black uppercase tracking-wider">
+                            <div className="bg-status-error/10 border border-status-error/20 text-status-error px-4 py-3 rounded-xl text-xs font-bold tracking-tight">
                                 {error}
                             </div>
                         )}
 
                         <div className="space-y-2">
-                            <label htmlFor="email" className="block text-[10px] font-black uppercase tracking-widest text-[#1c1917]/50 ml-1">
+                            <label htmlFor="email" className="block text-xs font-bold text-[#1c1917]/50 ml-1">
                                 Email Address
                             </label>
                             <input
@@ -85,18 +85,18 @@ function LoginForm() {
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
-                                className="input"
-                                placeholder="name@nexus.com"
+                                className="input !py-3.5"
+                                placeholder="name@company.com"
                                 disabled={loading}
                             />
                         </div>
 
                         <div className="space-y-2">
                             <div className="flex justify-between items-center ml-1">
-                                <label htmlFor="password" className="block text-[10px] font-black uppercase tracking-widest text-[#1c1917]/50">
-                                    Auth Key
+                                <label htmlFor="password" className="block text-xs font-bold text-slate-500">
+                                    Password
                                 </label>
-                                <a href="#" className="text-[9px] font-black uppercase tracking-widest text-[#d97757] hover:text-[#c26242]">Request Reset</a>
+                                <a href="#" className="text-[10px] font-bold text-primary-500 hover:text-primary-600">Forgot Password?</a>
                             </div>
                             <input
                                 id="password"
@@ -104,7 +104,7 @@ function LoginForm() {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
-                                className="input"
+                                className="input !py-3.5"
                                 placeholder="••••••••"
                                 disabled={loading}
                             />
@@ -113,24 +113,24 @@ function LoginForm() {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full btn-primary py-4 disabled:opacity-50 disabled:cursor-not-allowed text-[11px] font-black uppercase tracking-[0.2em]"
+                            className="w-full btn-primary !py-4 disabled:opacity-50 disabled:cursor-not-allowed shadow-xl shadow-primary-500/30"
                         >
-                            {loading ? 'Validating...' : 'Authorize Login'}
+                            {loading ? 'Authorizing...' : 'Sign In to Workspace'}
                         </button>
                     </form>
 
                     <div className="mt-8 text-center">
-                        <p className="text-[9px] font-black text-[#1c1917]/30 uppercase tracking-[0.3em]">Restricted Node Protocol v.2.6</p>
+                        <p className="text-[10px] font-bold text-slate-300 uppercase tracking-widest">Enterprise Protocol 2.6.0</p>
                     </div>
                 </div>
 
-                <div className="mt-8 text-center text-[10px] font-black uppercase tracking-[0.2em] text-[#1c1917]/40">
+                <div className="mt-8 text-center text-[10px] font-bold uppercase tracking-wider text-slate-400">
                     <p>© 2026 TaskForge. All Rights Reserved.</p>
                 </div>
             </div>
 
             {/* Subtle Texture Overlay */}
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-5 pointer-events-none"></div>
+            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] pointer-events-none"></div>
         </div>
     );
 }
@@ -138,8 +138,8 @@ function LoginForm() {
 export default function LoginPage() {
     return (
         <Suspense fallback={
-            <div className="min-h-screen flex items-center justify-center bg-[#fdfcf9]">
-                <div className="w-8 h-8 border-4 border-[#d97757] border-t-transparent rounded-full animate-spin"></div>
+            <div className="min-h-screen flex items-center justify-center bg-surface-50">
+                <div className="w-10 h-10 border-4 border-primary-500 border-t-transparent rounded-full animate-spin"></div>
             </div>
         }>
             <LoginForm />

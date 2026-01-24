@@ -29,8 +29,8 @@ export default async function AdminTasksPage({
         .from('tasks')
         .select(`
             *,
-            project:projects(name),
-            assigned_user:users(full_name, email)
+            project:projects!project_id(name),
+            assigned_user:users!assigned_to(full_name, email)
         `, { count: 'exact' });
 
     if (filterStatus !== 'all') {
@@ -165,7 +165,13 @@ export default async function AdminTasksPage({
                         </tbody>
                     </table>
                 </div>
-                {(!tasks || tasks.length === 0) && (
+                {error && (
+                    <div className="p-8 text-center bg-red-50 text-red-600 rounded-2xl mx-8 mb-8 border border-red-200">
+                        <p className="font-bold">System Error: Unable to retrieve registry vectors.</p>
+                        <code className="text-xs mt-2 block bg-red-100 p-2 rounded">{JSON.stringify(error, null, 2)}</code>
+                    </div>
+                )}
+                {(!tasks || tasks.length === 0) && !error && (
                     <div className="py-32 flex flex-col items-center justify-center bg-[#fdfcf9]">
                         <div className="w-20 h-20 bg-[#f7f3ed] rounded-full flex items-center justify-center text-[#1c1917]/20 mb-6">
                             <ClipboardDocumentListIcon className="w-10 h-10" />

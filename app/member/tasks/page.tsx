@@ -50,80 +50,81 @@ export default async function MemberTasksPage({
         <div className="space-y-12 animate-in fade-in duration-700">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
                 <div>
-                    <h1 className="text-4xl font-black text-[#1c1917] tracking-tighter uppercase flex items-center gap-4">
-                        <div className="w-12 h-12 bg-[#f7f3ed] rounded-2xl flex items-center justify-center text-[#d97757] border border-[#e5dec9]">
+                    <h1 className="text-4xl font-bold text-slate-900 tracking-tight flex items-center gap-4">
+                        <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-primary-500 border border-slate-100 shadow-lg shadow-primary-500/5">
                             <ClipboardDocumentListIcon className="w-7 h-7" />
                         </div>
-                        WORKSPACE
+                        Workspace
                     </h1>
-                    <p className="text-[#1c1917]/40 mt-3 font-black uppercase tracking-[0.2em] text-[11px]">
-                        Active Resonance: {tasks?.filter(t => t.status !== 'completed').length || 0} Critical Vectors
+                    <p className="text-slate-400 mt-2 font-semibold text-sm">
+                        You have {tasks?.filter(t => t.status !== 'completed').length || 0} active tasks requiring attention.
                     </p>
                 </div>
             </div>
 
             {/* Filters */}
-            <div className="flex border-b border-[#e5dec9] gap-10">
+            <div className="flex border-b border-slate-100 gap-10">
                 <Link
                     href="/member/tasks?status=all"
-                    className={`pb-5 text-[11px] font-black uppercase tracking-[0.2em] transition-all relative ${filterStatus === 'all' ? 'text-[#d97757]' : 'text-[#1c1917]/30 hover:text-[#d97757]/60'}`}
+                    className={`pb-4 text-sm font-bold transition-all relative ${filterStatus === 'all' ? 'text-primary-500' : 'text-slate-400 hover:text-slate-600'}`}
                 >
-                    Registry
-                    {filterStatus === 'all' && <div className="absolute bottom-[-1px] left-0 w-full h-[2px] bg-[#d97757] rounded-full"></div>}
+                    All Tasks
+                    {filterStatus === 'all' && <div className="absolute bottom-[-1px] left-0 w-full h-[3px] bg-primary-500 rounded-full"></div>}
                 </Link>
                 <Link
                     href="/member/tasks?status=in_progress"
-                    className={`pb-5 text-[11px] font-black uppercase tracking-[0.2em] transition-all relative ${filterStatus === 'in_progress' ? 'text-[#d97757]' : 'text-[#1c1917]/30 hover:text-[#d97757]/60'}`}
+                    className={`pb-4 text-sm font-bold transition-all relative ${filterStatus === 'in_progress' ? 'text-primary-500' : 'text-slate-400 hover:text-slate-600'}`}
                 >
                     In Progress
-                    {filterStatus === 'in_progress' && <div className="absolute bottom-[-1px] left-0 w-full h-[2px] bg-[#d97757] rounded-full"></div>}
+                    {filterStatus === 'in_progress' && <div className="absolute bottom-[-1px] left-0 w-full h-[3px] bg-primary-500 rounded-full"></div>}
                 </Link>
                 <Link
                     href="/member/tasks?status=completed"
-                    className={`pb-5 text-[11px] font-black uppercase tracking-[0.2em] transition-all relative ${filterStatus === 'completed' ? 'text-[#d97757]' : 'text-[#1c1917]/30 hover:text-[#d97757]/60'}`}
+                    className={`pb-4 text-sm font-bold transition-all relative ${filterStatus === 'completed' ? 'text-primary-500' : 'text-slate-400 hover:text-slate-600'}`}
                 >
-                    Resolved
-                    {filterStatus === 'completed' && <div className="absolute bottom-[-1px] left-0 w-full h-[2px] bg-[#d97757] rounded-full"></div>}
+                    Completed
+                    {filterStatus === 'completed' && <div className="absolute bottom-[-1px] left-0 w-full h-[3px] bg-primary-500 rounded-full"></div>}
                 </Link>
             </div>
 
             {/* Task Cards/List */}
             <div className="grid grid-cols-1 gap-6">
                 {tasks?.map((task) => (
-                    <div key={task.id} className="group bg-white border border-[#e5dec9] rounded-3xl p-8 hover:shadow-2xl hover:shadow-[#d9cfb0]/20 hover:border-[#d97757]/30 transition-all duration-500">
+                    <div key={task.id} className="group bg-white border border-slate-50 shadow-sm rounded-3xl p-8 hover:shadow-xl hover:shadow-secondary-500/5 hover:border-primary-100/50 transition-all duration-500">
                         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                             <div className="flex-1 min-w-0">
-                                <div className="flex items-center gap-4 mb-3">
-                                    <span className="px-3 py-1 bg-[#f7f3ed] text-[9px] font-black uppercase text-[#1c1917]/40 rounded-full border border-[#e5dec9] tracking-widest italic font-serif">
+                                <div className="flex items-center gap-3 mb-3">
+                                    <span className="px-3 py-1 bg-slate-50 text-[10px] font-bold uppercase text-slate-400 rounded-lg border border-slate-100 tracking-tight">
                                         {task.project?.name}
                                     </span>
                                     <span className={`badge ${task.status === 'completed' ? 'badge-success' :
                                         task.status === 'in_progress' ? 'badge-info' :
                                             'badge-warning'
                                         }`}>
-                                        {task.status}
+                                        {task.status?.replace('_', ' ')}
                                     </span>
                                 </div>
-                                <h3 className="text-xl font-black text-[#1c1917] mb-2 tracking-tight group-hover:text-[#d97757] transition-colors uppercase">
+                                <h3 className="text-xl font-bold text-slate-900 mb-2 tracking-tight group-hover:text-primary-500 transition-colors">
                                     {task.title}
                                 </h3>
-                                <p className="text-[#1c1917]/40 text-xs font-semibold line-clamp-1 italic">
-                                    {task.description || 'Global operational parameters pending.'}
+                                <p className="text-slate-500 text-sm font-medium line-clamp-1">
+                                    {task.description || 'No description provided.'}
                                 </p>
                             </div>
 
                             <div className="flex items-center gap-10 shrink-0">
                                 <div className="text-right hidden sm:block">
-                                    <p className="text-[9px] font-black uppercase text-[#1c1917]/30 tracking-widest mb-2">TARGET DATE</p>
-                                    <div className="flex items-center gap-2 text-sm font-black text-[#1c1917]">
-                                        {task.due_date ? format(new Date(task.due_date), 'MMM dd, yyyy') : 'Indeterminate'}
+                                    <p className="text-[10px] font-bold uppercase text-slate-300 tracking-wider mb-1">DUE DATE</p>
+                                    <div className="flex items-center gap-2 text-sm font-bold text-slate-600">
+                                        <CalendarIcon className="w-4 h-4 text-slate-300" />
+                                        {task.due_date ? format(new Date(task.due_date), 'MMM dd, yyyy') : 'No date'}
                                     </div>
                                 </div>
                                 <Link
                                     href={`/member/tasks/${task.id}`}
-                                    className="w-12 h-12 bg-[#f7f3ed] rounded-2xl flex items-center justify-center text-[#1c1917]/20 group-hover:bg-[#d97757] group-hover:text-white transition-all duration-500 border border-[#e5dec9]"
+                                    className="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center text-slate-300 group-hover:bg-primary-500 group-hover:text-white group-hover:shadow-lg group-hover:shadow-primary-500/30 transition-all duration-500 border border-slate-100"
                                 >
-                                    <ChevronRightIcon className="w-6 h-6" />
+                                    <ChevronRightIcon className="w-5 h-5" />
                                 </Link>
                             </div>
                         </div>
@@ -131,12 +132,12 @@ export default async function MemberTasksPage({
                 ))}
 
                 {(!tasks || tasks.length === 0) && (
-                    <div className="py-32 flex flex-col items-center justify-center bg-white rounded-3xl border-2 border-dashed border-[#e5dec9]">
-                        <div className="w-20 h-20 bg-[#f7f3ed] rounded-full flex items-center justify-center text-[#1c1917]/20 mb-6">
+                    <div className="py-24 flex flex-col items-center justify-center bg-white rounded-[2rem] border-2 border-dashed border-slate-100">
+                        <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center text-slate-200 mb-6">
                             <ClipboardDocumentListIcon className="w-10 h-10" />
                         </div>
-                        <h3 className="text-xl font-black text-[#1c1917] tracking-tight uppercase">Registry Idle</h3>
-                        <p className="text-[11px] font-black text-[#1c1917]/40 uppercase tracking-[0.2em] mt-2 italic text-center">Zero critical vectors detected. Operations nominal.</p>
+                        <h3 className="text-xl font-bold text-slate-900 tracking-tight">No tasks found</h3>
+                        <p className="text-slate-400 font-medium mt-2 text-center max-w-sm">You're all caught up! Enjoy your free time or check back later for new assignments.</p>
                     </div>
                 )}
             </div>

@@ -13,6 +13,7 @@ import {
 import SignOutButton from '@/components/auth/SignOutButton';
 import NotificationCenter from '@/components/notifications/NotificationCenter';
 import MemberNav from '@/components/member/MemberNav';
+import MemberMobileMenu from '@/components/navigation/MemberMobileMenu';
 import { Toaster } from 'sonner';
 
 export default async function MemberLayout({
@@ -23,34 +24,38 @@ export default async function MemberLayout({
     const user = await getCurrentUser();
 
     return (
-        <div className="min-h-screen bg-[#fdfcf9] text-[#1c1917] flex flex-col">
+        <div className="min-h-screen bg-beige-50 text-[#1c1917] flex flex-col relative overflow-hidden selection:bg-accent-500 selection:text-white">
+            {/* Subtle background glow */}
+            <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-beige-100/50 blur-[100px] rounded-full -z-10"></div>
+
             <Toaster position="top-right" richColors />
-            {/* Simple Top Navigation */}
-            <header className="h-20 bg-white/80 border-b border-[#e5dec9] px-6 sm:px-12 flex items-center justify-between sticky top-0 z-50 backdrop-blur-xl">
-                <div className="flex items-center gap-8">
-                    <div className="flex items-center gap-4">
-                        <div className="relative w-24 h-24">
-                            <Image src="/logo.png" alt="Logo" fill className="object-contain" />
+
+            {/* Refined Top Navigation */}
+            <header className="h-20 bg-white/80 border-b border-beige-200 px-6 sm:px-12 flex items-center justify-between sticky top-0 z-50 backdrop-blur-xl">
+                <div className="flex items-center gap-4 sm:gap-10">
+                    <div className="flex items-center gap-3">
+                        <MemberMobileMenu />
+                        <div className="relative w-12 h-12 flex items-center justify-center">
+                            <Image src="/logo.png" alt="Logo" width={40} height={40} className="object-contain" />
                         </div>
-                        <h1 className="text-4xl font-black tracking-tighter text-[#1c1917]">
-                            TaskForge
+                        <h1 className="text-2xl font-bold tracking-tight text-[#1c1917] hidden sm:block">
+                            Task<span className="text-accent-600">Forge</span>
                         </h1>
                     </div>
 
                     <MemberNav />
-
                 </div>
 
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-5">
                     <NotificationCenter />
-                    <div className="h-8 w-px bg-[#e5dec9] mx-1"></div>
-                    <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-lg bg-[#f7f3ed] flex items-center justify-center text-xs font-black text-[#d97757] border border-[#e5dec9]">
+                    <div className="h-6 w-px bg-beige-200 mx-1"></div>
+                    <div className="flex items-center gap-3 bg-beige-50 p-1.5 pr-4 rounded-xl border border-beige-100">
+                        <div className="w-8 h-8 rounded-lg bg-accent-500 flex items-center justify-center text-xs font-bold text-white shadow-md shadow-accent-500/20">
                             {user?.full_name?.charAt(0) || 'M'}
                         </div>
                         <div className="hidden sm:block">
-                            <p className="text-xs font-black text-[#1c1917] leading-none">{user?.full_name}</p>
-                            <p className="text-[9px] font-black text-[#d97757] uppercase tracking-widest mt-1">
+                            <p className="text-xs font-bold text-[#1c1917] leading-tight">{user?.full_name}</p>
+                            <p className="text-[10px] font-bold text-[#1c1917]/40 uppercase tracking-tight mt-0.5">
                                 {user?.role === 'admin' ? 'Administrator' :
                                     user?.role === 'associate' ? 'Project Lead' :
                                         user?.role === 'guest' ? 'Guest View' : 'Contributor'}

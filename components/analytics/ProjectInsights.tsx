@@ -36,9 +36,9 @@ export default function ProjectInsights({ projectId }: { projectId: string }) {
     if (!health) return null;
 
     const statusColors = {
-        'On Track': 'bg-emerald-50 text-emerald-700 border-emerald-100',
-        'At Risk': 'bg-orange-50 text-orange-700 border-orange-100',
-        'Delayed': 'bg-red-50 text-red-700 border-red-100'
+        'On Track': 'bg-beige-50 text-status-success border-beige-200',
+        'At Risk': 'bg-status-warning/10 text-status-warning border-status-warning/20',
+        'Delayed': 'bg-status-error/10 text-status-error border-status-error/20'
     };
 
     const statusIcons = {
@@ -63,31 +63,31 @@ export default function ProjectInsights({ projectId }: { projectId: string }) {
                 </div>
 
                 {/* Progress Card */}
-                <div className="card p-6 border-primary-100 bg-primary-50/20">
+                <div className="card p-6 border-beige-200 bg-white">
                     <div className="flex items-center justify-between mb-2">
-                        <span className="text-[10px] font-black uppercase tracking-widest text-primary-600">Completion</span>
-                        <ArrowTrendingUpIcon className="w-5 h-5 text-primary-600" />
+                        <span className="text-[10px] font-black uppercase tracking-widest text-accent-600">Completion</span>
+                        <ArrowTrendingUpIcon className="w-5 h-5 text-accent-600" />
                     </div>
                     <div className="flex items-baseline gap-2">
-                        <h4 className="text-4xl font-black text-slate-900">{health.progress_percentage}%</h4>
+                        <h4 className="text-4xl font-black text-[#1c1917]">{health.progress_percentage}%</h4>
                     </div>
-                    <div className="w-full h-2 bg-slate-200 rounded-full mt-3 overflow-hidden">
+                    <div className="w-full h-2 bg-beige-100 rounded-full mt-3 overflow-hidden">
                         <div
-                            className="h-full bg-primary-600 rounded-full transition-all duration-1000"
+                            className="h-full bg-accent-500 rounded-full transition-all duration-1000"
                             style={{ width: `${health.progress_percentage}%` }}
                         />
                     </div>
                 </div>
 
                 {/* Stuck Tasks Count */}
-                <div className="card p-6 bg-slate-900 text-white border-0 shadow-lg">
-                    <div className="flex items-center justify-between mb-2 text-primary-400">
+                <div className="card p-6 bg-white border-[#e5dec9] shadow-lg shadow-[#d9cfb0]/10">
+                    <div className="flex items-center justify-between mb-2 text-[#d97757]">
                         <span className="text-[10px] font-black uppercase tracking-widest opacity-80">Workflow Risks</span>
                         <ClockIcon className="w-5 h-5" />
                     </div>
                     <div className="flex items-center gap-3">
-                        <h4 className="text-4xl font-black">{(risks?.stuckTasks?.length || 0) + (risks?.overdueRisks?.length || 0)}</h4>
-                        <div className="text-xs font-bold leading-tight text-slate-400">
+                        <h4 className="text-4xl font-black text-[#1c1917]">{(risks?.stuckTasks?.length || 0) + (risks?.overdueRisks?.length || 0)}</h4>
+                        <div className="text-xs font-bold leading-tight text-[#1c1917]/60">
                             Stuck or High-Priority<br />Overdue Tasks
                         </div>
                     </div>
@@ -96,22 +96,22 @@ export default function ProjectInsights({ projectId }: { projectId: string }) {
 
             {/* Risk Indicators List */}
             {((risks?.stuckTasks?.length || 0) > 0 || (risks?.overdueRisks?.length || 0) > 0) && (
-                <div className="card p-4 border-slate-100 bg-slate-50/50">
-                    <h5 className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 flex items-center gap-2">
-                        <ExclamationTriangleIcon className="w-4 h-4 text-orange-500" />
+                <div className="card p-4 border-[#e5dec9] bg-[#f7f3ed]/50">
+                    <h5 className="text-[10px] font-black uppercase tracking-widest text-[#1c1917]/40 mb-3 flex items-center gap-2">
+                        <ExclamationTriangleIcon className="w-4 h-4 text-[#d97757]" />
                         Specific Delivery Risks
                     </h5>
                     <div className="flex flex-wrap gap-2">
                         {risks.overdueRisks.map((task: any) => (
                             <div key={task.id} className="bg-white px-3 py-1.5 rounded-lg border border-red-200 flex items-center gap-2 shadow-sm">
                                 <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-                                <span className="text-xs font-bold text-slate-700">CRITICAL OVERDUE: {task.title}</span>
+                                <span className="text-xs font-bold text-[#1c1917]">CRITICAL OVERDUE: {task.title}</span>
                             </div>
                         ))}
                         {risks.stuckTasks.map((task: any) => (
-                            <div key={task.id} className="bg-white px-3 py-1.5 rounded-lg border border-orange-200 flex items-center gap-2 shadow-sm">
-                                <span className="w-1.5 h-1.5 rounded-full bg-orange-500" />
-                                <span className="text-xs font-bold text-slate-700">STUCK: {task.title}</span>
+                            <div key={task.id} className="bg-white px-3 py-1.5 rounded-lg border border-[#d97757]/30 flex items-center gap-2 shadow-sm">
+                                <span className="w-1.5 h-1.5 rounded-full bg-[#d97757]" />
+                                <span className="text-xs font-bold text-[#1c1917]">STUCK: {task.title}</span>
                             </div>
                         ))}
                     </div>

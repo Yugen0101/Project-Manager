@@ -45,6 +45,12 @@ export default function TeamManager({
     useEffect(() => {
         if (isModalOpen) {
             fetchUsers();
+            // Lock scroll
+            const originalStyle = window.getComputedStyle(document.body).overflow;
+            document.body.style.overflow = 'hidden';
+            return () => {
+                document.body.style.overflow = originalStyle;
+            };
         }
     }, [isModalOpen]);
 
@@ -155,60 +161,92 @@ export default function TeamManager({
 
             {/* Add Member Modal */}
             {isModalOpen && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-[#1c1917]/40 backdrop-blur-xl animate-in fade-in duration-300">
-                    <div className="bg-white rounded-[2.5rem] shadow-2xl w-full max-w-md overflow-hidden border border-[#e5dec9] animate-in zoom-in-95 duration-500">
-                        <div className="px-10 py-8 border-b border-[#f7f3ed] flex items-center justify-between bg-[#f7f3ed]/30 text-beige">
-                            <div>
-                                <h2 className="text-xl font-black text-[#1c1917] tracking-tight uppercase">DEPLOY PERSONNEL</h2>
-                                <p className="text-[9px] font-black text-[#1c1917]/30 uppercase tracking-[0.2em] mt-1">Assign asset to operational matrix</p>
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-[#1c1917]/20 backdrop-blur-md animate-in fade-in duration-300">
+                    <div className="bg-[#fdfcf9] rounded-[2rem] shadow-2xl shadow-[#d9cfb0]/40 w-full max-w-md overflow-hidden border border-[#e5dec9] animate-in zoom-in-95 duration-500 scale-100">
+                        <div className="px-8 py-6 border-b border-[#e5dec9] flex items-center justify-between bg-white/50">
+                            <div className="flex items-center gap-3">
+                                <div className="w-10 h-10 rounded-xl bg-[#f7f3ed] flex items-center justify-center text-[#d97757] border border-[#d9cfb0]/50">
+                                    <UserGroupIcon className="w-5 h-5" />
+                                </div>
+                                <div>
+                                    <h2 className="text-lg font-black text-[#1c1917] tracking-tight uppercase">DEPLOY PERSONNEL</h2>
+                                    <p className="text-[9px] font-bold text-[#1c1917]/40 uppercase tracking-[0.2em] mt-0.5">Assign asset to operational matrix</p>
+                                </div>
                             </div>
-                            <button onClick={() => setIsModalOpen(false)} className="w-10 h-10 rounded-full bg-white border border-[#e5dec9] flex items-center justify-center text-[#1c1917]/40 hover:text-[#d97757] transition-all">
-                                <XMarkIcon className="w-6 h-6" />
+                            <button onClick={() => setIsModalOpen(false)} className="w-8 h-8 rounded-full bg-white border border-[#e5dec9] flex items-center justify-center text-[#1c1917]/30 hover:text-[#d97757] hover:border-[#d97757] transition-all">
+                                <XMarkIcon className="w-4 h-4" />
                             </button>
                         </div>
 
-                        <form onSubmit={handleAddMember} className="p-10 space-y-6">
-                            <div className="space-y-2">
-                                <label className="block text-[10px] font-black text-[#1c1917]/40 uppercase tracking-[0.2em] ml-1">Select Asset</label>
-                                <select
-                                    required
-                                    className="input py-4 bg-[#fdfcf9] appearance-none"
-                                    value={selectedUserId}
-                                    onChange={e => setSelectedUserId(e.target.value)}
-                                >
-                                    <option value="">Choose personnel...</option>
-                                    {allUsers.map(user => (
-                                        <option key={user.id} value={user.id}>{user.full_name} ({user.email})</option>
-                                    ))}
-                                </select>
+                        <form onSubmit={handleAddMember} className="p-8 space-y-6">
+                            <div className="space-y-2 group">
+                                <label className="flex items-center justify-between text-[10px] font-black text-[#1c1917]/40 uppercase tracking-[0.2em] ml-1 group-focus-within:text-[#d97757] transition-colors">
+                                    <span>Select Asset</span>
+                                    <span className="text-[8px] opacity-50">REQUIRED</span>
+                                </label>
+                                <div className="relative">
+                                    <select
+                                        required
+                                        className="w-full px-5 py-4 bg-white border border-[#e5dec9] rounded-xl text-sm font-bold text-[#1c1917] appearance-none focus:outline-none focus:border-[#d97757] focus:ring-4 focus:ring-[#d97757]/10 transition-all shadow-sm"
+                                        value={selectedUserId}
+                                        onChange={e => setSelectedUserId(e.target.value)}
+                                    >
+                                        <option value="">Choose personnel...</option>
+                                        {allUsers.map(user => (
+                                            <option key={user.id} value={user.id}>{user.full_name}</option>
+                                        ))}
+                                    </select>
+                                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-[#1c1917]/30">
+                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                                    </div>
+                                </div>
                             </div>
 
-                            <div className="space-y-2">
-                                <label className="block text-[10px] font-black text-[#1c1917]/40 uppercase tracking-[0.2em] ml-1">Designated Role</label>
-                                <select
-                                    className="input py-4 bg-[#fdfcf9] appearance-none"
-                                    value={selectedRole}
-                                    onChange={e => setSelectedRole(e.target.value)}
-                                >
-                                    <option value="member">Tactical Member</option>
-                                    <option value="associate">Operations Lead</option>
-                                </select>
+                            <div className="space-y-2 group">
+                                <label className="flex items-center justify-between text-[10px] font-black text-[#1c1917]/40 uppercase tracking-[0.2em] ml-1 group-focus-within:text-[#d97757] transition-colors">
+                                    <span>Designated Role</span>
+                                    <span className="text-[8px] opacity-50">OPERATIONAL CLEARANCE</span>
+                                </label>
+                                <div className="grid grid-cols-2 gap-3">
+                                    <button
+                                        type="button"
+                                        onClick={() => setSelectedRole('member')}
+                                        className={`px-4 py-3 rounded-xl border flex flex-col items-center gap-2 transition-all ${selectedRole === 'member'
+                                            ? 'bg-[#d97757] border-[#d97757] text-white shadow-lg shadow-[#d97757]/20'
+                                            : 'bg-white border-[#e5dec9] text-[#1c1917]/40 hover:border-[#d97757]/50'
+                                            }`}
+                                    >
+                                        <ShieldCheckIcon className="w-5 h-5" />
+                                        <span className="text-[9px] font-black uppercase tracking-wider">Tactical</span>
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => setSelectedRole('associate')}
+                                        className={`px-4 py-3 rounded-xl border flex flex-col items-center gap-2 transition-all ${selectedRole === 'associate'
+                                            ? 'bg-[#d97757] border-[#d97757] text-white shadow-lg shadow-[#d97757]/20'
+                                            : 'bg-white border-[#e5dec9] text-[#1c1917]/40 hover:border-[#d97757]/50'
+                                            }`}
+                                    >
+                                        <UserGroupIcon className="w-5 h-5" />
+                                        <span className="text-[9px] font-black uppercase tracking-wider">Lead</span>
+                                    </button>
+                                </div>
                             </div>
 
-                            <div className="pt-6 flex gap-4">
+                            <div className="pt-4 flex gap-3">
                                 <button
                                     type="button"
                                     onClick={() => setIsModalOpen(false)}
-                                    className="btn-secondary flex-1 py-4 border-[#e5dec9]"
+                                    className="px-6 py-4 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] text-[#1c1917]/40 border border-transparent hover:bg-[#f7f3ed] transition-all"
                                 >
-                                    ABORT
+                                    Abort
                                 </button>
                                 <button
                                     type="submit"
                                     disabled={loading || !selectedUserId}
-                                    className="btn-primary flex-1 py-4 disabled:opacity-50"
+                                    className="flex-1 px-6 py-4 rounded-xl bg-[#d97757] text-white font-black text-[10px] uppercase tracking-[0.2em] shadow-xl shadow-[#d97757]/20 hover:bg-[#c26242] hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
-                                    {loading ? 'SYNCING...' : 'CONFIRM DEPLOYMENT'}
+                                    {loading ? 'INITIALIZING...' : 'CONFIRM DEPLOYMENT'}
                                 </button>
                             </div>
                         </form>

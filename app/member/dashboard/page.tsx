@@ -51,7 +51,7 @@ export default async function MemberDashboard() {
         .from('user_projects')
         .select('project_id')
         .eq('user_id', user?.id);
-    
+
     const projectIds = userProjects?.map((up: any) => up.project_id) || [];
     let allMeetings: any[] = [];
 
@@ -65,7 +65,7 @@ export default async function MemberDashboard() {
             .in('project_id', projectIds)
             .neq('status', 'cancelled')
             .order('scheduled_at', { ascending: true });
-        
+
         allMeetings = meetings || [];
     }
 
@@ -73,81 +73,81 @@ export default async function MemberDashboard() {
         <div className="space-y-12 animate-in fade-in duration-1000">
             {/* Header section with Personal Stats */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
-                <div className="space-y-3">
-                    <div className="flex items-center gap-3">
-                        <span className="w-8 h-px bg-[#d97757]"></span>
-                        <h2 className="text-[10px] font-black text-[#d97757] uppercase tracking-[0.4em]">Personal Workspace</h2>
+                <div className="space-y-4">
+                    <div className="flex items-center gap-2">
+                        <span className="w-8 h-1 bg-accent-500 rounded-full"></span>
+                        <h2 className="text-xs font-black text-accent-500 uppercase tracking-wider">Personal Workspace</h2>
                     </div>
-                    <h1 className="text-5xl font-black text-[#1c1917] tracking-tighter uppercase">Active, {user?.full_name?.split(' ')[0]}</h1>
-                    <p className="text-[#1c1917]/50 text-xl font-black italic font-serif">System reports {activeTasks.length} active threads in your queue.</p>
+                    <h1 className="text-5xl font-black text-[#1c1917] tracking-tight">Welcome, {user?.full_name?.split(' ')[0]}</h1>
+                    <p className="text-[#1c1917]/60 text-xl font-medium">You have {activeTasks.length} active tasks requiring your attention today.</p>
                 </div>
 
-                <div className="card p-6 bg-white border-[#e5dec9] flex items-center gap-6 shadow-xl shadow-[#d9cfb0]/10 shrink-0">
-                    <div className="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center text-[#d97757] border border-orange-100">
+                <div className="card !p-6 bg-white border-[#e5dec9] flex items-center gap-6 shadow-lg shadow-[#d9cfb0]/20 shrink-0 rounded-2xl">
+                    <div className="w-12 h-12 bg-[#f7f3ed] rounded-xl flex items-center justify-center text-[#d97757] border border-[#d9cfb0]">
                         <FireIcon className="w-7 h-7" />
                     </div>
                     <div>
-                        <p className="text-[10px] font-black text-[#1c1917]/30 uppercase tracking-[0.2em]">Efficiency Rating</p>
-                        <p className="text-2xl font-black text-[#1c1917]">98.4%</p>
+                        <p className="text-[10px] font-black text-[#1c1917]/40 uppercase tracking-wider">Efficiency Rating</p>
+                        <p className="text-2xl font-black text-[#1c1917] tracking-tight">98.4%</p>
                     </div>
                 </div>
             </div>
 
             {/* Focus Stats Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
-                <div className="card bg-[#f7f3ed]/50 border-[#e5dec9] p-10 flex flex-col items-center text-center space-y-4 group hover:bg-white hover:border-[#d97757] transition-all duration-500">
-                    <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-[#1c1917]/20 group-hover:text-[#d97757] border border-[#e5dec9] transition-all">
+                <div className="card bg-white border-[#e5dec9] p-10 flex flex-col items-center text-center space-y-4 group hover:border-accent-200 transition-all duration-500 shadow-sm shadow-[#d9cfb0]/10">
+                    <div className="w-16 h-16 bg-[#f7f3ed] rounded-2xl flex items-center justify-center text-[#1c1917]/30 group-hover:text-accent-500 border border-[#d9cfb0] transition-all">
                         <ClockIcon className="w-8 h-8" />
                     </div>
                     <div>
-                        <p className="text-5xl font-black text-[#1c1917] tracking-tighter">{activeTasks.length}</p>
-                        <p className="text-[10px] font-black text-[#1c1917]/30 uppercase tracking-[0.3em] mt-2">Active Threads</p>
+                        <p className="text-5xl font-black text-[#1c1917] tracking-tight">{activeTasks.length}</p>
+                        <p className="text-[10px] font-black text-[#1c1917]/40 uppercase tracking-widest mt-2">Active Tasks</p>
                     </div>
                 </div>
 
-                <div className="card bg-[#f7f3ed]/50 border-[#e5dec9] p-10 flex flex-col items-center text-center space-y-4 group hover:bg-white hover:border-red-500 transition-all duration-500">
-                    <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-[#1c1917]/20 group-hover:text-red-500 border border-[#e5dec9] transition-all">
+                <div className="card bg-white border-[#e5dec9] p-10 flex flex-col items-center text-center space-y-4 group hover:border-[#d97757]/30 transition-all duration-500 shadow-sm shadow-[#d9cfb0]/10">
+                    <div className="w-16 h-16 bg-[#f7f3ed] rounded-2xl flex items-center justify-center text-[#1c1917]/30 group-hover:text-[#d97757] border border-[#d9cfb0] transition-all">
                         <FireIcon className="w-8 h-8" />
                     </div>
                     <div>
-                        <p className="text-5xl font-black text-red-900 tracking-tighter">{urgentTasks}</p>
-                        <p className="text-[10px] font-black text-red-900/30 uppercase tracking-[0.3em] mt-2">Critical Vectors</p>
+                        <p className="text-5xl font-black text-[#d97757] tracking-tight">{urgentTasks}</p>
+                        <p className="text-[10px] font-black text-[#d97757]/60 uppercase tracking-widest mt-2">Urgent Items</p>
                     </div>
                 </div>
 
-                <div className="card bg-[#f7f3ed]/50 border-[#e5dec9] p-10 flex flex-col items-center text-center space-y-4 group hover:bg-white hover:border-emerald-500 transition-all duration-500">
-                    <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-[#1c1917]/20 group-hover:text-emerald-500 border border-[#e5dec9] transition-all">
+                <div className="card bg-white border-[#e5dec9] p-10 flex flex-col items-center text-center space-y-4 group hover:border-emerald-100 transition-all duration-500 shadow-sm shadow-[#d9cfb0]/10">
+                    <div className="w-16 h-16 bg-[#f7f3ed] rounded-2xl flex items-center justify-center text-[#1c1917]/30 group-hover:text-emerald-500 border border-[#d9cfb0] transition-all">
                         <CheckBadgeIcon className="w-8 h-8" />
                     </div>
                     <div>
-                        <p className="text-5xl font-black text-[#1c1917] tracking-tighter">{completedThisWeek}</p>
-                        <p className="text-[10px] font-black text-[#1c1917]/30 uppercase tracking-[0.3em] mt-2">Resolved Units</p>
+                        <p className="text-5xl font-black text-[#1c1917] tracking-tight">{completedThisWeek}</p>
+                        <p className="text-[10px] font-black text-[#1c1917]/40 uppercase tracking-widest mt-2">Completed</p>
                     </div>
                 </div>
             </div>
 
             {/* Upcoming Meetings & Performance Visualization */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                <div className="space-y-8">
+                <div className="space-y-6">
                     <div className="flex items-center gap-3">
-                        <span className="w-8 h-px bg-[#d97757]"></span>
-                        <h3 className="text-xl font-black text-[#1c1917] tracking-tight uppercase">UPCOMING SYNC</h3>
+                        <span className="w-8 h-1 bg-accent-500 rounded-full"></span>
+                        <h3 className="text-xl font-black text-[#1c1917] tracking-tight">Upcoming Syncs</h3>
                     </div>
-                    <div className="card bg-white border-[#e5dec9] p-2 overflow-hidden">
-                        <MeetingList 
-                            meetings={allMeetings} 
-                            projectId="" 
+                    <div className="card bg-white border-[#e5dec9] p-2 overflow-hidden shadow-sm shadow-[#d9cfb0]/10">
+                        <MeetingList
+                            meetings={allMeetings}
+                            projectId=""
                             currentUser={user}
                         />
                     </div>
                 </div>
 
-                <div className="space-y-8">
+                <div className="space-y-6">
                     <div className="flex items-center gap-3">
-                        <span className="w-8 h-px bg-[#d97757]"></span>
-                        <h3 className="text-xl font-black text-[#1c1917] tracking-tight uppercase">MEMBER VELOCITY</h3>
+                        <span className="w-8 h-1 bg-accent-500 rounded-full"></span>
+                        <h3 className="text-xl font-black text-[#1c1917] tracking-tight">Performance</h3>
                     </div>
-                    <div className="bg-white border border-[#e5dec9] rounded-[2.5rem] p-4 shadow-sm overflow-hidden h-full">
+                    <div className="bg-white border border-[#e5dec9] rounded-[2rem] p-6 shadow-sm shadow-[#d9cfb0]/10 overflow-hidden h-full">
                         <MemberPerformance />
                     </div>
                 </div>
@@ -157,12 +157,11 @@ export default async function MemberDashboard() {
             <div className="space-y-8">
                 <div className="flex items-center justify-between px-2">
                     <div className="flex items-center gap-3">
-                        <span className="w-8 h-px bg-[#d97757]"></span>
-                        <h3 className="text-3xl font-black text-[#1c1917] tracking-tight uppercase">REGISTRY SYNC</h3>
+                        <span className="w-8 h-1 bg-accent-500 rounded-full"></span>
+                        <h3 className="text-3xl font-black text-[#1c1917] tracking-tight">Recent Tasks</h3>
                     </div>
                     <div className="flex items-center gap-4">
-                        <p className="text-[10px] font-black text-[#1c1917]/30 uppercase tracking-widest italic font-serif">Live Buffer</p>
-                        <button className="w-10 h-10 flex items-center justify-center rounded-xl bg-white border border-[#e5dec9] text-[#1c1917]/40 hover:text-[#d97757] transition-all">
+                        <button className="w-10 h-10 flex items-center justify-center rounded-xl bg-white border border-[#e5dec9] text-[#1c1917]/30 hover:text-accent-500 transition-all shadow-sm">
                             <ArrowPathIcon className="w-5 h-5" />
                         </button>
                     </div>
@@ -170,58 +169,55 @@ export default async function MemberDashboard() {
 
                 <div className="space-y-4">
                     {activeTasks.map((task: any) => (
-                        <div key={task.id} className="card bg-white border-[#e5dec9] group hover:border-[#d97757]/40 transition-all duration-500 overflow-hidden">
+                        <div key={task.id} className="card bg-white border-[#e5dec9] shadow-sm shadow-[#d9cfb0]/10 group hover:border-[#d97757]/30 transition-all duration-500 overflow-hidden !p-0">
                             <div className="p-8 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
-                                <div className="space-y-4 flex-1">
-                                    <div className="flex items-center gap-4">
-                                        <span className={`px-4 py-1 rounded-full text-[9px] font-black uppercase tracking-widest border ${task.priority === 'high' ? 'bg-red-50 text-red-700 border-red-100' :
-                                            task.priority === 'medium' ? 'bg-orange-50 text-orange-700 border-orange-100' :
-                                                'bg-[#f7f3ed] text-[#1c1917]/60 border-[#e5dec9]'
+                                <div className="space-y-3 flex-1">
+                                    <div className="flex items-center gap-3">
+                                        <span className={`badge ${task.priority === 'high' ? 'bg-[#d97757]/10 text-[#d97757] border-[#d97757]/20' :
+                                            task.priority === 'medium' ? 'badge-warning' :
+                                                'bg-[#f7f3ed] text-[#1c1917]/40 border-[#e5dec9]'
                                             }`}>
                                             {task.priority || 'NORMAL'}
                                         </span>
-                                        <span className="text-[10px] font-black text-[#1c1917]/30 uppercase tracking-[0.2em] flex items-center gap-2">
-                                            <span className="w-1 h-1 rounded-full bg-[#d97757]"></span>
+                                        <span className="text-[10px] font-black text-[#1c1917]/40 uppercase tracking-wider flex items-center gap-2">
+                                            <span className="w-1 h-1 rounded-full bg-accent-500"></span>
                                             {task.project?.name}
                                         </span>
                                     </div>
-                                    <h4 className="text-2xl font-black text-[#1c1917] tracking-tight uppercase group-hover:text-[#d97757] transition-colors leading-none">
+                                    <h4 className="text-xl font-black text-[#1c1917] tracking-tight group-hover:text-accent-500 transition-colors">
                                         {task.title}
                                     </h4>
-                                    <p className="text-[#1c1917]/40 text-sm italic font-serif max-w-2xl line-clamp-1">
-                                        {task.description || 'No additional telemetry data provided for this assignment.'}
+                                    <p className="text-[#1c1917]/60 text-sm font-medium max-w-2xl line-clamp-1 italic">
+                                        {task.description || 'No additional details provided.'}
                                     </p>
                                 </div>
 
                                 <div className="flex items-center gap-10 shrink-0">
                                     <div className="text-right space-y-1">
-                                        <div className="flex items-center gap-2 justify-end text-[11px] font-black text-[#1c1917]/60 uppercase tracking-widest">
-                                            <ClockIcon className="w-4 h-4 text-[#d97757]" />
+                                        <div className="flex items-center gap-2 justify-end text-[11px] font-bold text-[#1c1917]/30 uppercase tracking-wide">
+                                            <ClockIcon className="w-4 h-4 text-accent-500" />
                                             {task.due_date ? format(new Date(task.due_date), 'MMM dd, yyyy') : 'UNSET'}
                                         </div>
-                                        <p className="text-[8px] font-black text-[#1c1917]/20 uppercase tracking-[0.4em]">Operational Window</p>
                                     </div>
 
-                                    <div className="h-12 w-px bg-[#e5dec9] hidden lg:block"></div>
+                                    <div className="h-10 w-px bg-[#e5dec9] hidden lg:block"></div>
 
-                                    <div className="flex items-center gap-4">
-                                        <Link
-                                            href={`/member/tasks/${task.id}`}
-                                            className="px-8 py-4 bg-[#f7f3ed]/50 text-[#1c1917]/60 border border-[#e5dec9] hover:bg-[#d97757] hover:text-white hover:border-[#d97757] rounded-2xl transition-all text-[9px] font-black uppercase tracking-[0.2em] shadow-sm"
-                                        >
-                                            View File
-                                        </Link>
-                                    </div>
+                                    <Link
+                                        href={`/member/tasks/${task.id}`}
+                                        className="btn-secondary !px-6 !py-2.5 !text-xs !rounded-xl !border-[#e5dec9]"
+                                    >
+                                        View Task
+                                    </Link>
                                 </div>
                             </div>
                         </div>
                     ))}
 
                     {activeTasks.length === 0 && (
-                        <div className="py-24 text-center bg-[#f7f3ed]/30 rounded-[3rem] border-2 border-dashed border-[#e5dec9]">
-                            <CheckBadgeIcon className="w-20 h-20 text-[#e5dec9] mx-auto mb-6" />
-                            <h3 className="text-2xl font-black text-[#1c1917] uppercase tracking-tighter">Repository Clean</h3>
-                            <p className="text-[#1c1917]/30 text-xs font-black uppercase tracking-widest mt-2">All operational streams have been synchronized.</p>
+                        <div className="py-20 text-center bg-white rounded-[2rem] border-2 border-dashed border-[#e5dec9]">
+                            <CheckBadgeIcon className="w-16 h-16 text-[#e5dec9] mx-auto mb-4" />
+                            <h3 className="text-xl font-black text-[#1c1917] tracking-tight">Repository Clean</h3>
+                            <p className="text-[#1c1917]/40 text-sm font-medium mt-1">All tasks have been synchronized.</p>
                         </div>
                     )}
                 </div>

@@ -9,39 +9,51 @@ const config: Config = {
     theme: {
         extend: {
             colors: {
-                // TaskForge Beige Premium Palette
+                // TaskForge Sophisticated Beige Palette
                 primary: {
-                    50: '#fdfcf9',
-                    100: '#f7f3ed',
-                    200: '#f1ede4',
-                    300: '#e5dec9',
-                    400: '#d9cfb0',
-                    500: '#d97757', // Terracotta Accent
-                    600: '#c26242',
-                    700: '#8e4832',
-                    800: '#5c2d20',
-                    900: '#2e160e',
-                    950: '#1c1917', // Stone Dark
+                    50: '#fdfcf9',   // Cream/Off-white
+                    100: '#f7f3ed',  // Light beige
+                    200: '#f1ede4',  // Soft beige
+                    300: '#e5dec9',  // Medium beige
+                    400: '#d9cfb0',  // Warm beige
+                    500: '#c9b896',  // Main beige
+                    600: '#b5a07d',  // Deep beige
+                    700: '#9a8665',  // Dark beige
+                    800: '#7d6d52',  // Darker beige
+                    900: '#5c5038',  // Very dark beige
+                    950: '#3d3525',  // Almost brown
                 },
                 accent: {
-                    beige: '#fdfcf9',
-                    stone: '#1c1917',
-                    terracotta: '#d97757',
-                    navy: '#0f172a',
+                    50: '#fef5f0',
+                    100: '#fde9df',
+                    200: '#fbd3c4',
+                    300: '#f8b89d',
+                    400: '#f39d76',
+                    500: '#d97757',  // Soft terracotta (main accent)
+                    600: '#c26242',  // Deeper terracotta
+                    700: '#a84f35',  // Dark terracotta
+                    800: '#8e4832',  // Very dark terracotta
+                    900: '#5c2d20',  // Deep rust
+                    950: '#2e160e',  // Almost black rust
                 },
-                // Status colors (Refined for beige)
+                beige: {
+                    50: '#fdfcf9',
+                    100: '#f7f3ed',
+                    200: '#e5dec9',
+                    300: '#d9cfb0',
+                },
+                // Status colors (softer, beige-compatible)
                 status: {
-                    overdue: '#991b1b',
-                    warning: '#92400e',
-                    success: '#065f46',
-                    info: '#1e40af',
+                    success: '#7c9473', // Muted sage green
+                    warning: '#d97757', // Terracotta
+                    error: '#c85a54',   // Muted red
+                    info: '#7a8fa3',    // Muted blue
                 },
-                // Priority colors (Refined for beige)
                 priority: {
-                    low: '#78716c',
+                    low: '#9a8665',
                     medium: '#d97757',
-                    high: '#9a3412',
-                    critical: '#7f1d1d',
+                    high: '#c26242',
+                    critical: '#8e4832',
                 },
             },
             fontFamily: {

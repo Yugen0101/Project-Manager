@@ -4,13 +4,15 @@
 
 @layer base {
   :root {
-    --background: 40 50% 98%;
-    --foreground: 30 10% 10%;
+    --background: 45 33% 98%;
+    /* Beige 50 equivalent */
+    --foreground: 30 25% 11%;
   }
 
   body {
-    @apply bg-[#fdfcf9] text-[#1c1917] font-sans antialiased;
-    background-image: none;
+    @apply bg-beige-50 text-[#1c1917] font-sans antialiased;
+    background-image: radial-gradient(at 0% 0%, hsla(45, 33%, 98%, 1) 0, transparent 50%),
+      radial-gradient(at 50% 0%, hsla(40, 40%, 96%, 1) 0, transparent 50%);
   }
 
   html {
@@ -20,53 +22,59 @@
 
 @layer components {
 
-  /* Soft Premium Button Styles */
+  /* Primary Button (Terracotta with white text) */
   .btn-primary {
-    @apply bg-[#d97757] hover:bg-[#c26242] text-white px-6 py-3 rounded-lg font-black uppercase tracking-widest transition-all duration-300 shadow-xl shadow-[#d97757]/10 hover:shadow-[#d97757]/20 hover:-translate-y-0.5 active:translate-y-0;
+    @apply bg-accent-500 hover:bg-accent-600 text-white px-8 py-4 rounded-2xl font-bold transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2;
   }
 
+  /* Soft Secondary Button (Light beige) */
   .btn-secondary {
-    @apply bg-[#f7f3ed] hover:bg-[#f1ede4] text-[#1c1917] px-6 py-3 rounded-lg font-black uppercase tracking-widest transition-all duration-300 border border-[#e5dec9];
+    @apply bg-white hover:bg-beige-50 text-[#1c1917]/70 px-8 py-4 rounded-2xl font-bold transition-all duration-300 border border-beige-200 shadow-sm flex items-center justify-center gap-2;
+  }
+
+  /* Outline Button */
+  .btn-outline {
+    @apply border-2 border-beige-300 text-accent-600 hover:bg-beige-50 px-8 py-4 rounded-2xl font-bold transition-all duration-300 flex items-center justify-center gap-2;
   }
 
   .btn-danger {
-    @apply bg-red-800 hover:bg-red-900 text-white px-6 py-3 rounded-lg font-black uppercase tracking-widest transition-all duration-300;
+    @apply bg-status-error/10 hover:bg-status-error/20 text-status-error px-6 py-3 rounded-xl font-bold transition-all duration-300 border border-status-error/20;
   }
 
-  /* Soft Organic Card Styles */
+  /* Beige Card Styles */
   .card {
-    @apply bg-white border border-[#e5dec9] rounded-2xl p-8 transition-all duration-500 hover:shadow-2xl hover:shadow-[#d9cfb0]/20;
+    @apply bg-white border border-beige-200 rounded-[2rem] p-8 transition-all duration-500 hover:shadow-xl hover:shadow-beige-300/20;
   }
 
-  /* Input Styles (Soft) */
+  /* Input Styles */
   .input {
-    @apply w-full px-4 py-3 bg-[#fdfcf9] border border-[#e5dec9] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#d97757]/20 focus:border-[#d97757]/40 transition-all text-[#1c1917] placeholder-[#a8a29e];
+    @apply w-full px-4 py-4 bg-white border border-beige-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-accent-500/10 focus:border-accent-500/40 transition-all text-[#1c1917] placeholder-[#1c1917]/40;
   }
 
-  /* Badge Styles (Refined) */
+  /* Badge Styles */
   .badge {
-    @apply inline-flex items-center px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.1em];
+    @apply inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-tight;
   }
 
   .badge-success {
-    @apply bg-emerald-100 text-emerald-900 border border-emerald-200;
+    @apply bg-status-success/10 text-status-success border border-status-success/20;
   }
 
   .badge-warning {
-    @apply bg-orange-100 text-orange-900 border border-orange-200;
+    @apply bg-accent-50 text-accent-700 border border-accent-200;
   }
 
   .badge-danger {
-    @apply bg-red-100 text-red-900 border border-red-200;
+    @apply bg-status-error/10 text-status-error border border-status-error/20;
   }
 
   .badge-info {
-    @apply bg-blue-100 text-blue-900 border border-blue-200;
+    @apply bg-status-info/10 text-status-info border border-status-info/20;
   }
 
-  /* Glassmorphism utility */
+  /* Glassmorphism */
   .glass {
-    @apply bg-white/70 backdrop-blur-xl border border-white/20 shadow-2xl shadow-[#1c1917]/5;
+    @apply bg-white/80 backdrop-blur-2xl border border-beige-200 shadow-2xl shadow-beige-300/10;
   }
 }
 
