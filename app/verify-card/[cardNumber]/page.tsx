@@ -7,8 +7,13 @@ export const metadata = {
     description: 'Verify TaskForge ID card authenticity'
 };
 
-export default async function VerifyCardPage({ params }: { params: { cardNumber: string } }) {
-    const result = await verifyCard(params.cardNumber);
+export default async function VerifyCardPage({
+    params,
+}: {
+    params: Promise<{ cardNumber: string }>;
+}) {
+    const { cardNumber } = await params;
+    const result = await verifyCard(cardNumber);
 
     if (!result.success || !result.data) {
         return (
@@ -22,7 +27,7 @@ export default async function VerifyCardPage({ params }: { params: { cardNumber:
                         This ID card could not be verified. It may be invalid, revoked, or the card number is incorrect.
                     </p>
                     <p className="text-sm text-[#78716c]">
-                        Card Number: <span className="font-semibold">{params.cardNumber}</span>
+                        Card Number: <span className="font-semibold">{cardNumber}</span>
                     </p>
                 </div>
             </div>
