@@ -11,6 +11,7 @@ import MemberNav from '@/components/member/MemberNav';
 import MemberMobileMenu from '@/components/navigation/MemberMobileMenu';
 import TaskForgeLogo from '@/components/ui/TaskForgeLogo';
 import { Toaster } from 'sonner';
+import MemberHeader from '@/components/navigation/MemberHeader';
 
 export default async function MemberLayout({
     children,
@@ -63,22 +64,7 @@ export default async function MemberLayout({
 
             {/* Main Content Area */}
             <div className="flex-1 lg:ml-72 flex flex-col min-h-screen">
-                {/* Main Header - Synchronized 96px */}
-                <header className="h-24 bg-white border-b border-[#e5dec9] sticky top-0 z-40 flex items-center justify-between px-10 backdrop-blur-xl shadow-sm shadow-[#d9cfb0]/10">
-                    <div className="flex items-center gap-10">
-                        <div className="flex items-center gap-3">
-                            <div className="lg:hidden">
-                                <MemberMobileMenu />
-                            </div>
-                            <span className="w-8 h-1 bg-accent-500 rounded-full hidden lg:block"></span>
-                            <h2 className="text-[10px] font-semibold text-[#78716c] uppercase tracking-[0.4em]">Operational Matrix</h2>
-                        </div>
-                    </div>
-
-                    <div className="flex items-center gap-6">
-                        <NotificationCenter />
-                    </div>
-                </header>
+                <MemberHeader />
 
                 <main className="p-8 lg:p-12 relative z-10 max-w-[1400px] w-full mx-auto">
                     {children}
