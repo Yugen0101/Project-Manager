@@ -25,7 +25,7 @@ export default function HomePage() {
             <header className="relative z-50 px-8 py-8 flex items-center justify-between max-w-7xl mx-auto w-full">
                 <div className="flex items-center gap-6">
                     <TaskForgeLogo size="lg" />
-                    <span className="text-4xl font-semibold tracking-tighter text-[#1c1917] uppercase italic">Task<span className="text-accent-500">Forge</span></span>
+                    <span className="text-4xl font-black tracking-tight text-[#1c1917] uppercase">Task<span className="text-accent-500">Forge</span></span>
                 </div>
                 <div className="flex items-center gap-6">
                     <a href="/login" className="text-sm font-semibold text-[#1c1917]/60 hover:text-accent-600 transition-colors">Sign In</a>
@@ -46,6 +46,9 @@ export default function HomePage() {
                             <h1 className="text-4xl lg:text-6xl font-semibold text-[#1c1917] tracking-tighter uppercase leading-[0.95]">
                                 Project<br />Management
                             </h1>
+                            <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-accent-600 mt-4 mb-2">
+                                Forge your workflow
+                            </p>
                             <p className="text-[#1c1917]/70 font-medium text-base max-w-md mt-6 leading-relaxed">
                                 Streamline your workflow with an intuitive, high-performance workspace designed for modern teams.
                             </p>
