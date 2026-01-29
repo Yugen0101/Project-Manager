@@ -76,7 +76,7 @@ export default function GlobalSearch() {
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     onFocus={() => query.length >= 2 && setIsOpen(true)}
-                    placeholder="Search workspace protocols..."
+                    placeholder="Search projects and people..."
                     className="w-full bg-[#f7f3ed] border border-[#e5dec9] rounded-xl py-3 pl-11 pr-4 text-xs font-bold focus:ring-8 focus:ring-accent-500/5 focus:bg-white focus:border-accent-500/40 transition-all outline-none placeholder:text-[#1c1917]/50"
                 />
                 <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
@@ -91,7 +91,7 @@ export default function GlobalSearch() {
                 <div className="absolute top-full mt-2 w-full bg-white border border-[#e1d8bc] rounded-2xl shadow-2xl shadow-[#d9cfb0]/30 z-[60] overflow-hidden backdrop-blur-xl">
                     {results.projects.length > 0 && (
                         <div className="p-2">
-                            <h3 className="px-3 py-2 text-[10px] font-black text-accent-600 uppercase tracking-widest border-b border-[#f7f3ed] mb-1">Project Nodes</h3>
+                            <h3 className="px-3 py-2 text-[10px] font-black text-accent-600 uppercase tracking-widest border-b border-[#f7f3ed] mb-1">Projects</h3>
                             {results.projects.map((project) => (
                                 <button
                                     key={project.id}
@@ -110,7 +110,7 @@ export default function GlobalSearch() {
 
                     {results.users.length > 0 && (
                         <div className={`p-2 ${results.projects.length > 0 ? 'border-t border-[#f7f3ed]' : ''}`}>
-                            <h3 className="px-3 py-2 text-[10px] font-black text-accent-600 uppercase tracking-widest border-b border-[#f7f3ed] mb-1">Personnel Registry</h3>
+                            <h3 className="px-3 py-2 text-[10px] font-black text-accent-600 uppercase tracking-widest border-b border-[#f7f3ed] mb-1">People</h3>
                             {results.users.map((user) => (
                                 <button
                                     key={user.id}

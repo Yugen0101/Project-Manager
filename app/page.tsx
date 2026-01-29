@@ -136,7 +136,7 @@ export default function HomePage() {
                                     <h3 className="text-2xl font-semibold uppercase tracking-tighter text-[#1c1917]">Conflicts</h3>
                                     <div className="h-px w-12 bg-accent-500/30 group-hover:w-full transition-all duration-700"></div>
                                     <p className="text-[#1c1917]/60 text-xs font-medium leading-relaxed tracking-wide">
-                                        Median aligned strategies for team cohesion. Resolve vectors of disagreement with automated, data-driven insights.
+                                        Strategies for team cohesion. Resolve conflicts with automated, data-driven insights.
                                     </p>
                                     <div className="pt-4 flex items-center gap-3 text-accent-600 font-bold text-[10px] uppercase tracking-widest group-hover:translate-x-2 transition-transform duration-500">
                                         Explore Details

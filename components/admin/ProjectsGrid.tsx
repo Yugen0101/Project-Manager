@@ -82,7 +82,7 @@ export default function ProjectsGrid({ projects, userRole = 'admin' }: { project
                                 {project.name}
                             </h3>
                             <p className="text-[#1c1917]/40 text-sm font-medium leading-relaxed italic h-10 line-clamp-2">
-                                {project.description || 'Architectural roadmap for the specified operational stream.'}
+                                {project.description || 'A brief description of the project goals and objectives.'}
                             </p>
 
                             <div className="grid grid-cols-2 gap-6 pt-8 border-t border-[#e5dec9]">
@@ -110,7 +110,7 @@ export default function ProjectsGrid({ projects, userRole = 'admin' }: { project
 
                     <div className="p-8 pt-10 mt-auto space-y-4">
                         <div className="flex justify-between items-center text-[10px] font-medium text-[#1c1917]/30 tracking-[0.3em] uppercase">
-                            <span>Saturation</span>
+                            <span>Progress</span>
                             <span className="text-accent-500">
                                 {project.tasks && project.tasks.length > 0
                                     ? Math.round((project.tasks.filter((t: any) => t.status === 'completed').length / project.tasks.length) * 100)

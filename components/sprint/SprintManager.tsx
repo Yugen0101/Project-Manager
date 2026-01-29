@@ -94,7 +94,7 @@ export default function SprintManager({
         });
 
         if (result.success) {
-            toast.success('Task established');
+            toast.success('Task created');
             setIsAddingTask(false);
             setTaskFormData({ title: '', priority: 'medium', assigned_to: '' });
             window.location.reload();
@@ -104,10 +104,10 @@ export default function SprintManager({
     };
 
     const handleDeleteTask = async (taskId: string) => {
-        if (!confirm('Abort this task? This cannot be reversed.')) return;
+        if (!confirm('Delete this task? This cannot be reversed.')) return;
         const result = await deleteTask(taskId, projectId);
         if (result.success) {
-            toast.success('Task purged');
+            toast.success('Task deleted');
             window.location.reload();
         } else {
             toast.error(result.error);
@@ -124,7 +124,7 @@ export default function SprintManager({
                         className="btn-primary !py-2.5 !px-6 !text-[10px] !rounded-xl shadow-lg shadow-accent-500/10"
                     >
                         <PlusIcon className="w-4 h-4" />
-                        Initialize Sprint
+                        New Sprint
                     </button>
                 )}
             </div>
@@ -135,25 +135,25 @@ export default function SprintManager({
                     <form onSubmit={handleCreateSprint} className="space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-1">
-                                <label className="text-[9px] font-semibold text-[#1c1917]/70 uppercase ml-2 tracking-widest">Designation</label>
-                                <input name="name" placeholder="Iteration ID (e.g. ALPHA-01)" required className="input" />
+                                <label className="text-[9px] font-semibold text-[#1c1917]/70 uppercase ml-2 tracking-widest">Sprint Name</label>
+                                <input name="name" placeholder="E.g. Phase 1" required className="input" />
                             </div>
                             <div className="space-y-1">
-                                <label className="text-[9px] font-semibold text-[#1c1917]/70 uppercase ml-2 tracking-widest">Mission Objective</label>
+                                <label className="text-[9px] font-semibold text-[#1c1917]/70 uppercase ml-2 tracking-widest">Sprint Goal</label>
                                 <input name="goal" placeholder="Primary objective..." className="input" />
                             </div>
                             <div className="space-y-1">
-                                <label className="text-[9px] font-semibold text-[#1c1917]/70 uppercase ml-2 tracking-widest">Commencement</label>
+                                <label className="text-[9px] font-semibold text-[#1c1917]/70 uppercase ml-2 tracking-widest">Start Date</label>
                                 <input name="start_date" type="date" required className="input" />
                             </div>
                             <div className="space-y-1">
-                                <label className="text-[9px] font-semibold text-[#1c1917]/70 uppercase ml-2 tracking-widest">Conclusion</label>
+                                <label className="text-[9px] font-semibold text-[#1c1917]/70 uppercase ml-2 tracking-widest">End Date</label>
                                 <input name="end_date" type="date" required className="input" />
                             </div>
                         </div>
                         <div className="flex justify-end gap-3 pt-4">
-                            <button type="button" onClick={() => setIsCreating(false)} className="btn-secondary !px-6 !py-2.5 !text-[10px] !rounded-xl !border-[#e5dec9]">ABORT</button>
-                            <button type="submit" className="btn-primary !px-6 !py-2.5 !text-[10px] !rounded-xl">ESTABLISH NODE</button>
+                            <button type="button" onClick={() => setIsCreating(false)} className="btn-secondary !px-6 !py-2.5 !text-[10px] !rounded-xl !border-[#e5dec9]">CANCEL</button>
+                            <button type="submit" className="btn-primary !px-6 !py-2.5 !text-[10px] !rounded-xl">CREATE SPRINT</button>
                         </div>
                     </form>
                 </div>
@@ -168,7 +168,7 @@ export default function SprintManager({
                                 {expandedSprints[activeSprint.id] ? <ChevronDownIcon className="w-5 h-5" /> : <ChevronRightIcon className="w-5 h-5" />}
                             </button>
                             <div className="flex items-center gap-3">
-                                <span className="bg-white/20 text-white text-[9px] font-medium px-2 py-1 rounded shadow-sm uppercase tracking-widest backdrop-blur-md">ACTIVE PROTOCOL</span>
+                                <span className="bg-white/20 text-white text-[9px] font-medium px-2 py-1 rounded shadow-sm uppercase tracking-widest backdrop-blur-md">ACTIVE SPRINT</span>
                                 <h4 className="font-semibold text-white uppercase tracking-tight text-lg">{activeSprint.name}</h4>
                             </div>
                             <div className="h-4 w-px bg-white/20 hidden md:block"></div>
@@ -179,7 +179,7 @@ export default function SprintManager({
                                 onClick={() => handleUpdateStatus(activeSprint.id, 'completed')}
                                 className="bg-white text-accent-500 px-5 py-2.5 rounded-xl font-semibold text-[10px] uppercase tracking-widest hover:bg-[#fdfcf9] transition-all shadow-lg"
                             >
-                                FINALIZE STREAM
+                                COMPLETE SPRINT
                             </button>
                         )}
                     </div>
@@ -211,7 +211,7 @@ export default function SprintManager({
                                     onClick={() => handleUpdateStatus(sprint.id, 'active')}
                                     className="btn-secondary !px-5 !py-2.5 !text-[10px] !rounded-xl !border-[#e5dec9] !text-accent-500 hover:!bg-white"
                                 >
-                                    COMMENCE
+                                    START SPRINT
                                 </button>
                             )}
                         </div>
@@ -234,9 +234,9 @@ export default function SprintManager({
                             <button onClick={() => toggleExpand('backlog')} className="text-[#1c1917]/40 hover:text-accent-500 transition-colors">
                                 {expandedSprints['backlog'] ? <ChevronDownIcon className="w-5 h-5" /> : <ChevronRightIcon className="w-5 h-5" />}
                             </button>
-                            <h4 className="font-semibold text-[#1c1917] uppercase tracking-[0.2em] text-sm">Offline Backlog</h4>
+                            <h4 className="font-semibold text-[#1c1917] uppercase tracking-[0.2em] text-sm">Backlog</h4>
                             <span className="text-[9px] font-bold px-3 py-1 bg-white border border-[#e5dec9] text-accent-500 rounded-xl shadow-sm uppercase tracking-widest">
-                                {backlogTasks.length} Vectors
+                                {backlogTasks.length} Items
                             </span>
                         </div>
                         <button
@@ -244,7 +244,7 @@ export default function SprintManager({
                             className="btn-primary !py-2.5 !px-5 !text-[10px] !rounded-xl shadow-lg shadow-accent-500/10"
                         >
                             <PlusIcon className="w-4 h-4" />
-                            INDEX NEW VECTOR
+                            ADD NEW TASK
                         </button>
                     </div>
 
@@ -252,17 +252,17 @@ export default function SprintManager({
                         <div className="p-8 bg-white border-b border-[#e5dec9] animate-in slide-in-from-top-2">
                             <form onSubmit={handleCreateTask} className="flex flex-wrap items-end gap-6">
                                 <div className="flex-1 min-w-[240px] space-y-2">
-                                    <label className="text-[9px] font-semibold text-[#1c1917]/70 uppercase ml-2 tracking-widest">Operational Directive</label>
+                                    <label className="text-[9px] font-semibold text-[#1c1917]/70 uppercase ml-2 tracking-widest">Task Name</label>
                                     <input
                                         required
                                         className="input !py-3 font-normal"
-                                        placeholder="Task designation..."
+                                        placeholder="What needs to be done?"
                                         value={taskFormData.title}
                                         onChange={e => setTaskFormData({ ...taskFormData, title: e.target.value })}
                                     />
                                 </div>
                                 <div className="w-40 space-y-2">
-                                    <label className="text-[9px] font-semibold text-[#1c1917]/70 uppercase ml-2 tracking-widest">Priority Class</label>
+                                    <label className="text-[9px] font-semibold text-[#1c1917]/70 uppercase ml-2 tracking-widest">Priority</label>
                                     <select
                                         className="input !py-3 appearance-none bg-white font-normal uppercase text-xs tracking-tight"
                                         value={taskFormData.priority}
@@ -275,13 +275,13 @@ export default function SprintManager({
                                     </select>
                                 </div>
                                 <div className="w-56 space-y-2">
-                                    <label className="text-[9px] font-semibold text-[#1c1917]/70 uppercase ml-2 tracking-widest">Assigned Operator</label>
+                                    <label className="text-[9px] font-semibold text-[#1c1917]/70 uppercase ml-2 tracking-widest">Assign To</label>
                                     <select
                                         className="input !py-3 appearance-none bg-white font-normal uppercase text-xs tracking-tight"
                                         value={taskFormData.assigned_to}
                                         onChange={e => setTaskFormData({ ...taskFormData, assigned_to: e.target.value })}
                                     >
-                                        <option value="">UNALLOCATED</option>
+                                        <option value="">UNASSIGNED</option>
                                         {members?.map((m: any) => (
                                             <option key={m.user_id} value={m.user_id}>{m.users?.full_name || m.user?.full_name}</option>
                                         ))}
@@ -291,7 +291,7 @@ export default function SprintManager({
                                     <button type="button" onClick={() => setIsAddingTask(false)} className="w-11 h-11 border border-[#e5dec9] rounded-xl flex items-center justify-center text-[#1c1917]/40 hover:text-accent-500 hover:bg-[#f7f3ed] transition-all">
                                         <XMarkIcon className="w-5 h-5" />
                                     </button>
-                                    <button type="submit" className="h-11 btn-primary !px-6 !text-[10px] !rounded-xl">ESTABLISH</button>
+                                    <button type="submit" className="h-11 btn-primary !px-6 !text-[10px] !rounded-xl">CREATE</button>
                                 </div>
                             </form>
                         </div>
@@ -322,7 +322,7 @@ function TaskRow({ task, onDelete }: { task: any, onDelete?: () => void }) {
                 <div>
                     <p className="text-[13px] font-semibold text-[#1c1917] uppercase tracking-tight group-hover:text-accent-500 transition-colors">{task.title}</p>
                     <div className="flex items-center gap-3 mt-1 text-[9px] font-semibold text-[#1c1917]/70 uppercase tracking-[0.2em]">
-                        <span className="italic">VECTOR ID: {task.id.slice(0, 8)}</span>
+                        <span className="italic">TASK ID: {task.id.slice(0, 8)}</span>
                         <div className="h-2 w-px bg-[#e5dec9]"></div>
                         <span className={`px-2 py-0.5 rounded border ${task.status === 'completed' ? 'bg-[#7c9473]/10 border-[#7c9473]/20 text-[#7c9473]' :
                             task.status === 'in_progress' ? 'bg-accent-500/10 border-accent-500/20 text-accent-500' :

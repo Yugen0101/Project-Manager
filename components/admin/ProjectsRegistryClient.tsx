@@ -84,10 +84,10 @@ export default function ProjectsRegistryClient({
                 <div className="space-y-3">
                     <div className="flex items-center gap-2 text-accent-700 mb-2">
                         <SparklesIcon className="w-5 h-5 shadow-sm" />
-                        <span className="text-[10px] font-medium uppercase tracking-[0.4em]">Infrastructure Registry</span>
+                        <span className="text-[10px] font-medium uppercase tracking-[0.4em]">Projects</span>
                     </div>
                     <h1 className="text-5xl font-semibold text-[#1c1917] tracking-tighter uppercase leading-none">
-                        Projects <span className="text-accent-600">Registry</span>
+                        Project <span className="text-accent-600">List</span>
                     </h1>
                 </div>
                 <div className="flex items-center gap-4">
@@ -155,7 +155,7 @@ export default function ProjectsRegistryClient({
                     </div>
                     <input
                         type="text"
-                        placeholder="Search infrastructure registry..."
+                        placeholder="Search projects..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         className="w-full h-14 pl-12 pr-4 bg-white border border-[#e5dec9] rounded-2xl text-[11px] font-bold text-[#1c1917] placeholder-[#1c1917]/50 focus:outline-none focus:border-accent-500/40 focus:ring-8 focus:ring-accent-500/5 transition-all shadow-sm"

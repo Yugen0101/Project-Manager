@@ -14,14 +14,14 @@ import {
 } from '@heroicons/react/24/outline';
 
 const navItems = [
-    { href: '/admin/dashboard', label: 'Executive Hub', icon: HomeIcon },
-    { href: '/admin/projects', label: 'Project Portfolio', icon: FolderIcon, badge: 'projectCount' },
-    { href: '/admin/users', label: 'Identity Directory', icon: UsersIcon, badge: 'userCount' },
-    { href: '/admin/id-cards', label: 'ID Credentials', icon: IdentificationIcon },
-    { href: '/admin/tasks', label: 'Central Registry', icon: ClipboardDocumentListIcon, badge: 'taskCount' },
-    { href: '/admin/meetings', label: 'Collaborations', icon: VideoCameraIcon },
+    { href: '/admin/dashboard', label: 'Dashboard', icon: HomeIcon },
+    { href: '/admin/projects', label: 'Projects', icon: FolderIcon, badge: 'projectCount' },
+    { href: '/admin/users', label: 'Team', icon: UsersIcon, badge: 'userCount' },
+    { href: '/admin/id-cards', label: 'Team ID Cards', icon: IdentificationIcon },
+    { href: '/admin/tasks', label: 'Tasks', icon: ClipboardDocumentListIcon, badge: 'taskCount' },
+    { href: '/admin/meetings', label: 'Meetings', icon: VideoCameraIcon },
 
-    { href: '/admin/guide', label: 'System Guide', icon: BookOpenIcon },
+    { href: '/admin/guide', label: 'User Guide', icon: BookOpenIcon },
 ];
 
 export default function AdminNav({

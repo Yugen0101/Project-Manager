@@ -141,13 +141,13 @@ export default async function AdminDashboard() {
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <Link href="/admin/projects?action=create" className="btn-primary py-4 text-sm font-medium">
-                            + Initialise Project
+                            + Create Project
                         </Link>
                         <Link href="/admin/users?action=create" className="btn-secondary py-4 text-sm font-medium">
                             + Create User
                         </Link>
                         <Link href="/admin/audit-logs" className="btn-secondary py-4 text-sm font-medium">
-                            Access Registries
+                            Activity Logs
                         </Link>
                     </div>
                 </div>

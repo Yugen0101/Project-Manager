@@ -57,8 +57,8 @@ export default function ShareModal({
             <div className="glass rounded-[2.5rem] w-full max-w-lg overflow-hidden animate-in zoom-in-95 duration-500">
                 <div className="px-10 py-8 border-b border-[#f7f3ed]/50 flex items-center justify-between bg-[#f7f3ed]/20">
                     <div>
-                        <h2 className="text-2xl font-black text-[#1c1917] tracking-tighter uppercase">Share Protocol</h2>
-                        <p className="text-[10px] font-black text-[#1c1917]/30 uppercase tracking-[0.3em] mt-1">External Authorization Node</p>
+                        <h2 className="text-2xl font-black text-[#1c1917] tracking-tighter uppercase">Share Settings</h2>
+                        <p className="text-[10px] font-black text-[#1c1917]/30 uppercase tracking-[0.3em] mt-1">Project Sharing</p>
                     </div>
                     <button onClick={onClose} className="w-10 h-10 rounded-full bg-white border border-[#e5dec9] flex items-center justify-center text-[#1c1917]/40 hover:text-[#d97757] transition-all">
                         <XMarkIcon className="w-6 h-6" />
@@ -68,8 +68,8 @@ export default function ShareModal({
                 <div className="p-10 space-y-8">
                     <div className="flex items-center justify-between p-6 bg-[#fdfcf9] rounded-[2rem] border border-[#e5dec9]">
                         <div>
-                            <p className="text-xs font-black text-[#1c1917] uppercase tracking-tight">Public Data Stream</p>
-                            <p className="text-[9px] font-black text-[#1c1917]/30 uppercase tracking-[0.2em] mt-1 italic font-serif">Enable global visibility</p>
+                            <p className="text-xs font-black text-[#1c1917] uppercase tracking-tight">Enable Public Link</p>
+                            <p className="text-[9px] font-black text-[#1c1917]/30 uppercase tracking-[0.2em] mt-1 italic font-serif">Allow anyone with the link to view this project</p>
                         </div>
                         <button
                             onClick={handleToggleShare}
@@ -82,7 +82,7 @@ export default function ShareModal({
 
                     {isPublic && token && (
                         <div className="space-y-4 animate-in slide-in-from-top-4 duration-500">
-                            <p className="text-[10px] font-black text-[#1c1917]/40 uppercase tracking-[0.3em] ml-1">Access Vector URL</p>
+                            <p className="text-[10px] font-black text-[#1c1917]/40 uppercase tracking-[0.3em] ml-1">Public URL</p>
                             <div className="flex gap-4">
                                 <div className="flex-1 bg-[#f7f3ed]/50 p-4 rounded-xl border border-[#e5dec9] font-mono text-[10px] text-[#1c1917]/60 truncate italic">
                                     {shareUrl}
@@ -103,7 +103,7 @@ export default function ShareModal({
                                     </svg>
                                 </div>
                                 <p className="text-[10px] font-black italic text-[#1c1917]/40 uppercase tracking-tight leading-tight">
-                                    CAUTION: External entities may gain strategic intelligence via this access node.
+                                    CAUTION: Anyone with this link can view the project details.
                                 </p>
                             </div>
                         </div>
@@ -115,7 +115,7 @@ export default function ShareModal({
                         onClick={onClose}
                         className="px-10 py-5 bg-white border border-[#e5dec9] text-[#1c1917]/30 text-[10px] font-black uppercase tracking-[0.3em] rounded-2xl hover:text-[#d97757] hover:border-[#d97757] transition-all"
                     >
-                        Close Registry
+                        Close
                     </button>
                 </div>
             </div>

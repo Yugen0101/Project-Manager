@@ -110,7 +110,7 @@ export default function ProjectsTable({ projects, userRole = 'admin' }: { projec
                                         <div className="flex flex-col gap-1.5 items-center">
                                             <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#1c1917]/5 rounded-full text-[10px] font-medium text-[#1c1917]/70">
                                                 <HashtagIcon className="w-3 h-3 text-accent-500" />
-                                                {project.tasks?.length || 0} Units
+                                                {project.tasks?.length || 0} Tasks
                                             </div>
                                             <div className="w-20 h-1 bg-[#f7f3ed] rounded-full overflow-hidden border border-[#e5dec9]">
                                                 <div

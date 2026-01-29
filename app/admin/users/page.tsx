@@ -55,7 +55,7 @@ export default async function AdminUsersPage({
                         <UserGroupIcon className="w-8 h-8" />
                     </div>
                     <div>
-                        <h1 className="text-3xl font-semibold text-secondary-900 tracking-tight">User Directory</h1>
+                        <h1 className="text-3xl font-semibold text-secondary-900 tracking-tight">Team List</h1>
                         <p className="text-secondary-400 text-sm font-normal mt-1">
                             Managing {totalCount || 0} active team members across the organization.
                         </p>
@@ -73,7 +73,7 @@ export default async function AdminUsersPage({
                         <IdentificationIcon className="w-6 h-6" />
                     </div>
                     <div>
-                        <p className="text-[10px] font-medium text-secondary-400 uppercase tracking-widest">Aggregate</p>
+                        <p className="text-[10px] font-medium text-secondary-400 uppercase tracking-widest">Total Members</p>
                         <p className="text-2xl font-medium text-secondary-900 tracking-tight">{totalCount || 0}</p>
                     </div>
                 </div>
@@ -82,7 +82,7 @@ export default async function AdminUsersPage({
                         <ShieldCheckIcon className="w-6 h-6" />
                     </div>
                     <div>
-                        <p className="text-[10px] font-medium text-secondary-400 uppercase tracking-widest">Executives</p>
+                        <p className="text-[10px] font-medium text-secondary-400 uppercase tracking-widest">Admins</p>
                         <p className="text-2xl font-medium text-secondary-900 tracking-tight">{adminCount || 0}</p>
                     </div>
                 </div>
@@ -100,7 +100,7 @@ export default async function AdminUsersPage({
                         <SparklesIcon className="w-6 h-6" />
                     </div>
                     <div>
-                        <p className="text-[10px] font-medium text-secondary-400 uppercase tracking-widest">Team Member</p>
+                        <p className="text-[10px] font-medium text-secondary-400 uppercase tracking-widest">Team Members</p>
                         <p className="text-2xl font-medium text-secondary-900 tracking-tight">{memberCount || 0}</p>
                     </div>
                 </div>
@@ -111,7 +111,7 @@ export default async function AdminUsersPage({
                 <div className="p-8 border-b border-border bg-[#fdfcf9]/50 flex items-center justify-between">
                     <h3 className="text-xs font-medium text-secondary-900 uppercase tracking-widest flex items-center gap-2">
                         <IdentificationIcon className="w-5 h-5 text-accent-500" />
-                        Directory Registry
+                        Team Members
                     </h3>
                     <div className="flex items-center gap-2">
                         <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span>
@@ -122,10 +122,10 @@ export default async function AdminUsersPage({
                     <table className="w-full text-left border-collapse">
                         <thead>
                             <tr className="bg-white border-b border-border">
-                                <th className="px-8 py-5 text-[9px] font-medium uppercase text-secondary-400 tracking-[0.2em]">Identity</th>
-                                <th className="px-8 py-5 text-[9px] font-medium uppercase text-secondary-400 tracking-[0.2em]">Access Level</th>
+                                <th className="px-8 py-5 text-[9px] font-medium uppercase text-secondary-400 tracking-[0.2em]">Name</th>
+                                <th className="px-8 py-5 text-[9px] font-medium uppercase text-secondary-400 tracking-[0.2em]">Role</th>
                                 <th className="px-8 py-5 text-[9px] font-medium uppercase text-secondary-400 tracking-[0.2em] text-center">Projects</th>
-                                <th className="px-8 py-5 text-[9px] font-medium uppercase text-secondary-400 tracking-[0.2em] text-center">Workload</th>
+                                <th className="px-8 py-5 text-[9px] font-medium uppercase text-secondary-400 tracking-[0.2em] text-center">Tasks</th>
                                 <th className="px-8 py-5 text-[9px] font-medium uppercase text-secondary-400 tracking-[0.2em]">Status</th>
                                 <th className="px-8 py-5 text-[9px] font-medium uppercase text-secondary-400 tracking-[0.2em] text-right">Actions</th>
                             </tr>

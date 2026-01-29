@@ -33,7 +33,7 @@ export default async function MemberLayout({
                             <h1 className="text-xl font-bold tracking-tight uppercase leading-none">
                                 Task<span className="text-accent-500">Forge</span>
                             </h1>
-                            <span className="block text-[10px] text-accent-500 uppercase tracking-[0.35em] font-bold mt-2">Member Node</span>
+                            <span className="block text-[10px] text-accent-500 uppercase tracking-[0.35em] font-bold mt-2">Team Portal</span>
                         </div>
                     </div>
                 </div>
@@ -47,7 +47,7 @@ export default async function MemberLayout({
                         </div>
                         <div className="flex-1 min-w-0">
                             <p className="text-[10px] font-semibold text-[#1c1917] truncate uppercase tracking-tight">{user?.full_name}</p>
-                            <p className="text-[8px] font-semibold text-accent-500 uppercase tracking-[0.2em] truncate">Active Unit</p>
+                            <p className="text-[8px] font-semibold text-accent-500 uppercase tracking-[0.2em] truncate">Active Member</p>
                         </div>
                     </div>
                     <div className="px-4">

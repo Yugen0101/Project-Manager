@@ -55,7 +55,7 @@ export default async function AdminTasksPage({
                     </div>
                     <div>
                         <div>
-                            <h1 className="text-3xl font-semibold text-secondary-900 tracking-tight">Task Registry</h1>
+                            <h1 className="text-3xl font-semibold text-secondary-900 tracking-tight">Task List</h1>
                             <p className="text-secondary-400 text-sm font-normal mt-1">
                                 Overseeing {count || 0} tasks across all organizational projects.
                             </p>
@@ -65,7 +65,7 @@ export default async function AdminTasksPage({
                 <div className="flex gap-3">
                     <button className="btn-secondary h-11 px-5 flex items-center gap-2">
                         <ArrowPathIcon className="w-4 h-4" />
-                        <span>Force Refresh</span>
+                        <span>Refresh List</span>
                     </button>
                 </div>
             </div>
@@ -102,21 +102,21 @@ export default async function AdminTasksPage({
                 <div className="p-8 border-b border-border bg-secondary-50/50 flex items-center justify-between">
                     <h3 className="text-sm font-medium text-secondary-900 uppercase tracking-widest flex items-center gap-2">
                         <MapIcon className="w-5 h-5 text-primary-600" />
-                        Operational Task Flow
+                        Live Tasks
                     </h3>
                     <div className="flex items-center gap-2">
                         <span className="w-2 h-2 bg-primary-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(79,70,229,0.5)]"></span>
-                        <span className="text-[10px] font-medium text-secondary-400 uppercase tracking-widest">Real-time Mapping</span>
+                        <span className="text-[10px] font-medium text-secondary-400 uppercase tracking-widest">Live Updates</span>
                     </div>
                 </div>
                 <div className="overflow-x-auto">
                     <table className="w-full text-left border-collapse">
                         <thead>
                             <tr className="bg-white border-b border-border text-[10px] font-medium uppercase text-secondary-400 tracking-widest">
-                                <th className="px-8 py-5">Task Identity</th>
-                                <th className="px-8 py-5">Project Link</th>
+                                <th className="px-8 py-5">Task Name</th>
+                                <th className="px-8 py-5">Project</th>
                                 <th className="px-8 py-5">Assignee</th>
-                                <th className="px-8 py-5">State</th>
+                                <th className="px-8 py-5">Status</th>
                                 <th className="px-8 py-5">Deadline</th>
                                 <th className="px-8 py-5 text-right">Actions</th>
                             </tr>
@@ -180,7 +180,7 @@ export default async function AdminTasksPage({
 
                 {error && (
                     <div className="p-8 text-center bg-red-50 text-red-600 rounded-2xl mx-8 mb-8 border border-red-200">
-                        <p className="font-bold">System Error: Unable to retrieve registry vectors.</p>
+                        <p className="font-bold">System Error: Unable to retrieve tasks.</p>
                         <code className="text-xs mt-2 block bg-red-100 p-2 rounded">{JSON.stringify(error, null, 2)}</code>
                     </div>
                 )}
@@ -190,7 +190,7 @@ export default async function AdminTasksPage({
                             <ClipboardDocumentListIcon className="w-8 h-8" />
                         </div>
                         <h3 className="text-lg font-semibold text-secondary-900">No tasks found</h3>
-                        <p className="text-xs font-medium text-secondary-400 uppercase tracking-widest mt-2">The registry is currently empty in this sector.</p>
+                        <p className="text-xs font-medium text-secondary-400 uppercase tracking-widest mt-2">There are currently no tasks to show.</p>
                     </div>
                 )}
             </div>

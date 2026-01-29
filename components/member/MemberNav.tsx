@@ -15,7 +15,7 @@ export default function MemberNav() {
     const pathname = usePathname();
 
     const links = [
-        { name: 'Workspace', href: '/member/tasks', icon: ClipboardDocumentListIcon },
+        { name: 'Tasks', href: '/member/tasks', icon: ClipboardDocumentListIcon },
         { name: 'Projects', href: '/member/projects', icon: FolderIcon },
         { name: 'ID Card', href: '/member/id-card', icon: IdentificationIcon },
         { name: 'Activity', href: '/member/activity', icon: ClockIcon },

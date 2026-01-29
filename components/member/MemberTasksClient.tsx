@@ -43,13 +43,13 @@ export default function MemberTasksClient({ initialTasks }: { initialTasks: Task
                 <div className="space-y-3">
                     <div className="flex items-center gap-2 text-accent-500 mb-2">
                         <ClipboardDocumentListIcon className="w-5 h-5 shadow-sm" />
-                        <span className="text-[10px] font-semibold uppercase tracking-[0.4em]">Operational Matrix</span>
+                        <span className="text-[10px] font-semibold uppercase tracking-[0.4em]">Tasks</span>
                     </div>
                     <h1 className="text-4xl font-semibold text-[#1c1917] tracking-tighter uppercase leading-none">
-                        Active <span className="text-accent-500">Workspace</span>
+                        Active <span className="text-accent-500">Tasks</span>
                     </h1>
                     <p className="text-[#1c1917]/50 font-medium text-lg italic font-serif">
-                        You have {filteredTasks.filter(t => t.status !== 'completed').length} active operational units requiring attention.
+                        You have {filteredTasks.filter(t => t.status !== 'completed').length} tasks requiring attention.
                     </p>
                 </div>
 
@@ -59,7 +59,7 @@ export default function MemberTasksClient({ initialTasks }: { initialTasks: Task
                     </div>
                     <input
                         type="text"
-                        placeholder="Search operational units..."
+                        placeholder="Search tasks..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         className="w-full h-14 pl-12 pr-4 bg-white border border-[#e5dec9] rounded-2xl text-[11px] font-bold text-[#1c1917] placeholder-[#1c1917]/20 focus:outline-none focus:border-accent-500/40 focus:ring-8 focus:ring-accent-500/5 transition-all shadow-sm"
@@ -70,10 +70,10 @@ export default function MemberTasksClient({ initialTasks }: { initialTasks: Task
             {/* Filters */}
             <div className="flex border-b border-[#e5dec9] gap-12">
                 {[
-                    { id: 'all', label: 'All Units' },
-                    { id: 'not_started', label: 'Queued' },
-                    { id: 'in_progress', label: 'Active Process' },
-                    { id: 'completed', label: 'Finalized' }
+                    { id: 'all', label: 'All Tasks' },
+                    { id: 'not_started', label: 'Not Started' },
+                    { id: 'in_progress', label: 'In Progress' },
+                    { id: 'completed', label: 'Completed' }
                 ].map((tab) => (
                     <button
                         key={tab.id}
@@ -107,13 +107,13 @@ export default function MemberTasksClient({ initialTasks }: { initialTasks: Task
                                     {task.title}
                                 </h3>
                                 <p className="text-[#1c1917]/40 text-sm font-medium leading-relaxed italic line-clamp-1 italic">
-                                    {task.description || 'Task parameters are being finalized by the coordinator.'}
+                                    {task.description || 'No description provided.'}
                                 </p>
                             </div>
 
                             <div className="flex items-center gap-12 shrink-0">
                                 <div className="text-right hidden sm:block space-y-1">
-                                    <p className="text-[9px] font-medium uppercase text-[#78716c] tracking-[0.2em]">Deadline Protocol</p>
+                                    <p className="text-[9px] font-medium uppercase text-[#78716c] tracking-[0.2em]">Due Date</p>
                                     <div className="flex items-center gap-2 text-[11px] font-medium text-[#78716c] justify-end uppercase tracking-widest">
                                         <CalendarIcon className="w-4 h-4 text-accent-500" />
                                         {task.due_date ? format(new Date(task.due_date), 'MM.dd.yyyy') : 'UNSET'}
@@ -135,9 +135,9 @@ export default function MemberTasksClient({ initialTasks }: { initialTasks: Task
                         <div className="w-24 h-24 bg-[#f7f3ed] rounded-[2rem] flex items-center justify-center text-[#1c1917]/10 mb-8 animate-pulse">
                             <ClipboardDocumentListIcon className="w-12 h-12" />
                         </div>
-                        <h3 className="text-3xl font-semibold text-[#1c1917] tracking-tighter uppercase">No Assignments</h3>
+                        <h3 className="text-3xl font-semibold text-[#1c1917] tracking-tighter uppercase">No Tasks</h3>
                         <p className="text-[#1c1917]/30 text-sm font-medium uppercase tracking-widest mt-3 text-center max-w-sm">
-                            No active operational units match your current search parameters.
+                            No tasks match your current search.
                         </p>
                     </div>
                 )}

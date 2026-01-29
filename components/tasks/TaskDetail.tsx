@@ -34,7 +34,7 @@ export default function TaskDetail({ task, onClose }: { task: any, onClose: () =
                         </span>
                         <div className="h-6 w-px bg-[#e5dec9]"></div>
                         <span className="text-[10px] font-medium text-[#78716c] uppercase tracking-[0.2em]">
-                            {task.project?.name || 'Operational Vector'}
+                            {task.project?.name || 'Task'}
                         </span>
                     </div>
                     <button onClick={onClose} className="w-10 h-10 rounded-full bg-white border border-[#e5dec9] flex items-center justify-center text-[#1c1917]/40 hover:text-[#d97757] transition-all">
@@ -53,8 +53,8 @@ export default function TaskDetail({ task, onClose }: { task: any, onClose: () =
                                         {task.assigned_user?.full_name?.charAt(0) || '?'}
                                     </div>
                                     <div>
-                                        <p className="text-[9px] font-medium text-[#78716c] uppercase tracking-[0.2em]">Assigned Asset</p>
-                                        <p className="text-base font-semibold text-[#1c1917] uppercase tracking-tight">{task.assigned_user?.full_name || 'Unallocated'}</p>
+                                        <p className="text-[9px] font-medium text-[#78716c] uppercase tracking-[0.2em]">Assigned To</p>
+                                        <p className="text-base font-semibold text-[#1c1917] uppercase tracking-tight">{task.assigned_user?.full_name || 'Unassigned'}</p>
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-4">
@@ -62,9 +62,9 @@ export default function TaskDetail({ task, onClose }: { task: any, onClose: () =
                                         <CalendarIcon className="w-6 h-6" />
                                     </div>
                                     <div>
-                                        <p className="text-[9px] font-medium text-[#78716c] uppercase tracking-[0.2em]">Deadline Vector</p>
+                                        <p className="text-[9px] font-medium text-[#78716c] uppercase tracking-[0.2em]">Due Date</p>
                                         <p className="text-base font-semibold text-[#1c1917] uppercase tracking-tight">
-                                            {task.due_date ? format(new Date(task.due_date), 'MMM dd, yyyy') : 'No Limit Set'}
+                                            {task.due_date ? format(new Date(task.due_date), 'MMM dd, yyyy') : 'No Date Set'}
                                         </p>
                                     </div>
                                 </div>
@@ -74,10 +74,10 @@ export default function TaskDetail({ task, onClose }: { task: any, onClose: () =
                         <div className="space-y-5">
                             <h3 className="text-[10px] font-semibold text-[#78716c] uppercase tracking-[0.3em] flex items-center gap-3">
                                 <Bars3CenterLeftIcon className="w-4 h-4 text-[#d97757]" />
-                                Operational Parameters
+                                Task Description
                             </h3>
                             <div className="text-lg text-[#1c1917]/60 leading-relaxed bg-[#f7f3ed]/50 p-8 rounded-[2rem] border border-[#e5dec9] italic font-serif">
-                                {task.description || 'No additional mission intelligence provided for this unit.'}
+                                {task.description || 'No description provided for this task.'}
                             </div>
                         </div>
 
@@ -86,12 +86,12 @@ export default function TaskDetail({ task, onClose }: { task: any, onClose: () =
                             <h3 className="text-[10px] font-semibold text-[#78716c] uppercase tracking-[0.3em] flex items-center justify-between">
                                 <div className="flex items-center gap-3">
                                     <CheckCircleIcon className="w-4 h-4 text-[#d97757]" />
-                                    Sub-Routine Status
+                                    Subtasks
                                 </div>
-                                <span className="text-[#d97757] font-medium">Inert</span>
+                                <span className="text-[#d97757] font-medium">None</span>
                             </h3>
                             <div className="py-12 bg-white rounded-[2rem] border-2 border-dashed border-[#e5dec9] text-center">
-                                <p className="text-[10px] font-medium text-[#78716c] uppercase tracking-[0.3em] italic">No active sub-structures detected</p>
+                                <p className="text-[10px] font-medium text-[#78716c] uppercase tracking-[0.3em] italic">No subtasks found</p>
                             </div>
                         </div>
                     </div>
@@ -100,23 +100,23 @@ export default function TaskDetail({ task, onClose }: { task: any, onClose: () =
                     <div className="w-full lg:w-96 bg-[#f7f3ed]/20 flex flex-col">
                         <div className="p-10 flex-1 space-y-10">
                             <div className="space-y-6">
-                                <h3 className="text-[10px] font-semibold text-[#78716c] uppercase tracking-[0.4em]">COMMS CHANNEL</h3>
+                                <h3 className="text-[10px] font-semibold text-[#78716c] uppercase tracking-[0.4em]">COMMENTS</h3>
                                 <div className="space-y-6">
                                     {/* Comment entry */}
                                     <div className="space-y-3">
                                         <textarea
-                                            placeholder="Broadcast mission updates..."
+                                            placeholder="Write a comment..."
                                             className="w-full bg-white border border-[#e5dec9] rounded-[1.5rem] p-5 text-sm focus:ring-4 ring-[#d97757]/5 min-h-[150px] shadow-sm italic font-serif text-[#1c1917]/60 placeholder-[#1c1917]/20 outline-none resize-none"
                                         ></textarea>
                                         <button className="w-full btn-primary py-4 text-[10px] font-semibold uppercase tracking-[0.2em] shadow-lg shadow-[#d97757]/10">
-                                            Transmit Update
+                                            Send Comment
                                         </button>
                                     </div>
 
                                     {/* Comment feed placeholder */}
                                     <div className="flex flex-col items-center justify-center py-12 text-[#1c1917]/20">
                                         <ChatBubbleLeftRightIcon className="w-12 h-12 mb-4 opacity-10" />
-                                        <p className="text-[10px] font-medium text-[#78716c] uppercase tracking-[0.2em]">Channel Silent</p>
+                                        <p className="text-[10px] font-medium text-[#78716c] uppercase tracking-[0.2em]">No comments yet</p>
                                     </div>
                                 </div>
                             </div>
@@ -127,7 +127,7 @@ export default function TaskDetail({ task, onClose }: { task: any, onClose: () =
                                 Adjust Priority
                             </button>
                             <button className="w-full py-4 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#78716c] hover:text-[#d97757] transition-all">
-                                Archival History
+                                History
                             </button>
                         </div>
                     </div>

@@ -15,25 +15,25 @@ export default function AdminHeader({ counts }: { counts: { projectCount: number
 
     // Determine the page title based on the current path
     const getPageTitle = () => {
-        if (pathname.includes('/admin/dashboard')) return 'Executive Hub';
-        if (pathname.includes('/admin/projects')) return 'Portfolio Matrix';
-        if (pathname.includes('/admin/users')) return 'Identity Registry';
-        if (pathname.includes('/admin/id-cards')) return 'Credential Authority';
-        if (pathname.includes('/admin/tasks')) return 'Registry Protocol';
-        if (pathname.includes('/admin/meetings')) return 'Collaborative Sync';
-        if (pathname.includes('/admin/guide')) return 'System Manual';
-        return 'System Core';
+        if (pathname.includes('/admin/dashboard')) return 'Home';
+        if (pathname.includes('/admin/projects')) return 'Projects';
+        if (pathname.includes('/admin/users')) return 'Team';
+        if (pathname.includes('/admin/id-cards')) return 'Team ID Cards';
+        if (pathname.includes('/admin/tasks')) return 'Tasks';
+        if (pathname.includes('/admin/meetings')) return 'Meetings';
+        if (pathname.includes('/admin/guide')) return 'Guide';
+        return 'System';
     };
 
     const getPageSubtitle = () => {
-        if (pathname.includes('/admin/dashboard')) return 'Management';
-        if (pathname.includes('/admin/projects')) return 'Project Nodes';
-        if (pathname.includes('/admin/users')) return 'User Directory';
-        if (pathname.includes('/admin/id-cards')) return 'ID Security';
-        if (pathname.includes('/admin/tasks')) return 'Central Registry';
-        if (pathname.includes('/admin/meetings')) return 'Communications';
-        if (pathname.includes('/admin/guide')) return 'Documentation';
-        return 'Administrative Control';
+        if (pathname.includes('/admin/dashboard')) return 'Admin Hub';
+        if (pathname.includes('/admin/projects')) return 'Projects';
+        if (pathname.includes('/admin/users')) return 'Team';
+        if (pathname.includes('/admin/id-cards')) return 'ID Cards';
+        if (pathname.includes('/admin/tasks')) return 'Tasks';
+        if (pathname.includes('/admin/meetings')) return 'Meetings';
+        if (pathname.includes('/admin/guide')) return 'Guide';
+        return 'Control';
     };
 
     return (

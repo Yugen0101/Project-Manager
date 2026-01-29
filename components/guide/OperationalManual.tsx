@@ -66,11 +66,11 @@ export default function OperationalManual({ role }: { role: string }) {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
                 {/* Dashboard / Executive Hub */}
                 <GuideSection
-                    title="Executive Hub"
+                    title="Dashboard"
                     subtitle="Strategic Oversight"
                     icon={PresentationChartLineIcon}
                 >
-                    <p>The <span className="text-[#1c1917] font-medium">Executive Hub</span> is your high-altitude dashboard for real-time organizational health.</p>
+                    <p>The <span className="text-[#1c1917] font-medium">Dashboard</span> is your high-altitude dashboard for real-time organizational health.</p>
                     <ul className="space-y-4">
                         <li className="flex gap-4">
                             <div className="w-1.5 h-1.5 rounded-full bg-accent-500 mt-1.5 shrink-0"></div>
@@ -91,11 +91,11 @@ export default function OperationalManual({ role }: { role: string }) {
 
                 {/* Project Portfolio */}
                 <GuideSection
-                    title="Project Portfolio"
+                    title="Projects"
                     subtitle="Lifecycle Management"
                     icon={BriefcaseIcon}
                 >
-                    <p>Manage complex mandates using the <span className="text-[#1c1917] font-medium">Project Portfolio</span> module.</p>
+                    <p>Manage complex mandates using the <span className="text-[#1c1917] font-medium">Projects</span> module.</p>
                     <ul className="space-y-4">
                         <li className="flex gap-4">
                             <div className="w-1.5 h-1.5 rounded-full bg-accent-500 mt-1.5 shrink-0"></div>
@@ -116,11 +116,11 @@ export default function OperationalManual({ role }: { role: string }) {
 
                 {/* Identity & Credentials */}
                 <GuideSection
-                    title="Identity & Credentials"
+                    title="Team & ID Cards"
                     subtitle="Security & Access"
                     icon={IdentificationIcon}
                 >
-                    <p>Our premium <span className="text-[#1c1917] font-medium">Credential System</span> ensures every team member has high-fidelity identity verification.</p>
+                    <p>Our premium <span className="text-[#1c1917] font-medium">ID Card System</span> ensures every team member has high-fidelity identity verification.</p>
                     <ul className="space-y-4">
                         <li className="flex gap-4">
                             <div className="w-1.5 h-1.5 rounded-full bg-accent-500 mt-1.5 shrink-0"></div>
@@ -141,11 +141,11 @@ export default function OperationalManual({ role }: { role: string }) {
 
                 {/* Central Registry */}
                 <GuideSection
-                    title="Central Registry"
+                    title="Tasks"
                     subtitle="Execution Excellence"
                     icon={CommandLineIcon}
                 >
-                    <p>The <span className="text-[#1c1917] font-medium">Central Registry</span> is the granular engine of your organization.</p>
+                    <p>The <span className="text-[#1c1917] font-medium">Task Manager</span> is the granular engine of your organization.</p>
                     <ul className="space-y-4">
                         <li className="flex gap-4">
                             <div className="w-1.5 h-1.5 rounded-full bg-accent-500 mt-1.5 shrink-0"></div>
@@ -175,7 +175,7 @@ export default function OperationalManual({ role }: { role: string }) {
                             <UserGroupIcon className="w-10 h-10" />
                         </div>
                         <div className="space-y-6">
-                            <h2 className="text-4xl font-semibold uppercase tracking-tighter">Elite <span className="text-accent-500">Collaborations</span></h2>
+                            <h2 className="text-4xl font-semibold uppercase tracking-tighter">Team <span className="text-accent-500">Meetings</span></h2>
                             <p className="text-white/60 text-base font-medium leading-relaxed">
                                 Our integrated meeting framework allows you to synchronize your units globally.
                             </p>
@@ -195,7 +195,7 @@ export default function OperationalManual({ role }: { role: string }) {
                     <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-10 rounded-[2.5rem] space-y-6 group-hover:border-white/20 transition-all">
                         <h4 className="text-[10px] font-semibold uppercase tracking-[0.3em] text-accent-500">Resource Support</h4>
                         <p className="text-sm font-medium text-white/80 leading-relaxed italic">
-                            "The key to executive success isn't tracking time—it's tracking alignment. Ensure your team is synchronized using the Collaborations suite at every milestone."
+                            "The key to executive success isn't tracking time—it's tracking alignment. Ensure your team is synchronized using the Meetings suite at every milestone."
                         </p>
                         <div className="pt-6 border-t border-white/10 flex items-center gap-4">
                             <div className="w-10 h-10 rounded-full bg-accent-500 flex items-center justify-center font-semibold text-xs text-white">TF</div>

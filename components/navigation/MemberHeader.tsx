@@ -15,22 +15,22 @@ export default function MemberHeader() {
 
     // Determine the page title based on the current path
     const getPageTitle = () => {
-        if (pathname.includes('/member/tasks')) return 'Operational Matrix';
-        if (pathname.includes('/member/projects')) return 'Project Nodes';
-        if (pathname.includes('/member/id-card')) return 'Unit Identification';
-        if (pathname.includes('/member/activity')) return 'Activity Protocol';
-        if (pathname.includes('/member/meetings')) return 'Synchronized Syncs';
-        if (pathname.includes('/member/guide')) return 'Operational Manual';
-        return 'Team Node';
+        if (pathname.includes('/member/tasks')) return 'Task Board';
+        if (pathname.includes('/member/projects')) return 'Projects';
+        if (pathname.includes('/member/id-card')) return 'Profile';
+        if (pathname.includes('/member/activity')) return 'Activity Feed';
+        if (pathname.includes('/member/meetings')) return 'Meetings';
+        if (pathname.includes('/member/guide')) return 'User Guide';
+        return 'Dashboard';
     };
 
     const getPageSubtitle = () => {
-        if (pathname.includes('/member/tasks')) return 'Workspace';
-        if (pathname.includes('/member/projects')) return 'Deployment Registry';
-        if (pathname.includes('/member/id-card')) return 'Security Clearance';
-        if (pathname.includes('/member/activity')) return 'System Logs';
-        if (pathname.includes('/member/meetings')) return 'Communications';
-        if (pathname.includes('/member/guide')) return 'Documentation';
+        if (pathname.includes('/member/tasks')) return 'Tasks';
+        if (pathname.includes('/member/projects')) return 'Project List';
+        if (pathname.includes('/member/id-card')) return 'ID Card';
+        if (pathname.includes('/member/activity')) return 'Activity History';
+        if (pathname.includes('/member/meetings')) return 'Meetings & Calls';
+        if (pathname.includes('/member/guide')) return 'Help & Guide';
         return 'Dashboard';
     };
 
@@ -64,7 +64,7 @@ export default function MemberHeader() {
                 {/* Status Indicator - Executive Finish */}
                 <div className="flex items-center gap-3 px-5 py-2.5 bg-[#f7f3ed] rounded-xl border border-[#e5dec9] shadow-sm">
                     <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.5)]"></div>
-                    <span className="text-[10px] font-bold text-[#1c1917]/80 uppercase tracking-widest">Live Link</span>
+                    <span className="text-[10px] font-bold text-[#1c1917]/80 uppercase tracking-widest">Online</span>
                 </div>
 
                 <div className="h-10 w-px bg-[#e5dec9] hidden sm:block"></div>

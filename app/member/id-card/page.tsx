@@ -30,7 +30,7 @@ export default async function MemberIdCardPage() {
                             You don't have an ID card yet. Please contact your administrator to request one.
                         </p>
                         <a
-                            href={user.role === 'member' ? '/member' : '/associate'}
+                            href={user.role === 'member' ? '/member/tasks' : '/associate'}
                             className="inline-block px-6 py-3 bg-[#d97757] hover:bg-[#c26242] text-white rounded-xl font-semibold transition-all shadow-lg shadow-[#d97757]/20"
                         >
                             Back to Dashboard
